@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { thePeakFont } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "文化記憶庫",
