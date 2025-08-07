@@ -54,6 +54,9 @@ export default function MainVisual() {
         villiage.current,
         leopard.current,
         bear.current,
+        boat.current,
+        wave.current,
+        fish.current,
       ], { 
         opacity: 0,
         force3D: false, // 避免過度的3D加速影響品質
@@ -111,13 +114,13 @@ export default function MainVisual() {
         }
       });      
 
-      // part 2: 主要元素動畫 (優化temple和village的流暢度)
+      // part 2: 主要元素動畫 (縮短時間並增加重疊)
       tlMain
         .fromTo(rightTemple.current, 
           { 
             x: "60vw",
             y: "35vh",
-            scale: 0.9, // 從更接近最終大小開始
+            scale: 0.9,
             opacity: 0,
             force3D: false
           },
@@ -126,27 +129,27 @@ export default function MainVisual() {
             y: "25vh",
             scale: 1.4,
             opacity: 1,
-            duration: 1.0, // 稍微延長時間讓動畫更順暢
+            duration: 0.8, // 縮短時間
             zIndex: 17,
-            ease: "power2.out" // 改用更流暢的緩動
-          }, 1.2)
+            ease: "power2.out"
+          }, 0.8) // 提早開始
         .fromTo(leftTemple.current, 
           { 
             x: "20vw",
             y: "40vh",
-            scale: 1.0, // 從更接近最終大小開始，減少縮放幅度
+            scale: 1.0,
             opacity: 0,
             force3D: false
           },
           { 
             x: "20vw",
             y: "35vh",
-            scale: 1.3, // 減少最終縮放，從1.4降到1.3
+            scale: 1.3,
             opacity: 1,
-            duration: 1, // 延長時間讓動畫更平順
+            duration: 0.8, // 縮短時間
             zIndex: 17,
-            ease: "power1.out" // 使用更溫和的緩動函數
-          }, 1.8) // 進一步延後，給更多時間間隔
+            ease: "power1.out"
+          }, 1.0) // 縮短間隔
         .fromTo(villiage.current, 
           { 
             x: "50vw",
@@ -160,15 +163,15 @@ export default function MainVisual() {
             y: "50vh",
             scale: 1.4,
             opacity: 1,
-            duration: 1.0,
+            duration: 0.8, // 縮短時間
             zIndex: 17,
             ease: "power2.out"
-          }, 3)
+          }, 1.2) // 大幅提前
         .fromTo(leopard.current, 
           { 
             x: "10vw",
             y: "50vh",
-            scale: 0.7, // 添加起始縮放
+            scale: 0.7,
             opacity: 0,
             force3D: false
           },
@@ -177,82 +180,96 @@ export default function MainVisual() {
             y: "50vh",
             scale: 0.8,
             opacity: 1,
-            duration: 1.0,
+            duration: 0.8, // 縮短時間
             zIndex: 17,
-            ease: "power1.out" // 添加缺失的緩動
-          }, 3.5) // 調整時間避免與village衝突
+            ease: "power1.out"
+          }, 1.4) // 大幅提前
         .fromTo(bear.current, 
           { 
             x: "65vw",
-            y: "-10vh", // 使用負值讓熊從螢幕上方開始
-            scale: 0.35, // 添加起始縮放
+            y: "-10vh",
+            scale: 0.35,
             opacity: 0,
             force3D: false
           },
           { 
             x: "65vw",
-            y: "-5vh", // 最終位置也可以用負值讓熊在更上方
+            y: "-5vh",
             scale: 0.3,
             opacity: 1,
-            duration: 1.0,
+            duration: 0.8, // 縮短時間
             zIndex: 5,
             ease: "power1.out"
-          }, 4.0) 
+          }, 1.6) // 大幅提前
+        .fromTo(boat.current, 
+          { 
+            x: "20vw",
+            y: "53vh",
+            scale: 0.9,
+            opacity: 0,
+            force3D: false
+          },
+          { 
+            x: "18vw",
+            y: "58vh",
+            scale: 1,
+            opacity: 1,
+            zIndex: 20,
+            duration: 0.8, // 縮短時間
+            ease: "power2.out"
+          }, 1.8) // 大幅提前
+        .fromTo(wave.current, 
+          { 
+            x: "35vw",
+            y: "82vh",
+            scale: 0.9,
+            opacity: 0,
+            force3D: false
+          },
+          { 
+            x: "27vw",
+            y: "82vh",
+            scale: 10.0,
+            opacity: 1,
+            zIndex: 21,
+            duration: 0.8, // 縮短時間
+            ease: "power2.out"
+          }, 2.0) // 大幅提前
+        .fromTo(fish.current, 
+          { 
+            x: "25vw",
+            y: "50vh",
+            scale: 0.5,
+            opacity: 0,
+            force3D: false
+          },
+          { 
+            x: "20vw",
+            y: "50vh",
+            scale: 0.6,
+            opacity: 1,
+            zIndex: 20,
+            duration: 0.8, // 縮短時間
+            ease: "power2.out"
+          }, 2.2) // 大幅提前
         .fromTo(taiwan.current, 
           { 
             x: "38vw",
             y: "19vh",
-            rotation: 0,
-            scale: 1.0, // 稍微調整起始大小
+            scale: 1.0,
             opacity: 0,
             force3D: false
           },
           { 
             x: "38vw",
             y: "19vh",
-            rotation: 0,
             scale: 1.3,
             opacity: 1,
             zIndex:30,
-            duration: 1.4, // 稍微延長讓大幅縮放更順暢
+            duration: 1.0, // 稍微縮短
             ease: "power2.out"
-          }, 5.0); // 確保與其他動畫不重疊
+          }, 2.4); // 大幅提前
 
-      // wave animation with dynamic z-index changes
-      // gsap.timeline()
-      //   .fromTo(wave.current, 
-      //     {
-      //       x: "0vw",
-      //       y: "15vh",
-      //       opacity: 0,
-      //       zIndex: 15  // Start below boat (z-20) and taiwan (z-30)
-      //     },
-      //     {
-      //       x: "25vw", // Flow across screen
-      //       y: "15vh",
-      //       opacity: 1,
-      //       duration: 4,
-      //       ease: "none", // Linear flow for wave
-      //       delay: 2.5
-      //     }
-      //   )
-      //   // When wave reaches boat area, keep it below boat
-      //   .to(wave.current, {
-      //     zIndex: 15, // Stay below boat (z-20)
-      //     duration: 0.1
-      //   }, 3) // At 3 seconds into wave animation
-        
-      //   // When wave reaches taiwan area, move it above taiwan
-      //   .to(wave.current, {
-      //     zIndex: 35, // Move above taiwan (z-30)
-      //     duration: 0.1
-      //   }, 3.8) // At 3.8 seconds into wave animation
-        
-      //   // After passing taiwan, can go back to lower level
-      //   .to(wave.current, {
-      //     zIndex: 15,
-      //     duration: 0.1
-      //   }, 4.5);
 
       // Set initial states for text elements
       gsap.set([titleRef.current, descriptionRef.current], { 
@@ -262,22 +279,22 @@ export default function MainVisual() {
         force3D: false // 文字也保持高品質
       });
 
-      // Main text animation sequence - 調整時間避免與temple/village衝突
+      // Main text animation sequence - 大幅縮短時間
       tlText.to(titleRef.current, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.8,
-        ease: "power2.out", // 與其他動畫統一緩動
-        delay: 6.0  // 稍微延後開始避免衝突
+        duration: 0.6, // 縮短動畫時間
+        ease: "power2.out",
+        delay: 3.5  // 大幅提前，在所有元素動畫接近完成時開始
       })
       .to(descriptionRef.current, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.8, // 稍微延長
+        duration: 0.6, // 縮短動畫時間
         ease: "power2.out"
-      }, 6.3);
+      }, 3.8); // 縮短間隔
 
     });
 
@@ -375,6 +392,7 @@ export default function MainVisual() {
           }}
           priority
           quality={100}/>
+
         <Image
           ref={leftTemple}
           src="/animation/leftTemple.svg"
@@ -389,6 +407,7 @@ export default function MainVisual() {
           }}
           priority
           quality={100}/>
+
         <Image
           ref={villiage}
           src="/animation/villiage.svg"
@@ -403,6 +422,7 @@ export default function MainVisual() {
           }}
           priority
           quality={100}/>
+        
         <Image
         ref={leopard}
         src="/animation/leopard.svg"
@@ -417,6 +437,7 @@ export default function MainVisual() {
         }}
         priority
         quality={100}/>
+
         <Image
         ref={bear}
         src="/animation/bear.svg"
@@ -431,13 +452,29 @@ export default function MainVisual() {
         }}
         priority
         quality={100}/>
+
         <Image
           ref={boat}
           src="/animation/boat.svg"
           alt="Boat animation"
           width={400}
           height={400}
-          className="absolute z-20 opacity-0"
+          className="absolute inset-0 opacity-0"
+          style={{ 
+            imageRendering: 'auto',
+            backfaceVisibility: 'hidden',
+            transform: 'translate3d(0,0,0)',
+          }}
+          priority
+          quality={100}/>
+        
+        <Image
+          ref={fish}
+          src="/animation/fish.svg"
+          alt="fish animation"
+          width={400}
+          height={400}
+          className="absolute inset-0 opacity-0"
           style={{ 
             imageRendering: 'auto',
             backfaceVisibility: 'hidden',
@@ -465,18 +502,19 @@ export default function MainVisual() {
         <Image
           ref={wave}
           src="/animation/wave.svg"
-          alt="Wave animation"
-          width={2270}
-          height={833}
-          className="absolute inset-0 w-full h-full z-15 opacity-0"
+          alt="wave animation"
+          width={50}
+          height={50}
+          className="absolute inset-0 opacity-0"
           style={{ 
             imageRendering: 'auto',
             backfaceVisibility: 'hidden',
             transform: 'translate3d(0,0,0)',
           }}
           priority
-          quality={100}
-        />
+          quality={100}/>
+
+        
 
       </div>
     </section>
