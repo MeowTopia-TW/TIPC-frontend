@@ -7,11 +7,11 @@ import { partnersData } from "@/data";
 export default function PartnerRecommendations() {
   const router = useRouter();
 
-  const handlePartnerClick = (partnerId: string) => {
+  const handlePartnerClick = (website?: string) => {
     // 導航到合作夥伴詳細頁面
-    router.push(`/partners/${partnerId}`);
+    window.open(website, '_blank');
   };
-
+  
   return (
     <section className="pt-4 pb-2 sm:pt-6 sm:pb-3 lg:pt-8 lg:pb-4 bg-[#FAF9EB]">
       <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8">
@@ -28,7 +28,7 @@ export default function PartnerRecommendations() {
             {partnersData.map((partner, index) => (
               <div 
                 key={`${partner.id}-${index}`}
-                onClick={() => handlePartnerClick(partner.id)}
+                onClick={() => handlePartnerClick(partner.website)}
                 className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
               >
               {/* 主要圖片區域 */}
@@ -59,7 +59,7 @@ export default function PartnerRecommendations() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-sm text-gray-800 hover:text-gray-600 transition-colors duration-300"
+                    className="text-sm text-gray-800 hover:text-red-600 transition-colors duration-300"
                   >
                     了解更多
                   </a>
