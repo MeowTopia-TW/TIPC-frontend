@@ -32,7 +32,7 @@ export default function Slogan() {
             <div className="h-full">
               <div className="relative w-full h-full overflow-hidden">
                 <Image
-                  src="/images/oldpic/slogan.jpg"
+                  src="/images/oldpic.jpg"
                   alt="文化探索"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-300"
