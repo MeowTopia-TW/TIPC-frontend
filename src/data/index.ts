@@ -106,8 +106,8 @@ export const videosData: VideoRecommendation[] = [
 export const cultureItemsData: CultureKnowledge[] = [
   {
     id: "traditional-arts",
-    title: "文化產業/文化品牌",
-    image: "/images/culture/文化品牌2.jpg",
+    title: "我們該怎麼做?",
+    image: "/images/culture/怎麼做.jpg",
     position: "top-left"
   },
   {
@@ -124,8 +124,8 @@ export const cultureItemsData: CultureKnowledge[] = [
   },
   {
     id: "modern-culture",
-    title: "我們該怎麼做?",
-    image: "/images/culture/怎麼做.jpg",
+    title: "文化產業/文化品牌",
+    image: "/images/culture/文化品牌2.jpg",
     position: "bottom-right"
   }
 ];
