@@ -152,5 +152,12 @@ export const carouselImagesData: CarouselImage[] = [
     alt: "田中",
     title: "中正紀念堂",
     description: "田中達也特展-大師眼中的微型組合"
+  },
+  {
+    id: "4",
+    src: "/images/museums/世界攝影展.jpg",
+    alt: "世界攝影展",
+    title: "世界攝影展",
+    description: "世界攝影展 -財團法人玉溪有容教育基金"
   }
 ];

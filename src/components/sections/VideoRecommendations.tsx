@@ -125,7 +125,7 @@ export default function VideoRecommendations() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* 標題區塊 */}
-      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10 text-black text-lg sm:text-xl lg:text-2xl font-semibold">
+      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-10 text-black text-lg sm:text-xl lg:text-2xl font-semibold text-white">
         影音推薦
       </div>
       <div className=" mx-auto px-0 sm:px-0 lg:px-0 relative">
