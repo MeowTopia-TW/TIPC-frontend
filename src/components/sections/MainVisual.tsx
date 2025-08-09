@@ -151,15 +151,15 @@ export default function MainVisual() {
         rightTemple: { from: { x: "60vw", y: "40vh", scale: 0.9, xPercent: -50, yPercent: -50 }, to: { x: "75vw", y: "44vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
         leftTemple: { from: { x: "12vw", y: "37vh", scale: 1.0, xPercent: -50, yPercent: -50 }, to: { x: "32vw", y: "47vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
         villiage: { from: { x: "50vw", y: "50vh", scale: 0.9, xPercent: -50, yPercent: -50 }, to: { x: "75vw", y: "70vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
-        leopard: { from: { x: "5vw", y: "50vh", scale: 0.7, xPercent: -50, yPercent: -50 }, to: { x: "12vw", y: "64vh", scale: 1, xPercent: -50, yPercent: -50 } },
-        bear: { from: { x: "65vw", y: "-10vh", scale: 0.35, xPercent: -50, yPercent: -50 }, to: { x: "80vw", y: "30vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
+        leopard: { from: { x: "5vw", y: "50vh", scale: 0.7, xPercent: -50, yPercent: -50 }, to: { x: "12vw", y: "64vh", scale: 0.8, xPercent: -50, yPercent: -50 } },
+        bear: { from: { x: "65vw", y: "-10vh", scale: 0.35, xPercent: -50, yPercent: -50 }, to: { x: "89vw", y: "30vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
         boat: { from: { x: "20vw", y: "62vh", scale: 0.7, xPercent: -50, yPercent: -50 }, to: { x: "30vw", y: "80vh", scale: 1.15, xPercent: -50, yPercent: -50 } },
         wave: { from: { x: "40vw", y: "94vh", scale: 0.9, xPercent: -50, yPercent: -50 }, to: { x: "31vw", y: "93vh", scale: 11.0, xPercent: -50, yPercent: -50 } },
         fish: { from: { x: "25vw", y: "61vh", scale: 0.5, xPercent: -50, yPercent: -50 }, to: { x: "33vw", y: "73vh", scale: 0.6, xPercent: -50, yPercent: -50 } },
         noodle: { from: { x: "73vw", y: "47vh", scale: 0.6, xPercent: -50, yPercent: -50 }, to: { x: "85vw", y: "80vh", scale: 0.65, xPercent: -50, yPercent: -50 } },
         red: { from: { x: "20vw", y: "0vh", scale: 0.3, xPercent: -50, yPercent: -50 }, to: { x: "42vw", y: "24vh", scale: 0.45, xPercent: -50, yPercent: -50 } },
         blue: { from: { x: "2vw", y: "1vh", scale: 0.35, xPercent: -50, yPercent: -50 }, to: { x: "16vw", y: "30vh", scale: 0.75, xPercent: -50, yPercent: -50 } },
-        taiwan: { from: { x: "38vw", y: "10vh", scale: 1.0, xPercent: -50, yPercent: -50 }, to: { x: "53vw", y: "51vh", scale: 1.5, xPercent: -50, yPercent: -50 } }
+        taiwan: { from: { x: "38vw", y: "10vh", scale: 1.0, xPercent: -50, yPercent: -50 }, to: { x: "53vw", y: "51vh", scale: 1.1, xPercent: -50, yPercent: -50 } }
       }
     };
 
