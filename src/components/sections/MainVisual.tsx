@@ -4,12 +4,39 @@ import { useRef, useEffect, useMemo, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import Image from "next/image";
 import Navigation from '@/components/navigation/Navigation';
+import LoadingScreen from '@/components/layout/LoadingScreen';
 
 export default function MainVisual() {
+  // Loading 狀態管理
+  const [isLoading, setIsLoading] = useState(true);
+  
   // 響應式狀態管理
   const [currentBreakpoint, setCurrentBreakpoint] = useState<'mobile' | 'tablet' | 'bigTablet' | 'desktop'>('desktop');
   const [isClient, setIsClient] = useState(false);
   const [scaleFactor, setScaleFactor] = useState(1);
+
+  // 所有需要預載的圖片路徑
+  const imagesToPreload = useMemo(() => [
+    '/animation/mountainBack.svg',
+    '/animation/mountain.svg',
+    '/animation/rightTemple.svg',
+    '/animation/leftTemple.svg',
+    '/animation/villiage.svg',
+    '/animation/leopard.svg',
+    '/animation/bear.svg',
+    '/animation/boat.svg',
+    '/animation/boatwithwave.svg', // 加入boat with wave變體
+    '/animation/fish.svg',
+    '/animation/noodle.svg',
+    '/animation/red.svg',
+    '/animation/taiwan.svg',
+    '/animation/blue.svg'
+  ], []);
+
+  // Loading 完成處理函數
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false);
+  }, []);
 
   // Text content refs
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -113,23 +140,7 @@ export default function MainVisual() {
           from: { x: "70vw", y: "60vh", scale: 0.5, xPercent: -50, yPercent: -50 }, 
           to: { x: "20vw", y: "80vh", scale: 5, xPercent: -50, yPercent: -50 } 
         },
-        red: { 
-          from: { x: "20vw", y: "20vh", scale: 0.4, xPercent: -50, yPercent: -50 }, 
-          to: { x: "90vw", y: "80vh", scale: 4, xPercent: -50, yPercent: -50 } 
-        },
-        blue: { 
-          from: { x: "80vw", y: "25vh", scale: 0.4, xPercent: -50, yPercent: -50 }, 
-          to: { x: "20vw", y: "25vh", scale: 5, xPercent: -50, yPercent: -50 } 
-        }
-      },
-      tablet: {
-        // Tablet 配置 (768px - 1024px) - 按比例縮小所有元素 (約0.8倍) 並左移
-        rightTemple: { from: { x: "42vw", y: "32vh", scale: 0.72, xPercent: -50, yPercent: -50 }, to: { x: "88vw", y: "50vh", scale: 2.4, xPercent: -50, yPercent: -50 } },
-        leftTemple: { from: { x: "20vw", y: "37vh", scale: 0.8, xPercent: -50, yPercent: -50 }, to: { x: "16vw", y: "45vh", scale: 2.4, xPercent: -50, yPercent: -50 } },
-        villiage: { from: { x: "38vw", y: "42vh", scale: 0.72, xPercent: -50, yPercent: -50 }, to: { x: "80vw", y: "75vh", scale: 2.4, xPercent: -50, yPercent: -50 } },
-        boat: { from: { x: "20vw", y: "50vh", scale: 0.56, xPercent: -50, yPercent: -50 }, to: { x: "22vw", y: "80vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
-        wave: { from: { x: "30vw", y: "79vh", scale: 0.72, xPercent: -50, yPercent: -50 }, to: { x: "22vw", y: "90vh", scale: 15, xPercent: -50, yPercent: -50 } },
-        fish: { from: { x: "24vw", y: "47vh", scale: 0.4, xPercent: -50, yPercent: -50 }, to: { x: "23vw", y: "75vh", scale: 1, xPercent: -50, yPercent: -50 } },
+        // ...existing code...
         red: { from: { x: "20vw", y: "7vh", scale: 0.24, xPercent: -50, yPercent: -50 }, to: { x: "20vw", y: "22vh", scale: 0.7, xPercent: -50, yPercent: -50 } },
         blue: { from: { x: "36vw", y: "10vh", scale: 0.28, xPercent: -50, yPercent: -50 }, to: { x: "88vw", y: "22vh", scale: 1, xPercent: -50, yPercent: -50 } },
         taiwan: { from: { x: "50vw", y: "50vh", scale: 0.8, xPercent: -50, yPercent: -50 }, to: { x: "50vw", y: "50vh", scale: 2.5, xPercent: -50, yPercent: -50 } },
@@ -177,13 +188,13 @@ export default function MainVisual() {
             ref: elementRefs.rightTemple,
             from: { ...fullConfig.rightTemple.from, opacity: 0 },
             to: { ...fullConfig.rightTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power2.out", scale: (fullConfig.rightTemple.to.scale || 1) * scaleFactor },
-            delay: 1.0
+            delay: 0.5
           },
           {
             ref: elementRefs.leftTemple,
             from: { ...fullConfig.leftTemple.from, opacity: 0 },
             to: { ...fullConfig.leftTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.leftTemple.to.scale || 1) * scaleFactor },
-            delay: 1.3
+            delay: 0.8
           }
         );
       }
@@ -194,7 +205,7 @@ export default function MainVisual() {
           ref: elementRefs.villiage,
           from: { ...config.villiage.from, opacity: 0 },
           to: { ...config.villiage.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power2.out", scale: (config.villiage.to.scale || 1) * scaleFactor },
-          delay: breakpoint === 'mobile' ? 1.0 : 1.6
+          delay: breakpoint === 'mobile' ? 0.5 : 1.1
         }
       );
 
@@ -206,13 +217,13 @@ export default function MainVisual() {
             ref: elementRefs.leopard,
             from: { ...fullConfig.leopard.from, opacity: 0 },
             to: { ...fullConfig.leopard.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.leopard.to.scale || 1) * scaleFactor },
-            delay: 1.9
+            delay: 1.4
           },
           {
             ref: elementRefs.bear,
             from: { ...fullConfig.bear.from, opacity: 0 },
             to: { ...fullConfig.bear.to, opacity: 1, zIndex: 5, duration: 0.3, ease: "power1.out", scale: (fullConfig.bear.to.scale || 1) * scaleFactor },
-            delay: 2.2
+            delay: 1.7
           },
         );
       }
@@ -224,14 +235,8 @@ export default function MainVisual() {
           {
             ref: elementRefs.boat,
             from: { ...fullConfig.boat.from, opacity: 0 },
-            to: { ...fullConfig.boat.to, opacity: 1, zIndex: 20, duration: 0.3, ease: "power2.out", scale: (fullConfig.boat.to.scale || 1) * scaleFactor },
-            delay: 2.5
-          },
-          {
-            ref: elementRefs.wave,
-            from: { ...fullConfig.wave.from, opacity: 0 },
-            to: { ...fullConfig.wave.to, opacity: 1, zIndex: 21, duration: 0.3, ease: "power2.out", scale: (fullConfig.wave.to.scale || 1) * scaleFactor },
-            delay: 2.8
+            to: { ...fullConfig.boat.to, opacity: 1, zIndex: 20, duration: 0.4, ease: "power2.out", scale: (fullConfig.boat.to.scale || 1) * scaleFactor },
+            delay: 2.0
           }
         );
       }
@@ -244,7 +249,7 @@ export default function MainVisual() {
             ref: elementRefs.noodle,
             from: { ...fullConfig.noodle.from, opacity: 0 },
             to: { ...fullConfig.noodle.to, opacity: 1, zIndex: 30, duration: 0.35, ease: "power1.out", scale: (fullConfig.noodle.to.scale || 1) * scaleFactor },
-            delay: 3.4
+            delay: 2.3
           }
         );
       }
@@ -255,25 +260,25 @@ export default function MainVisual() {
           ref: elementRefs.fish,
           from: { ...config.fish.from, opacity: 0 },
           to: { ...config.fish.to, opacity: 1, zIndex: 20, duration: 0.3, ease: "power2.out", scale: (config.fish.to.scale || 1) * scaleFactor },
-          delay: breakpoint === 'mobile' ? 1.3 : 3.1
+          delay: breakpoint === 'mobile' ? 0.8 : 2.6
         },
         {
           ref: elementRefs.red,
           from: { ...config.red.from, opacity: 0 },
           to: { ...config.red.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (config.red.to.scale || 1) * scaleFactor },
-          delay: breakpoint === 'mobile' ? 1.6 : 3.7
+          delay: breakpoint === 'mobile' ? 1.1 : 2.9
         },
         {
           ref: elementRefs.blue,
           from: { ...config.blue.from, opacity: 0 },
           to: { ...config.blue.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (config.blue.to.scale || 1) * scaleFactor },
-          delay: breakpoint === 'mobile' ? 1.9 : 4.0
+          delay: breakpoint === 'mobile' ? 1.4 : 3.2
         },
         {
           ref: elementRefs.taiwan,
           from: { ...config.taiwan.from, opacity: 0 },
           to: { ...config.taiwan.to, opacity: 1, zIndex: 30, duration: 0.35, ease: "power2.out", scale: (config.taiwan.to.scale || 1) * scaleFactor },
-          delay: breakpoint === 'mobile' ? 2.2 : 4.3
+          delay: breakpoint === 'mobile' ? 1.7 : 3.5
         }
       );
 
@@ -307,10 +312,9 @@ export default function MainVisual() {
       { ref: elementRefs.rightTemple, src: "/animation/rightTemple.svg", alt: "right temple animation", mobileWidth: 120, mobileHeight: 120 },
       { ref: elementRefs.leftTemple, src: "/animation/leftTemple.svg", alt: "left temple animation", mobileWidth: 100, mobileHeight: 100 },
       { ref: elementRefs.villiage, src: "/animation/villiage.svg", alt: "villiage animation", mobileWidth: 110, mobileHeight: 110 },
-      { ref: elementRefs.boat, src: "/animation/boat.svg", alt: "Boat animation", mobileWidth: 90, mobileHeight: 90 },
+      { ref: elementRefs.boat, src: "/animation/boatwithwave.svg", alt: "Boat animation", mobileWidth: 90, mobileHeight: 90 },
       { ref: elementRefs.fish, src: "/animation/fish.svg", alt: "fish animation", mobileWidth: 70, mobileHeight: 70 },
       { ref: elementRefs.taiwan, src: "/animation/taiwan.svg", alt: "Taiwan animation", mobileWidth: 130, mobileHeight: 130 },
-      { ref: elementRefs.wave, src: "/animation/wave.svg", alt: "wave animation", width: 50, height: 50, mobileWidth: 40, mobileHeight: 40 },
       { ref: elementRefs.red, src: "/animation/red.svg", alt: "red animation", mobileWidth: 60, mobileHeight: 60 },
       { ref: elementRefs.blue, src: "/animation/blue.svg", alt: "blue animation", mobileWidth: 60, mobileHeight: 60 },
     ];
@@ -323,7 +327,6 @@ export default function MainVisual() {
       { ref: elementRefs.boat, src: "/animation/boat.svg", alt: "Boat animation", mobileWidth: 110, mobileHeight: 110 },
       { ref: elementRefs.fish, src: "/animation/fish.svg", alt: "fish animation", mobileWidth: 85, mobileHeight: 85 },
       { ref: elementRefs.taiwan, src: "/animation/taiwan.svg", alt: "Taiwan animation", mobileWidth: 150, mobileHeight: 150 },
-      { ref: elementRefs.wave, src: "/animation/wave.svg", alt: "wave animation", width: 60, height: 60, mobileWidth: 50, mobileHeight: 50 },
       { ref: elementRefs.red, src: "/animation/red.svg", alt: "red animation", mobileWidth: 75, mobileHeight: 75 },
       { ref: elementRefs.blue, src: "/animation/blue.svg", alt: "blue animation", mobileWidth: 75, mobileHeight: 75 },
     ];
@@ -335,10 +338,9 @@ export default function MainVisual() {
       { ref: elementRefs.villiage, src: "/animation/villiage.svg", alt: "villiage animation", mobileWidth: 110, mobileHeight: 110 },
       { ref: elementRefs.leopard, src: "/animation/leopard.svg", alt: "leopard animation", mobileWidth: 80, mobileHeight: 80 },
       { ref: elementRefs.bear, src: "/animation/bear.svg", alt: "bear animation", mobileWidth: 60, mobileHeight: 60 },
-      { ref: elementRefs.boat, src: "/animation/boat.svg", alt: "Boat animation", mobileWidth: 90, mobileHeight: 90 },
+      { ref: elementRefs.boat, src: "/animation/boatwithwave.svg", alt: "Boat animation", mobileWidth: 90, mobileHeight: 90 },
       { ref: elementRefs.fish, src: "/animation/fish.svg", alt: "fish animation", mobileWidth: 70, mobileHeight: 70 },
       { ref: elementRefs.taiwan, src: "/animation/taiwan.svg", alt: "Taiwan animation", mobileWidth: 130, mobileHeight: 130 },
-      { ref: elementRefs.wave, src: "/animation/wave.svg", alt: "wave animation", width: 50, height: 50, mobileWidth: 40, mobileHeight: 40 },
       { ref: elementRefs.noodle, src: "/animation/noodle.svg", alt: "noodle animation", mobileWidth: 80, mobileHeight: 80 },
       { ref: elementRefs.red, src: "/animation/red.svg", alt: "red animation", mobileWidth: 60, mobileHeight: 60 },
       { ref: elementRefs.blue, src: "/animation/blue.svg", alt: "blue animation", mobileWidth: 60, mobileHeight: 60 },
@@ -371,24 +373,16 @@ export default function MainVisual() {
   const getResponsiveMountainConfigs = useMemo(() => {
     const mountainBackConfigs = {
       mobile: [
-        { x: "50vw", y: "20vh", endX: "55vw", endY: "25vh", scale: 6, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 },
-        { x: "40vw", y: "45vh", endX: "45vw", endY: "45vh", scale: 6, delay: 0, zIndex: 14, xPercent: -50, yPercent: -50 },
-        { x: "30vw", y: "70vh", endX: "35vw", endY: "70vh", scale: 6, delay: 0, zIndex: 16, xPercent: -50, yPercent: -50 }
+        { x: "55vw", y: "20vh", endX: "55vw", endY: "25vh", scale: 6, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 }
       ],
       tablet: [
-        { x: "2vw", y: "7vh", endX: "30vw", endY: "20vh", scale: 3, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 },
-        { x: "2vw", y: "28vh", endX: "35vw", endY: "40vh", scale: 3, delay: 0, zIndex: 14, xPercent: -50, yPercent: -50 },
-        { x: "2vw", y: "45vh", endX: "30vw", endY: "60vh", scale: 3, delay: 0, zIndex: 16, xPercent: -50, yPercent: -50 }
+        { x: "2vw", y: "7vh", endX: "30vw", endY: "20vh", scale: 3, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 }
       ],
       bigTablet: [
-        { x: "15vw", y: "8vh", endX: "38vw", endY: "30vh", scale: 2.7, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 },
-        { x: "15vw", y: "30vh", endX: "35vw", endY: "65vh", scale: 2.5, delay: 0, zIndex: 14, xPercent: -50, yPercent: -50 },
-        { x: "15vw", y: "48vh", endX: "32vw", endY: "90vh", scale: 2.7, delay: 0, zIndex: 16, xPercent: -50, yPercent: -50 }
+        { x: "15vw", y: "8vh", endX: "38vw", endY: "30vh", scale: 2.7, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 }
       ],
       desktop: [
-        { x: "25vw", y: "6vh", endX: "30vw", endY: "18vh", scale: 2.3, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 },
-        { x: "25vw", y: "27vh", endX: "32vw", endY: "38vh", scale: 2.2, delay: 0, zIndex: 14, xPercent: -50, yPercent: -50 },
-        { x: "25vw", y: "44vh", endX: "30vw", endY: "58vh", scale: 2.3, delay: 0, zIndex: 16, xPercent: -50, yPercent: -50 }
+        { x: "30vw", y: "18vh", endX: "50vw", endY: "30vh", scale: 2.3, delay: 0, zIndex: 12, xPercent: -50, yPercent: -50 }
       ]
     };
 
@@ -400,7 +394,7 @@ export default function MainVisual() {
       bigTablet: [
       ],
       desktop: [
-        { x: "8vw", y: "55vh", endX: "10vw", endY: "68vh", scale: 1.5, delay: 0, zIndex: 18, xPercent: -50, yPercent: -50 }
+        { x: "8vw", y: "55vh", endX: "22vw", endY: "74vh", scale: 1.2, delay: 0, zIndex: 18, xPercent: -50, yPercent: -50 }
       ]
     };
 
@@ -446,36 +440,73 @@ export default function MainVisual() {
     return getResponsiveMountainConfigs(breakpoint);
   }, [getResponsiveMountainConfigs, getCurrentBreakpoint]);
 
-  // Initialize animations
+  // Initialize animations - 只在loading完成後執行
   useEffect(() => {
-      const ctx = gsap.context(() => {
-      // 設定 GSAP 效能優化
+    // 如果還在loading，不執行動畫
+    if (isLoading) {
+      return;
+    }
+    
+    const ctx = gsap.context(() => {
+      // 設定 GSAP 效能優化 - 針對卡頓問題的改進，保持連貫性
       gsap.config({ 
-        force3D: false, // 避免不必要的 3D 加速
+        force3D: true,
         nullTargetWarn: false,
-        autoSleep: 60 // 60秒後自動休眠未使用的動畫
+        autoSleep: 30,
+        units: { rotation: "rad", x: "px", y: "px" } // 統一單位提升效能
+      });
+
+      // 效能檢測 - 如果偵測到低效能設備，降低動畫複雜度
+      const isLowPerformance = () => {
+        // 簡單的效能檢測邏輯：基於CPU核心數
+        const { deviceMemory } = navigator as {deviceMemory?: number};
+        return navigator.hardwareConcurrency < 4 || 
+               (deviceMemory && deviceMemory < 4); // 記憶體小於4GB
+      };
+
+      const lowPerf = isLowPerformance();
+
+      // 創建優化的動畫時間軸，保持連貫性但減少同時渲染的元素
+      const tlBatch1 = gsap.timeline({ 
+        defaults: { ease: "power2.out" },
+        paused: false,
+        autoRemoveChildren: true
+      });
+      
+      const tlBatch2 = gsap.timeline({ 
+        defaults: { ease: lowPerf ? "power1.out" : "power2.out" },
+        paused: false,
+        autoRemoveChildren: true,
+        delay: 0.5 // 更小的延遲以保持連貫性
       });
 
       const tlText = gsap.timeline({ 
         defaults: { ease: "power3.out" },
         paused: false,
-        // 啟用智能渲染優化
-        autoRemoveChildren: true
-      });
-      
-      const tlMain = gsap.timeline({ 
-        defaults: { ease: "power2.out" },
-        paused: false,
         autoRemoveChildren: true
       });
 
-      // 設置所有元素的初始狀態 (保持高品質)
+      // 立即設置 mountain back 的初始狀態，避免閃現
+      gsap.set(mountainBackRefs.current.filter(Boolean), { 
+        opacity: 0,
+        visibility: "hidden" 
+      });
+
+      // 設置所有元素的初始狀態 - 優化渲染效能
       const allElementRefs = [
         ...mountainBackRefs.current.filter(Boolean),
         ...mountainRefs.current.filter(Boolean),
         ...Object.values(elementRefs).map(ref => ref.current).filter(Boolean)
       ];
       
+      // 設定初始狀態時就啟用硬體加速優化
+      gsap.set(allElementRefs, { 
+        opacity: 0,
+        force3D: true,
+        backfaceVisibility: "hidden",
+        willChange: "transform, opacity",
+        transformStyle: "preserve-3d"
+      });
       gsap.set(allElementRefs, { 
         opacity: 0,
         force3D: false, // 避免過度的3D加速影響品質
@@ -504,93 +535,71 @@ export default function MainVisual() {
       mountainBackConfigs.forEach((config, index) => {
         const mountainElement = mountainBackRefs.current[index];
         if (mountainElement) {
-          mountainTimeline.fromTo(mountainElement, 
-            { 
-              x: config.x,
-              y: config.y,
-              scale: 0.8,
-              opacity: 0,
-              zIndex: config.zIndex,
-              xPercent: config.xPercent,
-              yPercent: config.yPercent,
-              force3D: false, // 保持品質
-              transformOrigin: "center center" // 明確設定變換原點
-            },
-            { 
-              x: config.endX,
-              y: config.endY,
-              scale: config.scale,
-              opacity: 1,
-              zIndex: config.zIndex,
-              xPercent: config.xPercent,
-              yPercent: config.yPercent,
-              duration: 0.5,
-              ease: "power2.out",
-              // 動畫完成後優化
-              onComplete: () => {
-                gsap.set(mountainElement, { 
-                  willChange: "auto",
-                  transform: `translate(${config.endX}, ${config.endY}) scale(${config.scale})`
-                });
-              }
-            }, index * 0.1);
+          mountainTimeline.to(mountainElement, { 
+            x: config.endX,
+            y: config.endY,
+            scale: config.scale,
+            opacity: 1,
+            visibility: "visible",
+            zIndex: config.zIndex,
+            xPercent: config.xPercent,
+            yPercent: config.yPercent,
+            duration: 0.5,
+            ease: "power2.out",
+            force3D: true, // 啟用硬體加速
+            transformOrigin: "center center",
+            onComplete: () => {
+              gsap.set(mountainElement, { willChange: "auto" });
+            }
+          }, index * 0.1);
         }
       });
 
       mountainConfigs.forEach((config, index) => {
         const mountainElement = mountainRefs.current[index];
         if (mountainElement) {
-          mountainTimeline.fromTo(mountainElement, 
-            { 
-              x: config.x,
-              y: config.y,
-              scale: 0.8,
-              opacity: 0,
-              zIndex: config.zIndex,
-              xPercent: config.xPercent,
-              yPercent: config.yPercent,
-              force3D: false,
-              transformOrigin: "center center"
-            },
-            { 
-              x: config.endX,
-              y: config.endY,
-              scale: config.scale,
-              opacity: 1,
-              zIndex: config.zIndex,
-              xPercent: config.xPercent,
-              yPercent: config.yPercent,
-              duration: 0.5,
-              ease: "power2.out",
-              onComplete: () => {
-                gsap.set(mountainElement, { 
-                  willChange: "auto",
-                  transform: `translate(${config.endX}, ${config.endY}) scale(${config.scale})`
-                });
-              }
-            }, index * 0.1 + 0.3);
+          mountainTimeline.to(mountainElement, { 
+            x: config.endX,
+            y: config.endY,
+            scale: config.scale,
+            opacity: 1,
+            visibility: "visible",
+            zIndex: config.zIndex,
+            xPercent: config.xPercent,
+            yPercent: config.yPercent,
+            duration: 0.5,
+            ease: "power2.out",
+            force3D: true, // 啟用硬體加速
+            transformOrigin: "center center",
+            onComplete: () => {
+              gsap.set(mountainElement, { willChange: "auto" });
+            }
+          }, index * 0.1 + 0.3);
         }
       });      
 
-      // part 2: 主要元素動畫 (使用配置化方式) - 效能優化
+      // part 2: 優化的分批次動畫 - 保持緊湊節奏
       animationConfigs.forEach(config => {
         if (config.ref.current) {
-          tlMain.fromTo(config.ref.current,
-            { 
-              ...config.from,
-              force3D: false,
-              transformOrigin: "center center",
-              willChange: "transform, opacity"
-            },
+          // 根據動畫複雜度和時間點分配timeline，配合緊湊時間
+          const isComplexAnimation = config.to.scale !== undefined && config.to.scale > 1.5;
+          const timeline = isComplexAnimation || config.delay > 2.0 ? tlBatch2 : tlBatch1;
+          const adjustedDelay = timeline === tlBatch2 ? config.delay - 0.5 : config.delay;
+          
+          timeline.to(config.ref.current,
             { 
               ...config.to,
-              // 動畫完成後清理 willChange
+              force3D: true,
+              transformOrigin: "center center",
+              willChange: "transform, opacity",
+              // 針對卡頓優化：減少不必要的重繪
+              rotationZ: 0.01, // 強制使用transform3d
               onComplete: () => {
                 if (config.ref.current) {
                   gsap.set(config.ref.current, { willChange: "auto" });
                 }
               }
-            }, config.delay);
+            }, adjustedDelay);
         }
       });
 
@@ -605,8 +614,8 @@ export default function MainVisual() {
         transformOrigin: "center center"
       });
 
-      // Main text animation sequence - 配合響應式動畫時間
-      const textDelay = getCurrentBreakpoint() === 'mobile' ? 1.5 : 4.8;
+      // Main text animation sequence - 配合更緊湊的動畫時間
+      const textDelay = getCurrentBreakpoint() === 'mobile' ? 2.2 : 4.0;
       tlText.to(titleRef.current, {
         opacity: 1,
         y: 0,
@@ -636,7 +645,7 @@ export default function MainVisual() {
     });
 
     return () => ctx.revert();
-  }, [mountainBackConfigs, mountainConfigs, animationConfigs, commonImageStyles, elementRefs, getCurrentBreakpoint]);
+  }, [isLoading, mountainBackConfigs, mountainConfigs, animationConfigs, commonImageStyles, elementRefs, getCurrentBreakpoint]);
 
   // 效能監控和清理 useEffect
   useEffect(() => {
@@ -678,10 +687,20 @@ export default function MainVisual() {
   }, [elementRefs]);
 
   return (
-    <section 
-      className="relative w-full h-screen min-h-[600px] max-h-[1080px] overflow-hidden"
-      style={{ backgroundColor: '#F09F6F' }}
-    >
+    <>
+      {/* Loading Screen */}
+      {isLoading && (
+        <LoadingScreen 
+          images={imagesToPreload}
+          onLoadingComplete={handleLoadingComplete}
+        />
+      )}
+      
+      {/* Main Content */}
+      <section 
+        className="relative w-full h-screen min-h-[600px] max-h-[1080px] overflow-hidden"
+        style={{ backgroundColor: '#F09F6F' }}
+      >
       {/* Navigation */}
       <Navigation variant="main" />
 
@@ -721,7 +740,7 @@ export default function MainVisual() {
           const height = isMobile ? 240 : 833;
           
           return (
-            <Image
+            <img
               key={`mountainBack-${index}`}
               ref={(el) => {
                 mountainBackRefs.current[index] = el;
@@ -735,9 +754,7 @@ export default function MainVisual() {
                 ...commonImageStyles,
                 contain: 'layout style paint', // 優化重排和重繪
               }}
-              priority={index < 2} // 只對前兩個元素設定 priority
-              quality={100} // 最高品質
-              loading={index < 2 ? "eager" : "lazy"} // 分階段載入
+              loading={index < 2 ? "eager" : "lazy"}
             />
           );
         })}
@@ -771,8 +788,8 @@ export default function MainVisual() {
         {/* Single SVG Elements - 使用響應式配置，效能優化 */}
         {svgConfigs.map((config, index) => {
           const isMobile = isClient && currentBreakpoint === 'mobile';
-          const width = isMobile ? (config.mobileWidth || 300) : (config.width || 400);
-          const height = isMobile ? (config.mobileHeight || 300) : (config.height || 400);
+          const width = isMobile ? (config.mobileWidth || 300) : 400;
+          const height = isMobile ? (config.mobileHeight || 300) : 400;
           
           return (
             <Image
@@ -799,5 +816,6 @@ export default function MainVisual() {
 
       </div>
     </section>
+    </>
   );
 }
