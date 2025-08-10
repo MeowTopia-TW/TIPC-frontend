@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 
 interface NavigationProps {
   variant?: 'main' | 'header';
@@ -25,6 +26,19 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
     { href: '/gallery', label: '影像藝廊' },
     { href: '/contact', label: '聯絡我們' },
   ];
+
+  useEffect(() => {
+        // 影片欄背景不可滑動 
+        if (showPanel) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+        return () => {
+          document.body.style.overflow = '';
+        };
+      }
+    );
 
   if (variant === 'main') {
     // MainVisual 中的完整導航
@@ -171,11 +185,50 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
           </div>
           {/* 移動端選單按鈕 */}
           <div className="md:hidden">
-            <button className="text-gray-700 hover:text-[#833416]">
+            <button 
+              onClick={() => setShowPanel(!showPanel)}
+              className="text-gray-700 hover:text-[#833416]">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
+
+            {showPanel && (
+              <div 
+                className="fixed inset-0 w-screen bg-[rgba(0,0,0,0.8)] flex items-center justify-center z-30"
+                onClick={() => setShowPanel(false)}
+              />
+            )}
+
+            {/* (三)側功能欄 */}
+            <div
+              className={`fixed  top-0 right-0 h-full w-[100%] lg:w-[20%] bg-[rgba(196,80,12,0.7)] shadow-lg z-50 p-6 transform transition-transform duration-300 ${
+                showPanel ? '-translate-x-0' : 'translate-x-full'
+              }`}
+            >
+              {/* 關閉鍵 */}
+              <button
+                onClick={() => setShowPanel(false)}
+                className="absolute top-4 right-4 text-white-600 hover:text-blue-800"
+              >
+                ✕
+              </button>
+
+              {/* 頁面跳轉選項 */}
+              <div className="flex flex-col space-y-4 lg:space-y-6">
+                {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-white-900 hover:text-red-700 transition-colors duration-300 text-lg text-center font-bold"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              </div>
+              
+              
+            </div>
           </div>
         </div>
       </div>
