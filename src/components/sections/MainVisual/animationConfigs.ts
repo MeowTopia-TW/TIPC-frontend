@@ -47,7 +47,7 @@ export const IMAGES_TO_PRELOAD = [
   '/animation/villiage.svg',
   '/animation/leopard.svg',
   '/animation/bear.svg',
-  '/animation/boatWIthWaveAndFish.svg',
+  '/animation/boatWithWaveAndFish.svg',
   '/animation/noodle.svg',
   '/animation/red.svg',
   '/animation/taiwan.svg',
