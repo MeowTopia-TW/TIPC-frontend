@@ -88,16 +88,12 @@ export default function Slogan() {
 
           {/* 左側文字敘述 */}
           <div ref={textContainerRef} className="flex items-center h-full p-4 sm:p-6 bg-[#833416] relative order-2 lg:order-1">
-            <div className="space-y-3 sm:space-y-4 lg:space-y-6 h-full pr-4 sm:pr-8 lg:pr-16 w-full flex flex-col justify-center">
-              <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed">
-                因為我們擁有共同的文化記憶，所以我們成為一家人。
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6 h-full pl-6 sm:pl-8 lg:pl-12 pr-4 sm:pr-8 lg:pr-16 w-full flex flex-col justify-center -translate-y-2">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white leading-relaxed">
+                因為我們擁有共同的文化記憶，<br />
+                所以我們成為一家人。
               </p>
               
-              <div className="mt-6 lg:mt-8">
-                <p className="text-xl sm:text-2xl lg:text-4xl text-white leading-relaxed text-right font-chenyuluoyan">
-                  文化記憶與我們
-                </p>
-              </div>
             </div>
             {/* 右邊緣漸層遮罩 - 調整位置避免覆蓋文字 */}
             <div className="absolute top-0 right-0 w-8 sm:w-12 h-full bg-gradient-to-r from-[#833416] to-transparent pointer-events-none z-10"></div>
