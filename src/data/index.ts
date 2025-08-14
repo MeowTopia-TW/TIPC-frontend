@@ -156,9 +156,9 @@ export const carouselImagesData: CarouselImage[] = [
   {
     id: "4",
     src: "/images/museums/世界攝影展.jpg",
-    alt: "世界攝影展",
-    title: "世界攝影展",
-    description: "世界攝影展 -財團法人玉溪有容教育基金"
+    alt: "世界新聞攝影展",
+    title: "世界新聞攝影展",
+    description: "世界新聞攝影展 -財團法人玉溪有容教育基金"
   }
 ];
 
