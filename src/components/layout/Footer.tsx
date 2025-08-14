@@ -12,11 +12,11 @@ export default function Footer() {
               href="/"
               className="flex items-center mb-2 sm:mb-3 lg:mb-4">
               <Image
-                src="/icons/logo_w_text.png"
+                src="/icons/logo_text_w.png"
                 alt="Cultural Website Logo"
                 width={140}
                 height={20}
-                className="w-[300px] sm:w-[140px] lg:w-[300px] h-auto "
+                className="w-[300px] sm:w-[140px] lg:w-[300px] h-auto filter"
               />
             </Link>
             <p className="text-xs sm:text-sm lg:text-base text-gray-400 mb-2 sm:mb-3 lg:mb-4 leading-relaxed">

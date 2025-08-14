@@ -62,35 +62,34 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
           href="/"
           className="flex items-center p-1 hover:bg-amber-900/20 rounded-lg transition-colors duration-200"
         >
-          <div className="w-8 h-8 sm:w-6 sm:h-6 lg:w-8 lg:h-8 mr-2 sm:mr-3 relative flex-shrink-0">
+          <div className="relative flex-shrink-0">
             <Image
-              src="/icons/logo_w.png"
-              alt="台灣文化影響力平台標誌"
-              fill
-              style={{ objectFit: "contain" }}
-              sizes="32px"
+              src="/icons/logo_text_w.png"
+              alt="Cultural Website Logo"
+              width={2605}
+              height={506}
+              className="w-[160px] sm:w-[140px] lg:w-[200px] h-auto filter"
             />
-          </div>
-          <div className="flex flex-col leading-tight">
-            <h3 className="text-base sm:text-lg lg:text-xl font-bold">
-              文化影響力平台
-            </h3>
           </div>
         </Link>
         
         {/* 語言切換按鈕 - 地球圖標 */}
         <div className="relative">
           <button 
-            className="p-2 hover:bg-amber-900/20 rounded-lg transition-colors duration-200 flex items-center space-x-1" 
             title="切換語言"
             onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-          >
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" strokeWidth={1.5}/>
-              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" strokeWidth={1.5}/>
-              <path d="M2 12h20" strokeWidth={1.5}/>
+            className="px-3 py-2 hover:bg-amber-900/20 rounded-lg flex items-center space-x-1">
+            <svg
+              className="w-7 h-7 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" strokeWidth={1.5} />
+              <path d="M2 12h20" strokeWidth={1.5} />
             </svg>
-            <span className="text-xs text-white hidden sm:inline font-bold">{currentLanguage}</span>
+            <span className="text-white font-bold text-sm leading-none">{currentLanguage}</span>
           </button>
           
           {/* 下拉選單 */}
