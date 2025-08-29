@@ -78,7 +78,7 @@ export const RESPONSIVE_ANIMATION_CONFIGS = {
     taiwan: { to: { x: "50vw", y: "50vh", scale: 1.7, xPercent: -50, yPercent: -50 } }
   },
   bigTablet: {
-    lion: { to: { x: "81vw", y: "46vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
+    lion: { to: { x: "82vw", y: "42vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
     rightTemple: { to: { x: "79vw", y: "72vh", scale: 1.3, xPercent: -50, yPercent: -50 } },
     leftTemple: { to: { x: "28vw", y: "46vh", scale: 1.8, xPercent: -50, yPercent: -50 } },
     general: { to: { x: "81vw", y: "70vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
@@ -91,7 +91,7 @@ export const RESPONSIVE_ANIMATION_CONFIGS = {
     taiwan: { to: { x: "51vw", y: "50vh", scale: 1.5, xPercent: -50, yPercent: -50 } }
   },
   desktop: {
-    lion: { to: { x: "85vw", y: "44vh", scale: 1.0, xPercent: -50, yPercent: -50 } },
+    lion: { to: { x: "72vw", y: "41vh", scale: 1.0, xPercent: -50, yPercent: -50 } },
     rightTemple: { to: { x: "75vw", y: "73vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
     leftTemple: { to: { x: "32vw", y: "47vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
     general: { to: { x: "75vw", y: "70vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
@@ -104,7 +104,7 @@ export const RESPONSIVE_ANIMATION_CONFIGS = {
     taiwan: { to: { x: "53vw", y: "51vh", scale: 1.1, xPercent: -50, yPercent: -50 } }
   },
   bigscreen: {
-    lion: { to: { x: "85vw", y: "44vh", scale: 1.2, xPercent: -50, yPercent: -50 } },
+    lion: { to: { x: "72vw", y: "41vh", scale: 1.2, xPercent: -50, yPercent: -50 } },
     rightTemple: { to: { x: "75vw", y: "73vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
     leftTemple: { to: { x: "28vw", y: "47vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
     general: { to: { x: "75vw", y: "70vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
