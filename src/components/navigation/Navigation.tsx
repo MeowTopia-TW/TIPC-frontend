@@ -59,7 +59,7 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
   
   //完整導航
   return (
-    <nav className={`absolute top-4 left-0 right-0 z-20 flex justify-between items-center px-4 sm:px-6 ${className}`}>
+    <nav className={`absolute top-0 left-0 right-0 z-20 flex justify-between items-center px-4 sm:px-6 ${className}`}>
       {/* 網頁header-left */}
       <div className="flex items-center space-x-2 sm:space-x-4">
         {/* 網頁icon&title */}

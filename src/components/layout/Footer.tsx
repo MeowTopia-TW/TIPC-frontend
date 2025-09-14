@@ -77,8 +77,13 @@ export default function Footer() {
             <h4 className="text-sm sm:text-base lg:text-lg font-semibold mb-2 sm:mb-3 lg:mb-4">快速連結</h4>
             <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1 sm:flex-col sm:space-y-2 sm:justify-start">
               <li><Link href="/about" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">關於我們</Link></li>
-              <li><Link href="/culture" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">專欄文章</Link></li>
-              <li><Link href="/gallery" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">影像藝廊</Link></li>
+              <li><Link href="/culture" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">觀點文章</Link></li>
+              <li><Link href="/gallery" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">光影故事</Link></li>
+              <li><Link href="/contact" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">TIPC影音</Link></li>
+              <li><Link href="/about" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">TIPC選書</Link></li>
+              <li><Link href="/culture" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">典藏索引</Link></li>
+              <li><Link href="/gallery" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">活動探索</Link></li>
+              <li><Link href="/contact" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">合作夥伴</Link></li>
               <li><Link href="/contact" className="text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors">聯絡我們</Link></li>
             </ul>
           </div>
