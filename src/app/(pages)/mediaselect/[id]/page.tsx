@@ -6,9 +6,9 @@ import { PageLayout } from '@/components';
 import { cultureItemsData } from "@/data";
 
 const mediaTypes = [
-  { id: "article", label: "觀點文章" , logo: "/logos/apple.png" },
-  { id: "story", label: "光影故事" , logo: "/logos/apple.png" },
-  { id: "gallery", label: "TIPC影音" , logo: "/logos/apple.png" },
+  { id: "article", label: "觀點文章" , logo: "/images/culture/article.png" },
+  { id: "story", label: "光影故事" , logo: "/images/culture/photo.png" },
+  { id: "gallery", label: "TIPC影音" , logo: "/images/culture/video.png" },
 ];
 
 export default function MediaSelectPage() {
@@ -25,6 +25,9 @@ export default function MediaSelectPage() {
   return (
     <PageLayout title={cultureitem.title} subtitle="Media Selection">
       <div className="min-h-screen bg-gray-50">
+
+        
+
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {mediaTypes.map((mediatype) => (
             <Link key={mediatype.id} href={`/${mediatype.id}/${cultureitem.id}`}>
@@ -32,7 +35,7 @@ export default function MediaSelectPage() {
                 <img
                   src={mediatype.logo}
                   alt={mediatype.label}
-                  className="w-24 h-24 object-contain"
+                  className="w-100 h-500 object-contain"
                 />
                 <p className="mt-2 text-lg font-medium">{mediatype.label}</p>
               </div>
