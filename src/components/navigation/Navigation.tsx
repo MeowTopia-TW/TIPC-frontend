@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from "next/image";
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation'
+import { navItems } from "@/data";
 
 interface NavigationProps {
   variant?: 'main' | 'header' | 'simplified';
@@ -16,7 +17,7 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
   const router = useRouter()
   const pathname = usePathname();
 
-  const navItems = [
+  /*const navItems = [
     { href: '/about', label: '關於我們' },
     { href: '/article/all', label: '觀點文章' },
     { href: '/story/all', label: '光影故事' },
@@ -26,7 +27,7 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
     { href: '/event', label: '活動探索' },
     { href: '/partner', label: '合作夥伴' },
     { href: '/contact', label: '聯絡我們' },
-  ];
+  ];*/
 
   const handleClick = (href: string) => {
     if (pathname === href) {

@@ -163,6 +163,76 @@ export const carouselImagesData: CarouselImage[] = [
 ];
 
 //專欄文章
+export const CultureArticleData: CultureItem[] = [
+  {
+    id: "1",
+    title: "article1",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/1.jpg",
+    category: "",
+    date: "2025/09/10"
+  },
+  {
+    id: "2",
+    title: "article2",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/2.jpg",
+    category: "",
+    date: "2025/09/01"
+  },
+  {
+    id: "3",
+    title: "article3",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/3.jpg",
+    category: "",
+    date: "2025/08/15"
+  },
+  {
+    id: "4",
+    title: "article4",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/4.jpg",
+    category: "",
+    date: "2025/07/10"
+  },
+  {
+    id: "5",
+    title: "article5",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/5.jpg",
+    category: "",
+    date: "2025/06/10"
+  },
+  {
+    id: "6",
+    title: "article6",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/6.jpg",
+    category: "",
+    date: "2025/09/10"
+  },
+  {
+    id: "7",
+    title: "article7",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/7.jpg",
+    category: "",
+    date: "2025/09/10"
+  },
+  {
+    id: "8",
+    title: "article8",
+    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
+    image: "/images/gallery/8.jpg",
+    category: "",
+    date: "2025/09/10"
+  }
+  
+  
+];
+
+//
 export const CultureExplorerData: CultureItem[] = [
   {
     id: "1",
@@ -189,3 +259,17 @@ export const CultureExplorerData: CultureItem[] = [
     date: ""
   }
 ];
+
+export const navItems = [
+    { href: '/about', label: '關於我們' },
+    { href: '/article/all', label: '觀點文章' },
+    { href: '/story/all', label: '光影故事' },
+    { href: '/gallery/all', label: 'TIPC影音' },
+    { href: '/book', label: 'TIPC選書' },
+    { href: '/archive', label: '典藏索引' },
+    { href: '/event', label: '活動探索' },
+    { href: '/partner', label: '合作夥伴' },
+    { href: '/contact', label: '聯絡我們' },
+  ];
+
+

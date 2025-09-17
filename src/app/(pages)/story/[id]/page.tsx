@@ -194,13 +194,12 @@ export default function StoryPage() {
           </div>
         </div>
       )}
-
-      {/* Load More Button */}
+      {/* 載入更多按鈕 */}
       {visibleCount < allImages.length && (
-        <div className="flex justify-center mt-8">
+        <div className="text-center mt-12">
           <button
             onClick={loadMore}
-            className="px-6 py-3 bg-amber-600 text-white font-semibold rounded-lg shadow hover:bg-amber-700 transition"
+            className="bg-[#833416] text-white px-8 py-3 rounded-lg hover:bg-[#a0471f] transition-colors font-semibold"
           >
             載入更多
           </button>
