@@ -1,10 +1,10 @@
 "use client";
 import {
   Card,
-  CardHeader,
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import Image from "next/image";
 
 export type PartnerCardProps = {
   id: number;
@@ -18,9 +18,11 @@ export default function PartnerCard({ id, link, picture, description, name }: Pa
     <Card key={id} className="mt-6 w-full max-w-xs mx-auto">
       <CardBody className="flex flex-col items-center">
         <a href={link} className="flex justify-center">
-          <img 
+          <Image 
             src={picture} 
             alt={name} 
+            width={208}
+            height={208}
             className="rounded-full w-52 h-52 aspect-square object-cover mb-4 border-2 border-gray-200 shadow-sm"
           />
         </a>
