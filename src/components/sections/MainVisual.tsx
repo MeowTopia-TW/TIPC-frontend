@@ -36,12 +36,13 @@ interface ConfigObject {
   red: AnimationConfig;
   blue: AnimationConfig;
   lion?: AnimationConfig;
-  rightTemple?: AnimationConfig;
-  leftTemple?: AnimationConfig;
+  onefloorTemple?: AnimationConfig;
+  twofloorTemple?: AnimationConfig;
   leopard?: AnimationConfig;
   bear?: AnimationConfig;
   boat?: AnimationConfig;
   noodle?: AnimationConfig;
+  oneMountain?: AnimationConfig;
   [key: string]: AnimationConfig | undefined;
 }
 
@@ -77,8 +78,8 @@ export default function MainVisual() {
   
   // Single elements refs - organized
   const lionRef = useRef<HTMLImageElement>(null);
-  const rightTempleRef = useRef<HTMLImageElement>(null);
-  const leftTempleRef = useRef<HTMLImageElement>(null);
+  const onefloorTempleRef = useRef<HTMLImageElement>(null);
+  const twofloorTempleRef = useRef<HTMLImageElement>(null);
   const generalRef = useRef<HTMLImageElement>(null);
   const leopardRef = useRef<HTMLImageElement>(null);
   const bearRef = useRef<HTMLImageElement>(null);
@@ -87,11 +88,12 @@ export default function MainVisual() {
   const redRef = useRef<HTMLImageElement>(null);
   const taiwanRef = useRef<HTMLImageElement>(null);
   const blueRef = useRef<HTMLImageElement>(null);
+  const oneMountainRef = useRef<HTMLImageElement>(null);
 
   const elementRefs = useMemo(() => ({
     lion: lionRef,
-    rightTemple: rightTempleRef,
-    leftTemple: leftTempleRef,
+    onefloorTemple: onefloorTempleRef,
+    twofloorTemple: twofloorTempleRef,
     general: generalRef,
     leopard: leopardRef,
     bear: bearRef,
@@ -100,6 +102,7 @@ export default function MainVisual() {
     red: redRef,
     taiwan: taiwanRef,
     blue: blueRef,
+    oneMountain: oneMountainRef,
   }), []);
 
   // 客戶端檢測和響應式狀態管理 + 僅Windows效能監控
@@ -233,27 +236,47 @@ export default function MainVisual() {
     const baseAnimations = [];
 
     // tablet、bigTablet 和 desktop 才顯示廟宇元素
-    if (currentBreakpoint !== 'mobile') {
+    // mobile 額外處理 leopard
+    if (currentBreakpoint === 'mobile') {
+      const mobileConfig = config as ConfigObject;
+      if (mobileConfig.leopard) {
+        baseAnimations.push({
+          ref: elementRefs.leopard,
+          to: { ...mobileConfig.leopard.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (mobileConfig.leopard.to.scale || 1) * scaleFactor },
+          delay: ANIMATION_DELAYS.MOBILE.LEOPARD
+        });
+      }
+    } else {
       const fullConfig = config as ConfigObject;
+      
+      // tablet 加入 oneMountain 元素
+      if (currentBreakpoint === 'tablet' && fullConfig.oneMountain) {
+        baseAnimations.push({
+          ref: elementRefs.oneMountain,
+          to: { ...fullConfig.oneMountain.to, opacity: 1, zIndex: 15, duration: 0.3, ease: "power2.out", scale: (fullConfig.oneMountain.to.scale || 1) * scaleFactor },
+          delay: ANIMATION_DELAYS.TABLET.ONE_MOUNTAIN
+        });
+      }
+      
       if (fullConfig.lion) {
         baseAnimations.push({
           ref: elementRefs.lion,
           to: { ...fullConfig.lion.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power2.out", scale: (fullConfig.lion.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.RIGHT_TEMPLE
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.RIGHT_TEMPLE : ANIMATION_DELAYS.DESKTOP.RIGHT_TEMPLE
         });
       }
-      if (fullConfig.leftTemple) {
+      if (fullConfig.twofloorTemple) {
         baseAnimations.push({
-          ref: elementRefs.leftTemple,
-          to: { ...fullConfig.leftTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.leftTemple.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.LEFT_TEMPLE
+          ref: elementRefs.twofloorTemple,
+          to: { ...fullConfig.twofloorTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.twofloorTemple.to.scale || 1) * scaleFactor },
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.LEFT_TEMPLE : ANIMATION_DELAYS.DESKTOP.LEFT_TEMPLE
         });
       }
-      if (fullConfig.rightTemple) {
+      if (fullConfig.onefloorTemple) {
         baseAnimations.push({
-          ref: elementRefs.rightTemple,
-          to: { ...fullConfig.rightTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.rightTemple.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.RIGHT_TEMPLE
+          ref: elementRefs.onefloorTemple,
+          to: { ...fullConfig.onefloorTemple.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.onefloorTemple.to.scale || 1) * scaleFactor },
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.ONEFLOOR_TEMPLE : ANIMATION_DELAYS.DESKTOP.RIGHT_TEMPLE
         });
       }
     }
@@ -266,13 +289,13 @@ export default function MainVisual() {
         baseAnimations.push({
           ref: elementRefs.general,
           to: { ...fullConfig.general.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power2.out", scale: (fullConfig.general.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.VILLAGE
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.VILLAGE : ANIMATION_DELAYS.DESKTOP.VILLAGE
         });
       }
     }
 
-    // desktop、bigTablet 和 bigscreen 才顯示 leopard 和 bear 元素
-    if (currentBreakpoint === 'desktop' || currentBreakpoint === 'bigscreen' || currentBreakpoint === 'bigTablet') {
+    // tablet、desktop、bigTablet 和 bigscreen 才顯示 leopard 和 bear 元素
+    if (currentBreakpoint === 'tablet' || currentBreakpoint === 'desktop' || currentBreakpoint === 'bigscreen' || currentBreakpoint === 'bigTablet') {
       const fullConfig = config as ConfigObject;
       console.log('Leopard/Bear config check:', { currentBreakpoint, hasLeopard: !!fullConfig?.leopard, hasBear: !!fullConfig?.bear }); // Debug log
       
@@ -280,7 +303,7 @@ export default function MainVisual() {
         baseAnimations.push({
           ref: elementRefs.leopard,
           to: { ...fullConfig.leopard.to, opacity: 1, zIndex: 17, duration: 0.3, ease: "power1.out", scale: (fullConfig.leopard.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.LEOPARD
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.LEOPARD : ANIMATION_DELAYS.DESKTOP.LEOPARD
         });
       }
       
@@ -288,7 +311,7 @@ export default function MainVisual() {
         baseAnimations.push({
           ref: elementRefs.bear,
           to: { ...fullConfig.bear.to, opacity: 1, zIndex: 5, duration: 0.3, ease: "power1.out", scale: (fullConfig.bear.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.BEAR
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.BEAR : ANIMATION_DELAYS.DESKTOP.BEAR
         });
       }
     }
@@ -300,41 +323,47 @@ export default function MainVisual() {
         baseAnimations.push({
           ref: elementRefs.boat,
           to: { ...fullConfig.boat.to, opacity: 1, zIndex: 20, duration: 0.4, ease: "power2.out", scale: (fullConfig.boat.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.BOAT
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.BOAT : ANIMATION_DELAYS.DESKTOP.BOAT
         });
       }
     }
 
-    // 只有 desktop、bigTablet 和 bigscreen 才顯示 noodle 元素
-    if (currentBreakpoint === 'desktop' || currentBreakpoint === 'bigscreen' || currentBreakpoint === 'bigTablet') {
+    // tablet、desktop、bigTablet 和 bigscreen 才顯示 noodle 元素
+    if (currentBreakpoint === 'tablet' || currentBreakpoint === 'desktop' || currentBreakpoint === 'bigscreen' || currentBreakpoint === 'bigTablet') {
       const fullConfig = config as ConfigObject;
       if (fullConfig.noodle) {
         baseAnimations.push({
           ref: elementRefs.noodle,
           to: { ...fullConfig.noodle.to, opacity: 1, zIndex: 30, duration: 0.35, ease: "power1.out", scale: (fullConfig.noodle.to.scale || 1) * scaleFactor },
-          delay: ANIMATION_DELAYS.DESKTOP.NOODLE
+          delay: currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.NOODLE : ANIMATION_DELAYS.DESKTOP.NOODLE
         });
       }
     }
 
     // Red, blue, taiwan, noodle 元素 - 根據裝置顯示
-    baseAnimations.push(
-      {
+    // 只在 config.red/config.blue 存在時才推入，避免 undefined TypeError
+    const c = config as Partial<ConfigObject>;
+    if (c.red) {
+      baseAnimations.push({
         ref: elementRefs.red,
-        to: { ...config.red.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (config.red.to.scale || 1) * scaleFactor },
+        to: { ...c.red.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (c.red.to.scale || 1) * scaleFactor },
         delay: currentBreakpoint === 'mobile' ? ANIMATION_DELAYS.MOBILE.RED : ANIMATION_DELAYS.DESKTOP.RED
-      },
-      {
+      });
+    }
+    if (c.blue) {
+      baseAnimations.push({
         ref: elementRefs.blue,
-        to: { ...config.blue.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (config.blue.to.scale || 1) * scaleFactor },
+        to: { ...c.blue.to, opacity: 1, zIndex: 30, duration: 0.3, ease: "power2.out", scale: (c.blue.to.scale || 1) * scaleFactor },
         delay: currentBreakpoint === 'mobile' ? ANIMATION_DELAYS.MOBILE.BLUE : ANIMATION_DELAYS.DESKTOP.BLUE
-      },
-      {
+      });
+    }
+    if (c.taiwan) {
+      baseAnimations.push({
         ref: elementRefs.taiwan,
-        to: { ...config.taiwan.to, opacity: 1, zIndex: 30, duration: 0.35, ease: "power2.out", scale: (config.taiwan.to.scale || 1) * scaleFactor },
-        delay: currentBreakpoint === 'mobile' ? ANIMATION_DELAYS.MOBILE.TAIWAN : ANIMATION_DELAYS.DESKTOP.TAIWAN
-      }
-    );
+        to: { ...c.taiwan.to, opacity: 1, zIndex: 30, duration: 0.35, ease: "power2.out", scale: (c.taiwan.to.scale || 1) * scaleFactor },
+        delay: currentBreakpoint === 'mobile' ? ANIMATION_DELAYS.MOBILE.TAIWAN : (currentBreakpoint === 'tablet' ? ANIMATION_DELAYS.TABLET.TAIWAN : ANIMATION_DELAYS.DESKTOP.TAIWAN)
+      });
+    }
 
     // Add noodle for mobile or desktop+ devices that have it
     if (currentBreakpoint === 'mobile') {
@@ -368,31 +397,34 @@ export default function MainVisual() {
     const isTablet = isClient && currentBreakpoint === 'tablet';
     const isBigTablet = isClient && currentBreakpoint === 'bigTablet';
     
-    // 手機版本顯示台灣、麵條、紅色、藍色元素
+    // 手機版本顯示台灣、麵條、紅色、藍色元素，並加上leopard
     const mobileConfigs = [
       { ref: elementRefs.taiwan, src: "/animation/taiwan.svg", alt: "Taiwan animation", width: 300, height: 300, mobileWidth: 300, mobileHeight: 300 },
       { ref: elementRefs.noodle, src: "/animation/noodle.svg", alt: "noodle animation", width: 80, height: 80, mobileWidth: 80, mobileHeight: 80 },
       { ref: elementRefs.red, src: "/animation/red.svg", alt: "red animation", width: 60, height: 60, mobileWidth: 60, mobileHeight: 60 },
       { ref: elementRefs.blue, src: "/animation/blue.svg", alt: "blue animation", width: 60, height: 60, mobileWidth: 60, mobileHeight: 60 },
+      { ref: elementRefs.leopard, src: "/animation/leopard.svg", alt: "leopard animation", width: 80, height: 80, mobileWidth: 80, mobileHeight: 80 },
     ];
     
-    // 平板版本 (不包含 leopard, bear, 和 noodle)
+    // 平板版本 (包含 leopard, bear, noodle, oneMountain)
     const tabletConfigs = [
+      { ref: elementRefs.oneMountain, src: "/animation/oneMountain.svg", alt: "one mountain animation", mobileWidth: 150, mobileHeight: 150 },
       { ref: elementRefs.lion, src: "/animation/lion.svg", alt: "lion animation", mobileWidth: 120, mobileHeight: 120 },
-      { ref: elementRefs.rightTemple, src: "/animation/rightTemple.svg", alt: "right temple animation", mobileWidth: 100, mobileHeight: 100 },
-      { ref: elementRefs.leftTemple, src: "/animation/leftTemple.svg", alt: "left temple animation", mobileWidth: 100, mobileHeight: 100 },
+      { ref: elementRefs.onefloorTemple, src: "/animation/onefloorTemple.svg", alt: "right temple animation", mobileWidth: 100, mobileHeight: 100 },
+      { ref: elementRefs.twofloorTemple, src: "/animation/twofloorTemple.svg", alt: "left temple animation", mobileWidth: 100, mobileHeight: 100 },
       { ref: elementRefs.general, src: "/animation/general.svg", alt: "general animation", mobileWidth: 110, mobileHeight: 110 },
+      { ref: elementRefs.leopard, src: "/animation/leopard.svg", alt: "leopard animation", mobileWidth: 85, mobileHeight: 85 },
+      { ref: elementRefs.bear, src: "/animation/bear.svg", alt: "bear animation", mobileWidth: 70, mobileHeight: 70 },
       { ref: elementRefs.taiwan, src: "/animation/taiwan.svg", alt: "Taiwan animation", mobileWidth: 130, mobileHeight: 130 },
       { ref: elementRefs.boat, src: "/animation/boatWithWaveAndFish.svg", alt: "boat animation", mobileWidth: 90, mobileHeight: 90 },
-      { ref: elementRefs.red, src: "/animation/red.svg", alt: "red animation", mobileWidth: 60, mobileHeight: 60 },
-      { ref: elementRefs.blue, src: "/animation/blue.svg", alt: "blue animation", mobileWidth: 60, mobileHeight: 60 },
+      { ref: elementRefs.noodle, src: "/animation/noodle.svg", alt: "noodle animation", mobileWidth: 80, mobileHeight: 80 },
     ];
     
     // 大平板版本 (包含所有元素，尺寸較大)
     const bigTabletConfigs = [
       { ref: elementRefs.lion, src: "/animation/lion.svg", alt: "lion animation", mobileWidth: 140, mobileHeight: 140 },
-      { ref: elementRefs.rightTemple, src: "/animation/rightTemple.svg", alt: "right temple animation", mobileWidth: 120, mobileHeight: 120 },
-      { ref: elementRefs.leftTemple, src: "/animation/leftTemple.svg", alt: "left temple animation", mobileWidth: 120, mobileHeight: 120 },
+      { ref: elementRefs.onefloorTemple, src: "/animation/onefloorTemple.svg", alt: "right temple animation", mobileWidth: 120, mobileHeight: 120 },
+      { ref: elementRefs.twofloorTemple, src: "/animation/twofloorTemple.svg", alt: "left temple animation", mobileWidth: 120, mobileHeight: 120 },
       { ref: elementRefs.general, src: "/animation/general.svg", alt: "general animation", mobileWidth: 130, mobileHeight: 130 },
       { ref: elementRefs.leopard, src: "/animation/leopard.svg", alt: "leopard animation", mobileWidth: 85, mobileHeight: 85 },
       { ref: elementRefs.bear, src: "/animation/bear.svg", alt: "bear animation", mobileWidth: 65, mobileHeight: 65 },
@@ -406,8 +438,8 @@ export default function MainVisual() {
     // 桌面版本 (包含所有元素)
     const desktopConfigs = [
       { ref: elementRefs.lion, src: "/animation/lion.svg", alt: "lion animation", mobileWidth: 120, mobileHeight: 120 },
-      { ref: elementRefs.rightTemple, src: "/animation/rightTemple.svg", alt: "right temple animation", mobileWidth: 100, mobileHeight: 100 },
-      { ref: elementRefs.leftTemple, src: "/animation/leftTemple.svg", alt: "left temple animation", mobileWidth: 100, mobileHeight: 100 },
+      { ref: elementRefs.onefloorTemple, src: "/animation/onefloorTemple.svg", alt: "right temple animation", mobileWidth: 100, mobileHeight: 100 },
+      { ref: elementRefs.twofloorTemple, src: "/animation/twofloorTemple.svg", alt: "left temple animation", mobileWidth: 100, mobileHeight: 100 },
       { ref: elementRefs.general, src: "/animation/general.svg", alt: "general animation", mobileWidth: 110, mobileHeight: 110 },
       { ref: elementRefs.leopard, src: "/animation/leopard.svg", alt: "leopard animation", mobileWidth: 80, mobileHeight: 80 },
       { ref: elementRefs.bear, src: "/animation/bear.svg", alt: "bear animation", mobileWidth: 60, mobileHeight: 60 },
@@ -706,7 +738,7 @@ export default function MainVisual() {
       });
 
       // Main text animation sequence - 針對Windows用戶優化時間
-      const textDelay = getCurrentBreakpoint() === 'mobile' ? 2.2 : ANIMATION_DELAYS.DESKTOP.TEXT;
+      const textDelay = getCurrentBreakpoint() === 'mobile' ? 2.2 : (getCurrentBreakpoint() === 'tablet' ? ANIMATION_DELAYS.TABLET.TEXT : ANIMATION_DELAYS.DESKTOP.TEXT);
       tlText.to(titleRef.current, {
         opacity: 1,
         y: 0,

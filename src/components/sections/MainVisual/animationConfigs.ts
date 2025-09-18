@@ -16,10 +16,26 @@ export const SCALE_SETTINGS = {
 
 export const ANIMATION_DELAYS = {
   MOBILE: {
-    VILLAGE: 0.5,
-    RED: 1.1,
-    BLUE: 1.4,
-    TAIWAN: 1.7
+    LEOPARD: 0.5,
+    VILLAGE: 1.0,
+    RED: 1.5,
+    BLUE: 1.9,
+    TAIWAN: 2.5
+  },
+  TABLET: {
+    ONE_MOUNTAIN: 0.3,
+    RIGHT_TEMPLE: 0.7,
+    LEFT_TEMPLE: 1.3,
+    VILLAGE: 1.7,
+    LEOPARD: 1.0,
+    BEAR: 1.5,
+    BOAT: 1.9,
+    NOODLE: 2.0,
+    TAIWAN: 2.2,
+    GENERAL: 1.9,
+    ONEFLOOR_TEMPLE: 1.0,
+    TWOFLOOR_TEMPLE: 1.5,
+    TEXT: 2.5
   },
   DESKTOP: {
     RIGHT_TEMPLE: 0.5,
@@ -42,9 +58,10 @@ export type Breakpoint = 'mobile' | 'tablet' | 'bigTablet' | 'desktop' | 'bigscr
 // 預載圖片路徑
 export const IMAGES_TO_PRELOAD = [
   '/animation/mountainBack3.svg',
+  '/animation/oneMountain.svg',
   '/animation/lion.svg',
-  '/animation/rightTemple.svg',
-  '/animation/leftTemple.svg',
+  '/animation/onefloorTemple.svg',
+  '/animation/twofloorTemple.svg',
   '/animation/general.svg',
   '/animation/leopard.svg',
   '/animation/bear.svg',
@@ -64,23 +81,26 @@ export const RESPONSIVE_ANIMATION_CONFIGS = {
     noodle: { 
       to: { x: "80vw", y: "83vh", scale: 3.9, xPercent: -50, yPercent: -50 } 
     },
-    red: { to: { x: "20vw", y: "85vh", scale: 5, xPercent: -50, yPercent: -50 } },
-    blue: { to: { x: "20vw", y: "22vh", scale: 6, xPercent: -50, yPercent: -50 } }
+    red: { to: { x: "62vw", y: "95vh", scale: 3, xPercent: -50, yPercent: -50 } },
+    blue: { to: { x: "20vw", y: "90vh", scale: 4.5, xPercent: -50, yPercent: -50 } },
+    leopard: { to: { x: "35vw", y: "20vh", scale: 6.0, xPercent: -50, yPercent: -50 } },
   },
   tablet: {
-    lion: { to: { x: "79vw", y: "46vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
-    rightTemple: { to: { x: "79vw", y: "70vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
-    leftTemple: { to: { x: "20vw", y: "46vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
-    general: { to: { x: "79vw", y: "70vh", scale: 1.9, xPercent: -50, yPercent: -50 } },
-    boat: { to: { x: "25vw", y: "78vh", scale: 2, xPercent: -50, yPercent: -50 } },
-    red: { to: { x: "85vw", y: "23vh", scale: 0.7, xPercent: -50, yPercent: -50 } },
-    blue: { to: { x: "16vw", y: "25vh", scale: 0.9, xPercent: -50, yPercent: -50 } },
-    taiwan: { to: { x: "50vw", y: "50vh", scale: 1.7, xPercent: -50, yPercent: -50 } }
+    oneMountain: { to: { x: "75vw", y: "73vh", scale: 2.3, xPercent: -50, yPercent: -50 } },
+    lion: { to: { x: "39vw", y: "18vh", scale: 2.0, xPercent: -50, yPercent: -50 } },
+    onefloorTemple: { to: { x: "79vw", y: "57vh", scale: 1.9, xPercent: -50, yPercent: -50 } },
+    twofloorTemple: { to: { x: "28vw", y: "33vh", scale: 2.4, xPercent: -50, yPercent: -50 } },
+    general: { to: { x: "75vw", y: "80vh", scale: 2.2, xPercent: -50, yPercent: -50 } },
+    leopard: { to: { x: "27vw", y: "56vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
+    bear: { to: { x: "80vw", y: "35vh", scale: 1.0, xPercent: -50, yPercent: -50 } },
+    boat: { to: { x: "25vw", y: "78vh", scale: 2.3, xPercent: -50, yPercent: -50 } },
+    noodle: { to: { x: "66vw", y: "15vh", scale: 0.9, xPercent: -50, yPercent: -50 } },
+    taiwan: { to: { x: "50vw", y: "50vh", scale: 2.1, xPercent: -50, yPercent: -50 } }
   },
   bigTablet: {
     lion: { to: { x: "82vw", y: "42vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
-    rightTemple: { to: { x: "79vw", y: "72vh", scale: 1.3, xPercent: -50, yPercent: -50 } },
-    leftTemple: { to: { x: "28vw", y: "46vh", scale: 1.8, xPercent: -50, yPercent: -50 } },
+    onefloorTemple: { to: { x: "79vw", y: "72vh", scale: 1.3, xPercent: -50, yPercent: -50 } },
+    twofloorTemple: { to: { x: "28vw", y: "46vh", scale: 1.8, xPercent: -50, yPercent: -50 } },
     general: { to: { x: "81vw", y: "70vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
     leopard: { to: { x: "10vw", y: "64vh", scale: 0.9, xPercent: -50, yPercent: -50 } },
     bear: { to: { x: "87vw", y: "25vh", scale: 0.45, xPercent: -50, yPercent: -50 } },
@@ -91,30 +111,30 @@ export const RESPONSIVE_ANIMATION_CONFIGS = {
     taiwan: { to: { x: "51vw", y: "50vh", scale: 1.5, xPercent: -50, yPercent: -50 } }
   },
   desktop: {
-    lion: { to: { x: "72vw", y: "41vh", scale: 1.0, xPercent: -50, yPercent: -50 } },
-    rightTemple: { to: { x: "75vw", y: "73vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
-    leftTemple: { to: { x: "32vw", y: "47vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
-    general: { to: { x: "75vw", y: "70vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
-    leopard: { to: { x: "12vw", y: "64vh", scale: 0.8, xPercent: -50, yPercent: -50 } },
-    bear: { to: { x: "75vw", y: "25vh", scale: 0.4, xPercent: -50, yPercent: -50 } },
-    boat: { to: { x: "30vw", y: "80vh", scale: 1.3, xPercent: -50, yPercent: -50 } },
-    noodle: { to: { x: "87vw", y: "30vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
-    red: { to: { x: "42vw", y: "24vh", scale: 0.45, xPercent: -50, yPercent: -50 } },
-    blue: { to: { x: "16vw", y: "25vh", scale: 0.6, xPercent: -50, yPercent: -50 } },
+    lion: { to: { x: "30vw", y: "20vh", scale: 0.8, xPercent: -50, yPercent: -50 } },
+    onefloorTemple: { to: { x: "30vw", y: "40vh", scale: 1.2, xPercent: -50, yPercent: -50 } },
+    twofloorTemple: { to: { x: "68vw", y: "47vh", scale: 1.1, xPercent: -50, yPercent: -50 } },
+    general: { to: { x: "75vw", y: "74vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
+    leopard: { to: { x: "15vw", y: "55vh", scale: 0.9, xPercent: -50, yPercent: -50 } },
+    bear: { to: { x: "70vw", y: "25vh", scale: 0.4, xPercent: -50, yPercent: -50 } },
+    boat: { to: { x: "27vw", y: "85vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
+    noodle: { to: { x: "88vw", y: "33vh", scale: 0.45, xPercent: -50, yPercent: -50 } },
+    red: { to: { x: "42vw", y: "20vh", scale: 0.3, xPercent: -50, yPercent: -50 } },
+    blue: { to: { x: "30vw", y: "65vh", scale: 0.6, xPercent: -50, yPercent: -50 } },
     taiwan: { to: { x: "49vw", y: "51vh", scale: 1.1, xPercent: -50, yPercent: -50 } }
   },
   bigscreen: {
-    lion: { to: { x: "72vw", y: "41vh", scale: 1.2, xPercent: -50, yPercent: -50 } },
-    rightTemple: { to: { x: "75vw", y: "73vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
-    leftTemple: { to: { x: "28vw", y: "47vh", scale: 1.7, xPercent: -50, yPercent: -50 } },
-    general: { to: { x: "75vw", y: "70vh", scale: 1.6, xPercent: -50, yPercent: -50 } },
-    leopard: { to: { x: "12vw", y: "67vh", scale: 1, xPercent: -50, yPercent: -50 } },
-    bear: { to: { x: "75vw", y: "25vh", scale: 0.55, xPercent: -50, yPercent: -50 } },
-    boat: { to: { x: "30vw", y: "80vh", scale: 2, xPercent: -50, yPercent: -50 } },
-    noodle: { to: { x: "88vw", y: "15vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
-    red: { to: { x: "38vw", y: "20vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
-    blue: { to: { x: "10vw", y: "25vh", scale: 0.8, xPercent: -50, yPercent: -50 } },
-    taiwan: { to: { x: "50vw", y: "50vh", scale: 1.5, xPercent: -50, yPercent: -50 } }
+    lion: { to: { x: "30vw", y: "20vh", scale: 0.9, xPercent: -50, yPercent: -50 } },
+    onefloorTemple: { to: { x: "32vw", y: "39vh", scale: 1.3, xPercent: -50, yPercent: -50 } },
+    twofloorTemple: { to: { x: "70vw", y: "43vh", scale: 1.4, xPercent: -50, yPercent: -50 } },
+    general: { to: { x: "75vw", y: "74vh", scale: 1.5, xPercent: -50, yPercent: -50 } },
+    leopard: { to: { x: "15vw", y: "55vh", scale: 1.0, xPercent: -50, yPercent: -50 } },
+    bear: { to: { x: "70vw", y: "25vh", scale: 0.45, xPercent: -50, yPercent: -50 } },
+    boat: { to: { x: "27vw", y: "85vh", scale: 1.9, xPercent: -50, yPercent: -50 } },
+    noodle: { to: { x: "88vw", y: "33vh", scale: 0.5, xPercent: -50, yPercent: -50 } },
+    red: { to: { x: "42vw", y: "20vh", scale: 0.3, xPercent: -50, yPercent: -50 } },
+    blue: { to: { x: "30vw", y: "65vh", scale: 0.65, xPercent: -50, yPercent: -50 } },
+    taiwan: { to: { x: "50vw", y: "50vh", scale: 1.45, xPercent: -50, yPercent: -50 } }
   }
 } as const;
 
