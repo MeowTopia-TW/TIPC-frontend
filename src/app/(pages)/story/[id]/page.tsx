@@ -162,8 +162,8 @@ export default function StoryPage() {
           </div>
           <div
             ref={panelRef}
-            className="bg-[#833416] p-6 rounded-lg relative  [&::-webkit-scrollbar]:hidden scrollbar-hide "
-            onClick={(e) => e.stopPropagation()}
+            className="p-6 rounded-lg relative  [&::-webkit-scrollbar]:hidden scrollbar-hide "
+            
           >
             {/* 關閉鍵 */} 
             <button
