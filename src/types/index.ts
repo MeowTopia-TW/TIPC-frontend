@@ -9,13 +9,19 @@ export interface Partner {
   category?: string;
 }
 
-export interface CultureItem {
+export interface BookData {
   id: string;
-  title: string;
-  description: string;
+  bookName: string;
+  author: string[];
   image: string;
   category?: string;
-  date?: string;
+  publicDate?: string;
+  publisher?: string;
+  description?: string;
+  tags?: string[];
+  pages?: number;
+  isbn?: string;
+  eisbn?: string;
 }
 
 export interface VideoItem {
