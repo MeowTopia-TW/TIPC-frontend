@@ -61,6 +61,7 @@ export interface Event {
   title: string;
   date: string;
   mainImage: string;
+  subTitle: string;
   description: string;
   relatedImages: string[];
   type: "current" | "past"; // column grouping

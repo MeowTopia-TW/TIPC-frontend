@@ -296,11 +296,22 @@ export const bookCardData: BookData[] = [
 //活動
 export const eventData: Event[] = [
   {
+    id: "5",
+    title: "地方創生可以不一樣新書發表會",
+    date: "2025-08-16",
+    mainImage: "/images/gallery/bookmain.jpg",
+    description: "脫下鞋子 奔跑<br><br>我原本不知<br><br>最終目的在何方<br><br>直到我遇見心中燃起的光<br><br>才發現<br><br>目的地就在<br><br>往完美的方向",
+    subTitle: "Impromptu142, 臺北市萬華區長沙街二段142號",
+    relatedImages: ["/images/gallery/book1.jpg", "/images/gallery/book2.jpg","/images/gallery/book3.jpg","/images/gallery/book4.jpg","/images/gallery/book5.jpg"],
+    type: "past",
+  },
+  {
     id: "1",
     title: "故宮浮世之美",
     date: "2025-09-20",
     mainImage: "/images/museums/故宮_浮世之美.jpg",
     description: "故宮博物院經典展覽，展現東方藝術之美",
+    subTitle: "故宮博物院經典展覽，展現東方藝術之美",
     relatedImages: ["/images/gallery/2.jpg", "/images/gallery/3.jpg", "/images/museums/故宮_浮世之美.jpg"],
     type: "current",
   },
@@ -310,6 +321,7 @@ export const eventData: Event[] = [
     date: "2025-09-21",
     mainImage: "/images/museums/奇美博物館.jpg",
     description: "台南奇美博物館的精彩展覽與文物收藏",
+    subTitle: "台南奇美博物館的精彩展覽與文物收藏",
     relatedImages: ["/images/gallery/5.jpg", "/images/gallery/15.jpg", "/images/gallery/4.jpg", "/images/gallery/5.jpg", "/images/gallery/4.jpg", "/images/gallery/5.jpg"],
     type: "current",
   },
@@ -319,6 +331,7 @@ export const eventData: Event[] = [
     date: "2025-03-15 ~ 2025-04-01",
     mainImage: "/images/museums/田中.jpg",
     description: "田中達也特展-大師眼中的微型組合",
+    subTitle: "田中達也特展-大師眼中的微型組合",
     relatedImages: ["/images/gallery/6.jpg"],
     type: "past",
   },
@@ -329,8 +342,10 @@ export const eventData: Event[] = [
     mainImage: "/images/museums/世界攝影展.jpg",
     relatedImages: ["/images/gallery/7.jpg"],
     description: "世界新聞攝影展 -財團法人玉溪有容教育基金",
+    subTitle: "世界新聞攝影展 -財團法人玉溪有容教育基金",
     type: "past",
   },
+  
 ];
 
 export const navItems = [

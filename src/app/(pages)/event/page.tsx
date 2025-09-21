@@ -78,7 +78,7 @@ function EventCard({ event }: { event: Event }) {
           <div className={`absolute inset-0 bg-gradient-to-t from-${event.type=== "current" ? '[#CC6915]' : '[#833416]'} via-${event.type=== "current" ? '[#CC6915]/100' : '[#833416]/100'} to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex items-end`}>
             <div className="p-4 md:p-6 text-white">
               <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">{event.title}</h3>
-              <p className="text-xs md:text-sm leading-relaxed text-gray-200 line-clamp-3 md:line-clamp-none">{event.description}</p>
+              <p className="text-xs md:text-sm leading-relaxed text-gray-200 line-clamp-3 md:line-clamp-none">{event.subTitle}</p>
               <div className="mt-3 md:mt-4 flex items-center justify-between">
                 <span className="text-xs md:text-sm bg-white/20 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full">
                   {event.type}

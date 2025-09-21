@@ -52,10 +52,10 @@ export default function EventContentPage() {
 
         {/* Article Content */}
         <section className="prose prose-lg max-w-none">
-          <p className="text-gray-500">
-            {Eventitem.description}
-          </p>
-
+          <p 
+            className="text-gray-500"
+            dangerouslySetInnerHTML={{ __html: Eventitem.description }}
+          />
 
           {/* Inline Image */}
           <Masonry
