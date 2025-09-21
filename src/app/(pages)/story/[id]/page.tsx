@@ -1,9 +1,10 @@
 'use client';
 
-import Masonry from "react-masonry-css";
+
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Metadata } from 'next';
+import Masonry from "react-masonry-css";
 import { PageLayout } from '@/components';
 import type { GalleryImage } from "@/types";
 /*export const metadata: Metadata = {
