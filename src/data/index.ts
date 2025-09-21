@@ -1,4 +1,4 @@
-import type { Partner, CarouselImage, CultureKnowledge, VideoRecommendation, CultureItem, BookData } from "@/types";
+import type { Partner, CarouselImage, CultureKnowledge, VideoRecommendation, CultureItem, BookData, Event } from "@/types";
 
 // 合作夥伴數據
 
@@ -290,6 +290,46 @@ export const bookCardData: BookData[] = [
     pages: 224,
     isbn: "9978-626-423-539-6",
     eisbn: "9786264235365"
+  },
+];
+
+//活動
+export const eventData: Event[] = [
+  {
+    id: "1",
+    title: "故宮浮世之美",
+    date: "2025-09-20",
+    mainImage: "/images/museums/故宮_浮世之美.jpg",
+    description: "故宮博物院經典展覽，展現東方藝術之美",
+    relatedImages: ["/images/gallery/2.jpg", "/images/gallery/3.jpg", "/images/museums/故宮_浮世之美.jpg"],
+    type: "current",
+  },
+  {
+    id: "2",
+    title: "奇美博物館展覽",
+    date: "2025-09-21",
+    mainImage: "/images/museums/奇美博物館.jpg",
+    description: "台南奇美博物館的精彩展覽與文物收藏",
+    relatedImages: ["/images/gallery/5.jpg", "/images/gallery/15.jpg", "/images/gallery/4.jpg", "/images/gallery/5.jpg", "/images/gallery/4.jpg", "/images/gallery/5.jpg"],
+    type: "current",
+  },
+  {
+    id: "3",
+    title: "田中達也特展",
+    date: "2025-03-15 ~ 2025-04-01",
+    mainImage: "/images/museums/田中.jpg",
+    description: "田中達也特展-大師眼中的微型組合",
+    relatedImages: ["/images/gallery/6.jpg"],
+    type: "past",
+  },
+  {
+    id: "4",
+    title: "世界新聞攝影展",
+    date: "2025-03-15 ~ 2025-04-01",
+    mainImage: "/images/museums/世界攝影展.jpg",
+    relatedImages: ["/images/gallery/7.jpg"],
+    description: "世界新聞攝影展 -財團法人玉溪有容教育基金",
+    type: "past",
   },
 ];
 

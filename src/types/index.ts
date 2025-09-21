@@ -56,6 +56,16 @@ export interface CarouselImage {
   description?: string;
 }
 
+export interface Event {
+  id: string;
+  title: string;
+  date: string;
+  mainImage: string;
+  description: string;
+  relatedImages: string[];
+  type: "current" | "past"; // column grouping
+}
+
 export interface CultureKnowledge {
   id: string;
   title: string;
