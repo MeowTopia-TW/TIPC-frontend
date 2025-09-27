@@ -63,7 +63,8 @@ export function SpotlightList<T extends Record<string, any>>({
   return (
     <div 
         ref={listRef}
-        className={`bg-[${BGcolor}] flex flex-col items-center  rounded-2xl `}
+        className={`flex flex-col items-center  rounded-2xl `}
+        style={{ backgroundColor: BGcolor }}
         >
           <h2 className="text-center text-3xl font-bold my-3">{TitleKey}</h2>
       {/* Items */}
@@ -102,14 +103,14 @@ export function SpotlightList<T extends Record<string, any>>({
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute bottom-0 w-full bg-black/50 text-white text-center py-2">
+                    <div className="absolute bottom-0 w-full bg-black/50 text-white text-center   line-clamp-2">
                       {title}
                     </div>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="text-black text-sm">{title}</p>
+                  <p className="text-black text-sm line-clamp-1">{title}</p>
                 </div>
               )}
             </div>
@@ -140,7 +141,7 @@ export default function MediaSelectPage() {
   
 
   return (
-    <PageLayout title={cultureitem.title} subtitle="Media Selection" headerpic="/images/culture/怎麼做.jpg">
+    <PageLayout title={cultureitem.title} subtitle="Media Selection" headerpic={cultureitem.image}>
       <div className="min-h-screen bg-gray-50">
                 {/* test list */}
             <div className="mx-auto px-4 py-10">
