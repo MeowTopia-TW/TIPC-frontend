@@ -120,7 +120,7 @@ export function SpotlightList<T extends Record<string, any>>({
       {/* "More" item */}
       <Link
         href={`/${TypeKey}/${CultureKey}`}
-        className="mt-4 text-blue-600 underline hover:text-blue-800"
+        className="bg-gray-500/60 text-white px-8 py-3 rounded-lg font-semibold mb-4"
       >
         更多內容
       </Link>
