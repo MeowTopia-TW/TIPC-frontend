@@ -3,7 +3,7 @@
 import { Metadata } from 'next';
 import Image from "next/image";
 import Masonry from "react-masonry-css";
-import { PageLayout } from '@/components';
+import { PageLayout, MasonryGallery } from '@/components';
 import { useParams } from "next/navigation";
 import { eventData } from "@/data";
 
@@ -58,23 +58,21 @@ export default function EventContentPage() {
           />
 
           {/* Inline Image */}
-          <Masonry
-            breakpointCols={breakpointColumnsObj}
-            className="flex gap-6 my-6"
-            columnClassName="flex flex-col gap-6"
-          >
-            {Eventitem.relatedImages.map((img, i) => (
-              <div key={i} className="overflow-hidden rounded-xl shadow-lg">
-                <Image
-                  src={img}
-                  alt={`${Eventitem.title} related ${i}`}
-                  width={600}
-                  height={400}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            ))}
-          </Masonry>
+          <MasonryGallery
+            images={Eventitem.relatedImages}
+            breakpointColumnsObj={{
+              default: 3, // 4 columns desktop
+              1280: 3,
+              1024: 3,
+              768: 2,
+              500: 2,
+            }}
+            loadMoreConfig={{
+              mode: "append",
+              batchSize: 12, 
+              buttonText: "載入更多",
+            }}
+          />
 
           
         </section>

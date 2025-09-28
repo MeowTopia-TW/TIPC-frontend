@@ -63,7 +63,7 @@ export interface Event {
   mainImage: string;
   subTitle: string;
   description: string;
-  relatedImages: string[];
+  relatedImages: GalleryImage[];
   type: "current" | "past"; // column grouping
   alt: string;
 }

@@ -4,9 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Masonry from "react-masonry-css";
-import { PageLayout } from '@/components';
+import { PageLayout, MasonryGallery } from '@/components';
 import type { Event } from "@/types";
 import { eventData } from "@/data";
+
 
 //TODO: auto sort date(start date end date, read current date to determine past/current event)
 
@@ -111,32 +112,27 @@ function EventCard({ event }: { event: Event }) {
 
       {/* Expanded Section */}
       {expanded && (
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="flex gap-6"
-          columnClassName="flex flex-col gap-6"
-        >
-          {event.relatedImages.map((img, i) => (
-            <div key={i} className="overflow-hidden rounded-xl shadow-lg">
-              <Image
-                src={img}
-                alt={`${event.title} related ${i}`}
-                width={600}
-                height={400}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          ))}
-        </Masonry>
+        <MasonryGallery
+          images={event.relatedImages.slice(0, 5)}
+          breakpointColumnsObj={{
+            default: 2,
+          }}
+          loadMoreConfig={{
+            mode: "link",
+            href: `/event/${event.id}`,
+            buttonText: "查看活動",
+          }}
+        />
+
       )}
     </div>
   );
 }
 
-
 export default function EventPage() {
   const currentEvents = eventData.filter((e) => e.type === "current");
   const pastEvents = eventData.filter((e) => e.type === "past");
+  
 
   return (
     <PageLayout title="活動探索" subtitle="Events" headerpic="/images/header/所有活動_頭.png">

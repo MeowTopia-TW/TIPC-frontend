@@ -7,6 +7,10 @@ export { default as LoadingScreen } from './layout/LoadingScreen';
 // Navigation Components
 export { default as Navigation } from './navigation/Navigation';
 
+// Media Components
+export { default as ImageLightbox } from './media/ImageLightBox';
+export { default as MasonryGallery } from './media/MasonryPictureGallery';
+
 // Section Components
 export { default as MainVisual } from './sections/MainVisual';
 export { default as ImageCarousel } from './sections/ImageCarousel';
