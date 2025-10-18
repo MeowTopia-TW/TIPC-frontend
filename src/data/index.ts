@@ -99,8 +99,10 @@ export const videosData: VideoRecommendation[] = [
     type: 'youtube',
     src: 'https://www.youtube.com/embed/Fjln6HlIpo8?si=82UxfNaeb92Sy4Wl',
     detail: ""
-  }
+  },
 ];
+
+
 
 // 文化知識數據
 export const cultureItemsData: CultureKnowledge[] = [
@@ -207,7 +209,7 @@ export const allImages: GalleryImage[] = Array.from({ length: 28 }, (_, index) =
   src: `/images/gallery/${index + 1}.jpg`
 }));
 
-//
+
 export const CultureExplorerData: CultureItem[] = [
   {
     id: "1",
@@ -242,7 +244,7 @@ export const bookCardData: BookData[] = [
     id: "1",
     bookName: "地方創生可以不一樣",
     author: ["李智仁", "陳德齡","嚴昱如"],
-    image: "/images/book1.png",
+    image: "/images/books/book1.png",
     category: "文化資產",
     publicDate: "2025/06/30(1版1刷)",
     publisher: "五南",
@@ -256,7 +258,7 @@ export const bookCardData: BookData[] = [
     id: "2",
     bookName: "地方創生可以不一樣",
     author: ["李智仁", "陳德齡","嚴昱如"],
-    image: "/images/book1.png",
+    image: "/images/books/book1.png",
     category: "文化資產",
     publicDate: "2025/06/30(1版1刷)",
     publisher: "五南",
@@ -343,6 +345,38 @@ export const eventData: Event[] = [
     type: "past",
     alt: "世界新聞攝影展",
   },
+  {
+    id: "6",
+    title: "彰化地方創生活動",
+    date: "2025-10-14",
+    mainImage: "/images/event/past/Changhua/Changhua_01.jpg",
+    relatedImages: [
+    { id: 1, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_01.jpg" },
+    { id: 2, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_02.jpg" },
+    { id: 3, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_03.jpg" },
+    { id: 4, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_04.jpg" },
+    { id: 5, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_05.jpg" },
+    { id: 6, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_06.jpg" },
+    { id: 7, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_07.jpg" },
+    { id: 8, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_08.jpg" },
+    { id: 9, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_09.jpg" },
+    { id: 10, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_10.jpg" },
+    { id: 11, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_11.jpg" },
+    { id: 12, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_12.jpg" },
+    { id: 13, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_13.jpg" },
+    { id: 14, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_14.jpg" },
+    { id: 15, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_15.jpg" },
+    { id: 16, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_16.jpg" },
+    { id: 17, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_17.jpg" },
+    { id: 18, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_18.jpg" },
+    { id: 19, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_19.jpg" },
+    { id: 20, title: "彰化地方創生活動", src: "/images/event/past/Changhua/Changhua_20.jpg" },
+  ],
+    description: "彰化地方創生活動",
+    subTitle: "彰化地方創生活動",
+    type: "past",
+    alt: "彰化地方創生活動",
+  }
   
 ];
 
