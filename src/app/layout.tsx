@@ -18,9 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-TW">
-      <body style={{ 
-          fontFamily: 'TaipeiSansTCBetaBold, "TaipeiSansTCBeta-Bold-TC UI", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif',
-        }}>
+      <body>
         {children}
       </body>
     </html>

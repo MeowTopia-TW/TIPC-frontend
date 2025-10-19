@@ -16,6 +16,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: 'TaipeiSansTCBetaBold', "TaipeiSansTCBeta-Bold-TC UI", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
 }
 
 /* 自定義樣式 */
