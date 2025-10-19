@@ -1,8 +1,5 @@
 "use client";
-
-import { Metadata } from 'next';
 import Image from "next/image";
-import Masonry from "react-masonry-css";
 import { PageLayout, MasonryGallery } from '@/components';
 import { useParams } from "next/navigation";
 import { eventData } from "@/data";
@@ -18,13 +15,10 @@ export default function EventContentPage() {
     return <p className="text-center mt-10">Articledata not found.</p>;
   }
 
-  const breakpointColumnsObj = {
-    default: 3, // 4 columns desktop
-    1280: 3,
-    1024: 3,
-    768: 2,
-    500: 2,
-  };
+  // Convert newline characters to <br> so author-entered line breaks render correctly
+  const descriptionHtml = (Eventitem.description || '').replace(/\n/g, '<br />');
+
+  // masonry breakpoints are configured inline where used
   
   return (
     <PageLayout title="活動探索" subtitle="Event" headerpic="/images/header/event.jpeg">
@@ -52,9 +46,9 @@ export default function EventContentPage() {
 
         {/* Article Content */}
         <section className="prose prose-lg max-w-none">
-          <p 
+          <p
             className="text-gray-500"
-            dangerouslySetInnerHTML={{ __html: Eventitem.description }}
+            dangerouslySetInnerHTML={{ __html: descriptionHtml }}
           />
 
           {/* Inline Image */}
