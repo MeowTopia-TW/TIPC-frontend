@@ -12,7 +12,7 @@ export default function ArticleContentPage() {
   const content = params?.content as string;
 
   if (!content) return null;
-  const Articleitem = CultureArticleData.find((item) => item.title === content);
+  const Articleitem = CultureArticleData.find((item) => item.id === content);
 
   if (!Articleitem) {
     return <p className="text-center mt-10">Articledata not found.</p>;

@@ -152,7 +152,7 @@ export const CultureArticleData: CultureItem[] = [
   },
   {
     id: "3",
-    title: "article3",
+    title: "文章3",
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/3.jpg",
     category: "",

@@ -31,7 +31,7 @@ export default function ArticlePage() {
           {articleToShow.map((Article) => (
             <Link 
               key={Article.id}
-              href={`/article/${id}/${Article.title}`}
+              href={`/article/${id}/${Article.id}`}
               className="group relative bg-white rounded-1xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
             >
             {/* 主要圖片區域 */}
