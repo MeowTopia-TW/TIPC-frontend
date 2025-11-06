@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Masonry from "react-masonry-css";
 import { PageLayout, MasonryGallery } from '@/components';
 import type { Event } from "@/types";
 import { eventData } from "@/data";
@@ -44,13 +43,6 @@ import { eventData } from "@/data";
 function EventCard({ event }: { event: Event }) {
   const [expanded, setExpanded] = useState(false);
 
-  const breakpointColumnsObj = {
-    default: 2, // 4 columns desktop
-    1280: 2,
-    1024: 2,
-    768: 2,
-    500: 2,
-  };
   
   return (
     <div className="relative group mb-6 cursor-pointer">

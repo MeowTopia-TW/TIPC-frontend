@@ -19,7 +19,7 @@ type SpotlightListProps<T> = {
   BGcolor: string;
 };
 
-export function SpotlightList<T extends Record<string, any>>({
+export function SpotlightList<T extends Record<string, unknown>>({
   items,
   titleKey,
   imageKey,
@@ -64,7 +64,7 @@ export function SpotlightList<T extends Record<string, any>>({
           <h2 className="text-center text-3xl font-bold my-3">{TitleKey}</h2>
       {/* Items */}
       <div className="flex-1 flex flex-col items-center justify-center space-y-4 my-3">
-        {Array.from({ length: items.length * 3 }).map((_, i) => {
+  {Array.from({ length: items.length * 3 }).map((_: unknown, i: number) => {
           //const offset = i - currentIndex;
           const virtualIndex = i;
           const realIndex = virtualIndex % items.length;
@@ -85,9 +85,9 @@ export function SpotlightList<T extends Record<string, any>>({
           return (
             <div
               key={i}
-              className={`transition-all duration-300 ${
-                offset === 0 ? "opacity-100 scale-105" : "opacity-50 scale-90"
-              } flex flex-col items-center cursor-pointer`}
+              className={`transition-all duration-300 ${opacity} ${
+                  offset === 0 ? "scale-105" : "scale-90"
+                } flex flex-col items-center cursor-pointer`}
             >
               {offset === 0 ? (
                 <div>

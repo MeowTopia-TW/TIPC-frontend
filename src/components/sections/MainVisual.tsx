@@ -146,7 +146,7 @@ export default function MainVisual() {
         }
         
         if (!isLoading) {
-          requestAnimationFrame(monitorPerformance);
+          window.requestAnimationFrame(monitorPerformance);
         }
       } else {
         // 其他系統默認高效能
@@ -155,7 +155,7 @@ export default function MainVisual() {
     };
     
     if (!isLoading) {
-      requestAnimationFrame(monitorPerformance);
+      window.requestAnimationFrame(monitorPerformance);
     }
     
     const updateBreakpoint = () => {
@@ -797,13 +797,13 @@ export default function MainVisual() {
 
     // 延遲執行優化，確保所有動畫都有機會完成
     const timeoutId = setTimeout(() => {
-      rafId = requestAnimationFrame(optimizePerformance);
+      rafId = window.requestAnimationFrame(optimizePerformance);
     }, 10000); // 10秒後檢查並優化
 
     return () => {
       clearTimeout(timeoutId);
       if (rafId) {
-        cancelAnimationFrame(rafId);
+        window.cancelAnimationFrame(rafId);
       }
     };
   }, [elementRefs]);

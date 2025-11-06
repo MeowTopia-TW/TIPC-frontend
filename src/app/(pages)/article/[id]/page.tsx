@@ -1,12 +1,11 @@
 "use client";
 
-import { Metadata } from 'next';
 import Link from "next/link";
 import Image from "next/image";
 import { PageLayout } from '@/components';
 import { CultureArticleData } from "@/data";
 import { useParams } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ArticlePage() {
 

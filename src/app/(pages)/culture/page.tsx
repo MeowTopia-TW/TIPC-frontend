@@ -1,6 +1,5 @@
 "use client";
 
-import { Metadata } from 'next';
 import Image from "next/image";
 import { PageLayout } from '@/components';
 import { CultureExplorerData } from "@/data";

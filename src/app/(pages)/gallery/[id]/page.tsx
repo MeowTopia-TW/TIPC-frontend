@@ -2,21 +2,10 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Metadata } from 'next';
 import { PageLayout } from '@/components';
 import { videosData } from "@/data";
 import { VideoRecommendation } from "@/types";
 
-
-// 影像資料（local）
-const imageCount = 6;
-
-const allImages = Array.from({ length: imageCount }, (_, index) => ({
-  id: index + 1,
-  title: `文化影音 ${index + 1}`, // <-- backticks, not quotes
-  //src: `/images/gallery/${index + 1}.jpg`
-  src: `/images/videorecommendations/原民生態智慧.jpg`
-}));
 
 
 export default function GalleryPage() {
@@ -64,7 +53,7 @@ export default function GalleryPage() {
   
         zoom();
         
-        requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
           if (panelRef.current && backgroundref.current)
           {
             panelRef.current.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';

@@ -1,11 +1,8 @@
 "use client";
 
-import { Metadata } from 'next';
-import Image from "next/image";
+
+
 import { PageLayout } from '@/components';
-import { CultureExplorerData } from "@/data";
-import { useParams } from "next/navigation";
-import { CultureArticleData } from "@/data";
 
 export default function ArticleContentPage() {
   

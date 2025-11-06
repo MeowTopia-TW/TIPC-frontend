@@ -5,6 +5,7 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import Image from "next/image";
 import { BookData } from "@/types";
 
 export default function BookCard({ book }: { book: BookData }) {
@@ -31,9 +32,11 @@ export default function BookCard({ book }: { book: BookData }) {
         floated={false}
         className="m-0 w-full sm:w-2/5 shrink-0 rounded-none sm:rounded-r-none border-b-2 border-gray-200 flex justify-center items-center"
       >
-        <img
+        <Image
           src={book.image}
           alt={book.bookName}
+          width={160}
+          height={160}
           className="object-cover w-40 h-40 sm:w-full sm:h-full"
         />
       </CardHeader>

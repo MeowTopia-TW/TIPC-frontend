@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { PageLayout } from '@/components';
+import Image from "next/image";
 
 const partnerData: Record<string, { name: string; description: string; logo: string }> = {
   apple: {
@@ -35,7 +36,7 @@ export default function PartnerDetailPage() {
     <PageLayout title={partner.name} subtitle="合作夥伴詳情" headerpic="/images/header/partner.jpeg">
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-4xl mx-auto py-10 text-center">
-            <img
+            <Image
             src={partner.logo}
             alt={partner.name}
             className="w-40 h-40 object-contain mx-auto mb-6"

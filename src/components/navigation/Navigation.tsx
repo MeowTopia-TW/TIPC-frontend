@@ -40,9 +40,6 @@ export default function Navigation({ variant = 'header', className = '' }: Navig
     }
   };
 
-  const homeClick = () => {
-    router.push('/about'); // Navigate
-  };
 
   useEffect(() => {
         // 影片欄背景不可滑動 

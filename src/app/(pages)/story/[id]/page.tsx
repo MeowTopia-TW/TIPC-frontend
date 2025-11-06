@@ -1,7 +1,6 @@
 'use client';
 
 import { PageLayout, MasonryGallery } from '@/components';
-import type { GalleryImage } from "@/types";
 import { allImages } from "@/data";
 
 
