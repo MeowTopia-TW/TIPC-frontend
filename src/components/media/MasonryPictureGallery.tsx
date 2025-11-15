@@ -7,7 +7,8 @@ import Masonry from "react-masonry-css";
 import Link from "next/link";
 import type { GalleryImage } from "@/types";
 import { ImageLightbox } from '@/components';
-
+import { bookCardData } from "@/data";
+import BookLightbox from "../sections/BookCard";
 
 type LoadMoreConfig =
   | {
@@ -21,22 +22,34 @@ type LoadMoreConfig =
       buttonText?: string;
     };
 
+type lightboxMode =
+  | {
+      mode: "Image";
+    }
+  | {
+      mode: "Book";
+    };
+
 type MasonryGalleryProps = {
   images: GalleryImage[];
   breakpointColumnsObj: Record<string, number>;
   loadMoreConfig?: LoadMoreConfig;
+  lightboxMode?: lightboxMode;
+  gap?: number;
 };
 
 export default function MasonryGallery({
   images,
   breakpointColumnsObj,
   loadMoreConfig,
+  lightboxMode,
+  gap,
 }: MasonryGalleryProps) {
   const [visibleCount, setVisibleCount] = useState(
     loadMoreConfig?.mode === "append" ? loadMoreConfig.batchSize || 6 : images.length
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState<GalleryImage | null>(null);
+  const [currentImage, setCurrentImage] = useState<GalleryImage>({id:0,title:"initial",src:"/icons/logo_b.png/"});
   const [initialRect, setInitialRect] = useState<DOMRect | null>(null);
 
   const openPanel = (e: React.MouseEvent, image: GalleryImage) => {
@@ -59,7 +72,7 @@ export default function MasonryGallery({
       {/* Masonry Grid */}
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="flex gap-6"
+        className={`flex gap-${(gap)? gap : 6}`}
         columnClassName="flex flex-col gap-6"
       >
         {visibleImages.map((image) => (
@@ -103,12 +116,28 @@ export default function MasonryGallery({
       )}
 
       {/* Lightbox */}
-      <ImageLightbox
-        image={currentImage}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        initialRect={initialRect}
-      />
+      {lightboxMode && (
+        <div className="flex justify-center mt-6">
+          {lightboxMode.mode === "Book" ? (
+            <div className="grid grid-cols-1 gap-6 place-items-center">
+              <BookLightbox 
+                
+                book={bookCardData[currentImage.id]} 
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                initialRect={initialRect}
+                />
+            </div>
+          ) : (
+            <ImageLightbox
+              image={currentImage}
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              initialRect={initialRect}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

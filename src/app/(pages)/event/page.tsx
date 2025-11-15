@@ -114,6 +114,9 @@ function EventCard({ event }: { event: Event }) {
             href: `/event/${event.id}`,
             buttonText: "查看活動",
           }}
+          lightboxMode={{
+              mode:"Image"
+            }}
         />
 
       )}
