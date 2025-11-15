@@ -7,10 +7,119 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import { BookData } from "@/types";
+import { useRef, useEffect } from "react";
 
-export default function BookCard({ book }: { book: BookData }) {
+type BookCardProps = {
+  
+  book: BookData;
+  isOpen: boolean;
+  onClose: () => void;
+  initialRect: DOMRect | null;
+};
+
+export default function BookLightbox({
+  book,
+  isOpen,
+  onClose,
+  initialRect,
+}: BookCardProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+
+  // zoom animation helper
+  const zoom = () => {
+    if (panelRef.current && initialRect && backgroundRef.current) {
+      const panelRect = panelRef.current.getBoundingClientRect();
+      const scaleX = initialRect.width / panelRect.width;
+      const scaleY = initialRect.height / panelRect.height;
+      const translateX =
+        initialRect.left +
+        initialRect.width / 2 -
+        (panelRect.left + panelRect.width / 2);
+      const translateY =
+        initialRect.top +
+        initialRect.height / 2 -
+        (panelRect.top + panelRect.height / 2);
+
+      panelRef.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) scale(${scaleX}, ${scaleY})`;
+      panelRef.current.style.opacity = "0";
+      backgroundRef.current.style.opacity = "0";
+    }
+  };
+
+  // open animation
+  useEffect(() => {
+    if (isOpen && panelRef.current && initialRect && backgroundRef.current) {
+      zoom();
+      requestAnimationFrame(() => {
+        if (panelRef.current && backgroundRef.current) {
+          panelRef.current.style.transition =
+            "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
+          panelRef.current.style.transform = "none";
+          panelRef.current.style.opacity = "1";
+          backgroundRef.current.style.transition = "opacity 0.5s ease-in-out";
+          backgroundRef.current.style.opacity = "1";
+        }
+      });
+
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [isOpen, initialRect]);
+
+  // close animation
+  const handleClose = () => {
+    document.body.style.overflow = "";
+    if (!panelRef.current || !initialRect) {
+      onClose();
+      return;
+    }
+
+    zoom();
+    setTimeout(() => {
+      onClose();
+      if (panelRef.current) {
+        panelRef.current.style.transform = "";
+        panelRef.current.style.opacity = "";
+      }
+    }, 500);
+  };
+
+  if (!isOpen || !book) return null;
+
   return (
-    <Card className="w-full max-w-[64rem] flex flex-col sm:flex-row items-stretch border-b-2 border-gray-200 relative">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      onClick={handleClose}
+    >
+      <div ref={backgroundRef} className="fixed inset-0 bg-black/80" />
+      <div
+        ref={panelRef}
+        className="p-6 rounded-lg relative [&::-webkit-scrollbar]:hidden scrollbar-hide"
+      >
+        {/* Close button */}
+        <button
+          className="absolute top-2 right-2 text-xl font-bold text-gray-300 hover:text-white rounded-full shadow hover:bg-white/10"
+          onClick={handleClose}
+        >
+          ✕
+        </button>
+
+        {/* Book */}
+        <BookCard book={book} />
+        
+      </div>
+    </div>
+  );
+}
+
+
+///
+function BookCard({ book  }: { book: BookData }) {
+  return (
+    <Card className="w-full max-w-[64rem] flex flex-col sm:flex-row items-stretch border-b-0 border-gray-200 relative overflow-hidden">
       {/* 多個 label tag：桌面右上，手機右下 */}
       {/* 桌面版 */}
       {book.tags && book.tags.length > 0 && (
@@ -19,7 +128,7 @@ export default function BookCard({ book }: { book: BookData }) {
             {book.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="bg-[#CC6915]/10 text-[#CC6915] rounded-lg px-4 py-2 text-base font-bold shadow-md"
+                className="bg-[#CC6915]/10 text-[#CC6915] rounded-lg px-4 py-2 text-base font-bold shadow-md "
               >
                 {tag}
               </span>
@@ -30,7 +139,7 @@ export default function BookCard({ book }: { book: BookData }) {
       <CardHeader
         shadow={false}
         floated={false}
-        className="m-0 w-full sm:w-2/5 shrink-0 rounded-none sm:rounded-r-none border-b-2 border-gray-200 flex justify-center items-center"
+        className="m-0 w-full sm:w-2/5 shrink-0 rounded-none sm:rounded-r-none border-b-0 border-gray-200 flex justify-center items-center "
       >
         <Image
           src={book.image}

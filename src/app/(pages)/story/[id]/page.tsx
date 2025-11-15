@@ -49,6 +49,9 @@ export default function StoryPage() {
               batchSize: 12, 
               buttonText: "載入更多",
             }}
+            lightboxMode={{
+              mode:"Image"
+            }}
           />
         </div>
       </div>
