@@ -136,11 +136,11 @@ export const cultureItemsData: CultureKnowledge[] = [
 export const CultureArticleData: CultureItem[] = [
   {
     id: "1",
-    title: "article1",
-    description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
-    image: "/images/gallery/1.jpg",
+    title: "台北保安宮介紹",
+    description: "大龍峒保安宮的歷史始於乾隆七年（1742年），由來自福建同安的移民從家鄉白礁慈濟宮分靈保生大帝香火，歷經兩次改建，於嘉慶十年至道光十年（1805年至1830年）間建成為現今的規模。",
+    image: "/images/gallery/article1.jpg",
     category: "食",
-    date: "2025/09/10"
+    date: "2025/09/13"
   },
   {
     id: "2",

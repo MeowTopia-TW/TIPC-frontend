@@ -16,7 +16,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'TaipeiSansTCBetaBold', "TaipeiSansTCBeta-Bold-TC UI", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+  font-family: 'TaipeiSansTCBetaBold', "TaipeiSansTCBeta-Bold-TC UI", 'NSTC' , "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
 }
 
 /* 自定義樣式 */
@@ -98,12 +98,30 @@ img {
 }
 
 @font-face {
+  font-family: 'NSTC';
+  src: url('/font/NotoSerifTC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'TaipeiSansTCBetaBold';
   src: url('/font/TaipeiSansTCBeta-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
+
+.article-title,
+h1.article-title,
+h2.article-title {
+  font-family: 'NSTC', 'TaipeiSansTC', serif;
+  font-weight: 700; /* ensures bold face used */
+  /* optional: better fallback for line-height/spacing */
+  line-height: 1.15;
+}
+
 
 @theme {
   --breakpoint-3xl: 1920px;
