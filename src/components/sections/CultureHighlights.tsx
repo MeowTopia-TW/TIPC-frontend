@@ -14,22 +14,22 @@ export default function CultureHighlights() {
       id: 'layer1',
       label: '產業/品牌',
       link: '/industry-brand',
-      textPosition: { top: '45%', left: '53%' },
-      clickArea: { top: '45%', left: '53%', width: '24%', height: '12%' }
+      textPosition: { top: '46%', left: '52%' },
+      clickArea: { top: '46%', left: '52%', width: '24%', height: '12%' }
     },
     {
       id: 'layer2',
       label: '文化資產 + 文化活動',
       link: '/cultural-heritage',
-      textPosition: { top: '64%', left: '53%' },
-      clickArea: { top: '64%', left: '53%', width: '34%', height: '14%' }
+      textPosition: { top: '63%', left: '53%' },
+      clickArea: { top: '63%', left: '53%', width: '34%', height: '14%' }
     },
     {
       id: 'layer3',
       label: '共享/文化(影像)記憶',
       link: '/shared-memory',
-      textPosition: { top: '88%', left: '53%' },
-      clickArea: { top: '88%', left: '53%', width: '44%', height: '16%' }
+      textPosition: { top: '85%', left: '53%' },
+      clickArea: { top: '85%', left: '53%', width: '44%', height: '16%' }
     }
   ];
 
@@ -44,21 +44,21 @@ export default function CultureHighlights() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative min-h-screen bg-[#FAF9EB] flex items-center justify-center overflow-visible py-8 sm:py-12"
+      className="relative bg-[#FAF9EB] flex items-center justify-center overflow-visible py-8 sm:py-12"
     >
-      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="relative w-full mx-auto">
         
         {/* Cake Diagram Container */}
         <div className="relative w-full flex items-center justify-center">
           
           {/* Base Cake Image */}
-          <div className="relative w-full max-w-6xl">
+          <div className="relative w-full">
             <Image
               src="/cakeDiagram/cake.PNG"
               alt="Cultural Development Diagram"
               width={1400}
               height={950}
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain scale-90"
               priority
             />
 
@@ -84,7 +84,7 @@ export default function CultureHighlights() {
                       <span 
                         className="text-white font-bold text-center block whitespace-nowrap"
                         style={{ 
-                          fontSize: 'clamp(10px, 3vw, 38px)',
+                          fontSize: 'clamp(10px, 3.5vw, 50px)',
                           textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
                         }}
                       >
@@ -101,14 +101,14 @@ export default function CultureHighlights() {
                 className="absolute pointer-events-none"
                 style={{ 
                   top: '35%', 
-                  left: '8%', 
+                  left: '12.5%', 
                   zIndex: 20
                 }}
               >
                 <div 
                   className="font-bold text-center leading-tight text-white"
                   style={{ 
-                    fontSize: 'clamp(8px, 2.5vw, 30px)',
+                    fontSize: 'clamp(8px, 2.8vw, 40px)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.6)'
                   }}
                 >
@@ -129,7 +129,7 @@ export default function CultureHighlights() {
                 className="absolute pointer-events-auto cursor-pointer hover:scale-105 transition-transform duration-200"
                 style={{ 
                   top: '42%', 
-                  left: '16%', 
+                  left: '20%', 
                   zIndex: 20
                 }}
                 onClick={handleLocalRevitalizationClick}
@@ -138,7 +138,7 @@ export default function CultureHighlights() {
                 <div 
                   className="font-bold text-center text-white"
                   style={{ 
-                    fontSize: 'clamp(9px, 2.5vw, 30px)',
+                    fontSize: 'clamp(9px, 2.8vw, 40px)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.6)'
                   }}
                 >
@@ -154,14 +154,14 @@ export default function CultureHighlights() {
                 className="absolute pointer-events-none"
                 style={{ 
                   top: '35%', 
-                  right: '15%', 
+                  right: '18.5%', 
                   zIndex: 20
                 }}
               >
                 <div 
                   className="font-bold text-center leading-tight text-white"
                   style={{ 
-                    fontSize: 'clamp(8px, 2.5vw, 30px)',
+                    fontSize: 'clamp(8px, 2.8vw, 40px)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.6)'
                   }}
                 >
@@ -176,15 +176,15 @@ export default function CultureHighlights() {
               <div 
                 className="absolute pointer-events-none"
                 style={{ 
-                  top: '36%', 
-                  right: '22.5%', 
+                  top: '37%', 
+                  right: '25.5%', 
                   zIndex: 20
                 }}
               >
                 <div 
                   className="font-bold text-center text-white"
                   style={{ 
-                    fontSize: 'clamp(9px, 2.6vw, 32px)',
+                    fontSize: 'clamp(9px, 3vw, 42px)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.6)'
                   }}
                 >
