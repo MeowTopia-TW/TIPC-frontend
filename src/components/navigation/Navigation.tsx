@@ -16,24 +16,10 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
   const [showPanel, setShowPanel] = useState(false);
   const router = useRouter()
   const pathname = usePathname();
-
-
   const logoPath = (variant === 'header') 
     ? "/icons/logo_text_w.png" 
     : "/icons/logo_text_BN.png";
 
-
-  /*const navItems = [
-    { href: '/about', label: '關於我們' },
-    { href: '/article/all', label: '觀點文章' },
-    { href: '/story/all', label: '光影故事' },
-    { href: '/gallery/all', label: 'TIPC影音' },
-    { href: '/book', label: 'TIPC選書' },
-    { href: '/archive', label: '典藏索引' },
-    { href: '/event', label: '活動探索' },
-    { href: '/partner', label: '合作夥伴' },
-    { href: '/contact', label: '聯絡我們' },
-  ];*/
 
   const handleClick = (href: string) => {
     if (pathname === href) {
@@ -73,7 +59,7 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
         >
           <div className="relative flex-shrink-0">
             <Image
-              src={logoSrc}
+              src={logoPath}
               alt="Cultural Website Logo"
               width={2605}
               height={506}
@@ -89,7 +75,7 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
             onClick={() => setIsLanguageOpen(!isLanguageOpen)}
             className="px-3 py-2 hover:bg-amber-900/20 rounded-lg flex items-center space-x-1">
             <svg
-              className={`w-7 h-7 ${isMainPage ? 'text-[#833416]' : 'text-white'}`}
+              className={`w-7 h-7 ${(variant === 'header')? `text-white` : `text-[#833416]`} `}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -98,7 +84,7 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
               <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" strokeWidth={1.5} />
               <path d="M2 12h20" strokeWidth={1.5} />
             </svg>
-            <span className={`font-bold text-lg leading-none ${isMainPage ? 'text-[#833416]' : 'text-white'}`}>{currentLanguage}</span>
+            <span className={`${(variant === 'header')? `text-white` : `text-[#833416]`} font-bold text-lg leading-none`}>{currentLanguage}</span>
           </button>
           
           {/* 下拉選單 */}
