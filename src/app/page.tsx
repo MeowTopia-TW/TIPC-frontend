@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { 
   MainVisual,
   ImageCarousel,
-  Slogan,
   CultureHighlights,
   VideoRecommendations,
   PartnerRecommendations,
@@ -27,9 +26,7 @@ export default function Home() {
         <MainVisual />
         {/* 輪播圖片區塊 - <ImageCarousel /> 在手繪大圖底下 */}
         <ImageCarousel />
-        
-        {/* 文字敘述與圖片區塊  <Slogan />*/}
-        <Slogan />
+      
         
         {/* 文化知識區塊  <CultureHighlights />*/}
         <CultureHighlights />

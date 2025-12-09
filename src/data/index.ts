@@ -1,7 +1,6 @@
-import type { Partner, CultureKnowledge, VideoRecommendation, CultureItem, BookData, Event } from "@/types";
+import type { Partner, VideoRecommendation, CultureItem, BookData, Event } from "@/types";
 
 // 合作夥伴數據
-
 export const partnersData: Partner[] = [
   {
     id: "cultural-museum",
@@ -103,35 +102,6 @@ export const videosData: VideoRecommendation[] = [
 ];
 
 
-
-// 文化知識數據
-export const cultureItemsData: CultureKnowledge[] = [
-  {
-    id: "cultural-sustainability",
-    title: "文化永續",
-    image: "/images/culture/怎麼做.jpg",
-    position: "top-left"
-  },
-  {
-    id: "cultural-memory",
-    title: "文化記憶",
-    image: "/images/culture/文化記憶2.jpg",
-    position: "top-right"
-  },
-  {
-    id: "cultural-property_Event",
-    title: "文化資產/文化活動",
-    image: "/images/culture/文化活動.jpg",
-    position: "bottom-left"
-  },
-  {
-    id: "cultural-industry_branding",
-    title: "文化產業/文化品牌",
-    image: "/images/culture/文化品牌2.jpg",
-    position: "bottom-right"
-  }
-];
-
 //專欄文章
 export const CultureArticleData: CultureItem[] = [
   {
@@ -140,7 +110,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/1.jpg",
     category: "食",
-    date: "2025/09/10"
+    date: "2025/09/10",
+    tags: ["文化傳承", "飲食文化"]
   },
   {
     id: "2",
@@ -148,7 +119,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/2.jpg",
     category: "衣",
-    date: "2025/09/01"
+    date: "2025/09/01",
+    tags: ["傳統工藝", "服飾文化", "文化資產"]
   },
   {
     id: "3",
@@ -156,7 +128,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/3.jpg",
     category: "住",
-    date: "2025/08/15"
+    date: "2025/08/15",
+    tags: ["建築文化", "地方創生"]
   },
   {
     id: "4",
@@ -164,7 +137,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/4.jpg",
     category: "行",
-    date: "2025/07/10"
+    date: "2025/07/10",
+    tags: ["交通文化"]
   },
   {
     id: "5",
@@ -172,7 +146,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/5.jpg",
     category: "育",
-    date: "2025/06/10"
+    date: "2025/06/10",
+    tags: ["教育推廣", "文化教育", "傳統藝術"]
   },
   {
     id: "6",
@@ -180,7 +155,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/6.jpg",
     category: "樂",
-    date: "2025/09/10"
+    date: "2025/09/10",
+    tags: ["音樂文化", "表演藝術"]
   },
   {
     id: "7",
@@ -188,7 +164,8 @@ export const CultureArticleData: CultureItem[] = [
     description: "內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格，如此處示範：「西元 2000 年」，標點符號請用全形。內文請用微軟正黑體，10pt，行距單行，內文請控制於 1500 字內。阿拉伯數字前後請空格",
     image: "/images/gallery/7.jpg",
     category: "重要事件",
-    date: "2025/09/10"
+    date: "2025/09/10",
+    tags: ["文化活動", "社區營造", "地方創生"]
   },
   {
     id: "8",
@@ -200,34 +177,6 @@ export const CultureArticleData: CultureItem[] = [
   }
   
   
-];
-
-
-export const CultureExplorerData: CultureItem[] = [
-  {
-    id: "1",
-    title: "",
-    description: "",
-    image: "/images/videorecommendations/.jpg",
-    category: "",
-    date: ""
-  },
-  {
-    id: "2",
-    title: "",
-    description: "",
-    image: "/images/videorecommendations/.jpg",
-    category: "",
-    date: ""
-  },
-  {
-    id: "3",
-    title: "",
-    description: "",
-    image: "/images/culture/.jpg",
-    category: "",
-    date: ""
-  }
 ];
 
 
@@ -311,7 +260,7 @@ export const eventData: Event[] = [
     id: "1",
     title: "地方創生可以不一樣新書發表會",
     date: "2025-08-16",
-    mainImage: "/images/gallery/bookmain.jpg",
+    mainImage: "/images/event/past/Book/bookmain.jpg",
   description: `脫下鞋子 奔跑
     我原本不知
     最終目的在何方
@@ -321,11 +270,11 @@ export const eventData: Event[] = [
     往完美的方向`,
     subTitle: "Impromptu142, 臺北市萬華區長沙街二段142號",
     relatedImages: [
-    { id: 1, title: "book1", src: "/images/gallery/book1.jpg" },
-    { id: 2, title: "book2", src: "/images/gallery/book2.jpg" },
-    { id: 3, title: "book3", src: "/images/gallery/book3.jpg" },
-    { id: 4, title: "book4", src: "/images/gallery/book4.jpg" },
-    { id: 5, title: "book5", src: "/images/gallery/book5.jpg" },
+    { id: 1, title: "book1", src: "/images/event/past/Book/book1.jpg" },
+    { id: 2, title: "book2", src: "/images/event/past/Book/book2.jpg" },
+    { id: 3, title: "book3", src: "/images/event/past/Book/book3.jpg" },
+    { id: 4, title: "book4", src: "/images/event/past/Book/book4.jpg" },
+    { id: 5, title: "book5", src: "/images/event/past/Book/book5.jpg" },
   ],
     type: "past",
     alt: "地方創生可以不一樣新書發表會",
@@ -435,4 +384,4 @@ export const navItems = [
     { href: '/event', label: '活動探索' },
     { href: '/partner', label: '合作夥伴' },
     { href: '/contact', label: '聯絡我們' },
-  ];
+];

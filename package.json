@@ -17,9 +17,9 @@
     "@prisma/client": "^6.16.1",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
-    "next": "^15.5.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "16.0.7",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-masonry-css": "^1.0.16",
     "sharp": "^0.34.3",
     "tailwind-merge": "^3.3.1"

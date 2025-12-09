@@ -434,13 +434,6 @@
     "OrgWebLink": "https://tfai.openmuseum.tw/newsreel"
   },
   {
-    "id": 63,
-    "Class": "影音",
-    "WebName": "台灣國際紀錄片影展TIDF",
-    "OrgName": "國家電影及視聽文化中心",
-    "OrgWebLink": "https://www.tidf.org.tw/zh-hant/film-database"
-  },
-  {
     "id": 64,
     "Class": "影音",
     "WebName": "TaiwanDocs台灣紀錄片資料庫",
