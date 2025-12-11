@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { PageLayout } from '@/components';
 import { useParams } from "next/navigation";
-import { articlesData } from "@/data";
+import articlesData  from  '@/data/article.json';
 
 export default function ArticleContentPage() {
   const params = useParams();
@@ -71,7 +71,7 @@ export default function ArticleContentPage() {
                       className="rounded-lg object-contain mx-auto"
                     />
                     {(block.caption || block.notation) && (
-                      <figcaption className="text-sm text-gray-500 mt-2 text-left">
+                      <figcaption className="text-base text-gray-500 mt-2 text-left whitespace-pre-line">
                         {block.caption}
                         {block.notation && (
                           <sup className="text-[#833416] font-bold ml-1">{block.notation}</sup>
@@ -85,7 +85,7 @@ export default function ArticleContentPage() {
                 return (
                   <blockquote
                     key={index}
-                    className="border-l-4 border-[#833416] pl-4 italic text-gray-700 text-lg sm:text-xl my-6"
+                    className="border-l-4 border-[#833416] pl-4 italic text-gray-700 text-lg sm:text-xl my-6 whitespace-pre-line"
                   >
                     {block.content}
                   </blockquote>

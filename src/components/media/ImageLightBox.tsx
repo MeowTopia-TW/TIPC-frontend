@@ -3,15 +3,15 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import type { GalleryImage } from "@/types";
+import type { storyImage } from "@/types";
 
 type ImageLightboxProps = {
-  image: GalleryImage | null;
+  image: storyImage | null;
   isOpen: boolean;
   onClose: () => void;
   initialRect: DOMRect | null;
-  allImages?: GalleryImage[];
-  onImageChange?: (image: GalleryImage) => void;
+  allImages?: storyImage[];
+  onImageChange?: (image: storyImage) => void;
 };
 
 export default function ImageLightbox({
@@ -26,7 +26,7 @@ export default function ImageLightbox({
   const backgroundRef = useRef<HTMLDivElement>(null);
 
   // Handle related image click
-  const handleRelatedImageClick = (relatedImg: GalleryImage) => {
+  const handleRelatedImageClick = (relatedImg: storyImage) => {
     if (onImageChange) {
       onImageChange(relatedImg);
     }
@@ -145,13 +145,13 @@ export default function ImageLightbox({
               </div>
             )}
 
-            {/* Date */}
-            {image.date && (
+            {/* photoDate */}
+            {image.photoDate && (
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                  日期 Date
+                  攝影日期 photoDate
                 </h3>
-                <p className="text-lg text-gray-800">{image.date}</p>
+                <p className="text-lg text-gray-800">{image.photoDate}</p>
               </div>
             )}
 

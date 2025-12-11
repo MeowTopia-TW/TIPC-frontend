@@ -24,25 +24,19 @@ export interface BookData {
   eisbn?: string;
 }
 
-export interface VideoItem {
-  id: string;
+
+export interface storyImage {
+  id: number;
+  src: string;
   title: string;
   description: string;
-  thumbnail: string;
-  videoUrl?: string;
-  duration?: string;
+  author: string;
+  photoDate: string;
+  cakeCategory: string[];
+  nineBlocks: string[];
+  subID: string;
+  size: string;
 }
-
-export interface GalleryImage {
-  id: number;
-  title: string;
-  src: string;
-  description?: string;
-  author?: string;
-  date?: string;
-  category?: string;
-  subID?: string;
-};
 
 export interface CarouselImage {
   id: string;
@@ -59,28 +53,24 @@ export interface Event {
   mainImage: string;
   subTitle: string;
   description: string;
-  relatedImages: GalleryImage[];
+  relatedImages: storyImage[];
   type: "current" | "past"; // column grouping
   alt: string;
 }
 
-export interface CultureKnowledge {
-  id: string;
-  title: string;
-  image: string;
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-}
 
 export interface VideoRecommendation {
   id: string;
   title: string;
+  author: string;
+  shootingDate: string;
   description: string;
   thumbnail: string;
   duration: string;
-  category: string;
-  type: 'youtube' | 'local';
+  cakeCategory: string[];
+  keywords: string[];
+  nineBlocks: string[];
   src: string;
-  detail: string;
 }
 
 export interface Article {

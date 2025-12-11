@@ -2,11 +2,11 @@
 
 import { PageLayout ,MasonryGallery} from '@/components';
 import { bookCardData } from "@/data";
-import type { GalleryImage } from "@/types";
+import type { storyImage } from "@/types";
 
 export default function BookPage() {
 
-  const BookCoverImages: GalleryImage[] = Array.from({ length: bookCardData.length }, (_, index) => ({
+  const BookCoverImages: storyImage[] = Array.from({ length: bookCardData.length }, (_, index) => ({
     id: index ,
     title: `Book ${index + 1}`,
     src: bookCardData[index].image

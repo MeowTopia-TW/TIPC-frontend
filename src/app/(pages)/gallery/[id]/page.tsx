@@ -2,22 +2,13 @@
 'use client';
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
-import { PageLayout } from '@/components';
-import { videosData } from "@/data";
+import { PageLayout, VideoBlock } from '@/components';
+import  videosData  from "@/data/video.json"
 import { VideoRecommendation } from "@/types";
 
 
 
 export default function GalleryPage() {
-  const [visibleCount, setVisibleCount] = useState(4); // 初始顯示數量
-  const videosToShow = videosData.slice(0, visibleCount);
-
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + 4);
-  };
-
-  const VideoRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [currentVideo, setCurrentVideo] = useState<VideoRecommendation | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -110,57 +101,14 @@ export default function GalleryPage() {
 
           {/* 影像展示區域 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-6">
-            {videosToShow.map((video) => (
-              <div
+            {videosData.map((video) => (
+              <VideoBlock
                 key={video.id}
-                ref={VideoRef}
-                className="video-card group relative min-w-[280px] sm:min-w-[320px] lg:min-w-[400px] bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer overflow-hidden border border-gray-100 "
+                video={video}
                 onClick={(e) => openPanel(e, video)}
-              >
-                {/* 影片縮圖區域 */}
-                <div className="relative h-64 sm:h-80 overflow-hidden">
-                  <Image
-                    src={video.thumbnail}
-                    alt={video.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-    
-                  {/* 影片播放圖示 */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 md:w-16 md:h-16 bg-white/80 md:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg className="w-6 h-6 md:w-8 md:h-8 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-    
-                  {/* 影片資訊標籤 */}
-                  <div className="absolute top-4 left-4 bg-blue-600/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {video.category}
-                  </div>
-                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
-                    {video.duration}
-                  </div>
-                </div>
-    
-                {/* 詳細描述 - 手機顯示，電腦 hover 顯示 */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex items-end">
-                  <div className="p-4 md:p-6 text-white">
-                    <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">{video.title}</h3>
-                    <p className="text-xs md:text-sm leading-relaxed text-gray-200 line-clamp-3 md:line-clamp-none">{video.description}</p>
-                    <div className="mt-3 md:mt-4 flex items-center justify-between">
-                      <span className="text-xs md:text-sm bg-white/20 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full">
-                        {video.category}
-                      </span>
-                      <span className="text-xs md:text-sm font-medium">{video.duration}</span>
-                    </div>
-                  </div>
-                </div>
-    
-                {/* 懸停效果 */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              </div>
+                showTextAlways={true}
+                className="min-w-[280px] sm:min-w-[320px] lg:min-w-[400px]"
+              />
             ))}
             
           </div>
@@ -193,36 +141,17 @@ export default function GalleryPage() {
                   </svg>
                 </button>
                 {/* 影片本體 */}
-                {currentVideo.type === 'youtube' ? (
-                  <iframe
-                    className="w-full aspect-video rounded"
-                    src={currentVideo.src}
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                  />
-                ) : (
-                  <video controls autoPlay className="w-full rounded">
-                    <source src={currentVideo.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
+                <iframe
+                  className="w-full aspect-video rounded"
+                  src={currentVideo.src}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
                 {/* 影片欄說明 */}
                 <div className="text-lg space-y-4 mt-4">
                   <p>{currentVideo.title}</p> 
                 </div>
               </div>
-            </div>
-          )}
-
-          {/* 載入更多按鈕 */}
-          {visibleCount < videosData.length && (
-            <div className="text-center mt-12">
-              <button
-                onClick={loadMore}
-                className="bg-[#833416] text-white px-8 py-3 rounded-lg hover:bg-[#a0471f] transition-colors font-semibold"
-              >
-                載入更多
-              </button>
             </div>
           )}
         </div>

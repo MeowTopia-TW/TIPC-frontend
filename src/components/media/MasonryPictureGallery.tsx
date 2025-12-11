@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Masonry from "react-masonry-css";
 import Link from "next/link";
-import type { GalleryImage } from "@/types";
+import type { storyImage } from "@/types";
 import { ImageLightbox } from '@/components';
 import { bookCardData } from "@/data";
 import BookLightbox from "../sections/BookCard";
@@ -31,7 +31,7 @@ type lightboxMode =
     };
 
 type MasonryGalleryProps = {
-  images: GalleryImage[];
+  images: storyImage[];
   breakpointColumnsObj: Record<string, number>;
   loadMoreConfig?: LoadMoreConfig;
   lightboxMode?: lightboxMode;
@@ -49,16 +49,16 @@ export default function MasonryGallery({
     loadMoreConfig?.mode === "append" ? loadMoreConfig.batchSize || 6 : images.length
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState<GalleryImage>({id:0,title:"initial",src:"/icons/logo_b.png/"});
+  const [currentImage, setCurrentImage] = useState<storyImage>({id:0,title:"initial",src:"/icons/logo_b.png/"});
   const [initialRect, setInitialRect] = useState<DOMRect | null>(null);
 
-  const openPanel = (e: React.MouseEvent, image: GalleryImage) => {
+  const openPanel = (e: React.MouseEvent, image: storyImage) => {
     setInitialRect(e.currentTarget.getBoundingClientRect());
     setCurrentImage(image);
     setIsOpen(true);
   };
 
-  const handleImageChange = (image: GalleryImage) => {
+  const handleImageChange = (image: storyImage) => {
     setCurrentImage(image);
   };
 

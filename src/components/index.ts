@@ -10,6 +10,7 @@ export { default as Navigation } from './navigation/Navigation';
 // Media Components
 export { default as ImageLightbox } from './media/ImageLightBox';
 export { default as MasonryGallery } from './media/MasonryPictureGallery';
+export { default as VideoBlock } from './media/VideoBlock';
 
 // Section Components
 export { default as MainVisual } from './sections/MainVisual';
