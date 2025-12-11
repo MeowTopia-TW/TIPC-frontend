@@ -29,14 +29,14 @@ export default function ArticleContentPage() {
             <h1 className="article-title">{article.title}</h1>
           </blockquote>
           <div className="flex items-center space-x-2 flex-wrap gap-2">
-            <p className="text-gray-700 text-lg">作者:{article.author}</p>
+            <p className="text-gray-700 text-xl sm:text-2xl">作者:{article.author}</p>
             {article.keyWords.map((keyword, index) => (
               <div key={index} className="
-                px-2 py-0.5          /* Horizontal and vertical padding */
+                px-3 py-1            /* Horizontal and vertical padding */
                 rounded-full         /* Full rounded corners */
                 border-2 border-gray-700 /* Outline color */
                 text-gray-700         /* Text color */
-                text-sm              /* Small text size */
+                text-base sm:text-lg /* Larger text size */
                 font-medium          /* Medium font weight */
               ">
                 {keyword}
@@ -45,39 +45,129 @@ export default function ArticleContentPage() {
           </div>
         </header>
 
-        {/* Cover Image */}
-        {article.imageMain && (
-          <div className="relative w-full h-80 mb-8 rounded-xl overflow-hidden shadow">
-            <Image
-              src={article.imageMain}
-              alt={article.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
-
         {/* Article Content */}
         <section className="prose prose-xl max-w-none">
-          {article.paragraphs.map((paragraph, index) => (
-            <p key={index} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4">
-              {paragraph}
-            </p>
-          ))}
+          {article.paragraphs.map((block, index) => {
+            switch (block.type) {
+              case "text":
+                return (
+                  <p key={index} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4">
+                    {block.content.map((chunk, i) => {
+                      if (chunk.text) return <span key={i}>{chunk.text}</span>;
+                      if (chunk.notation) return <sup key={i} className="text-[#833416] font-bold">{chunk.notation}</sup>;
+                      return null;
+                    })}
+                  </p>
+                );
 
-          {/* Content Images */}
-          {article.contentImages.map((imageSrc, index) => (
-            <figure key={index} className="my-8">
-              <Image
-                src={imageSrc}
-                alt={`${article.title} - Image ${index + 1}`}
-                width={800}
-                height={500}
-                className="rounded-lg object-contain mx-auto"
-              />
-            </figure>
-          ))}
+              case "image":
+                return (
+                  <figure key={index} className="my-8">
+                    <Image
+                      src={block.url}
+                      alt={block.caption || article.title}
+                      width={800}
+                      height={500}
+                      className="rounded-lg object-contain mx-auto"
+                    />
+                    {(block.caption || block.notation) && (
+                      <figcaption className="text-sm text-gray-500 mt-2 text-left">
+                        {block.caption}
+                        {block.notation && (
+                          <sup className="text-[#833416] font-bold ml-1">{block.notation}</sup>
+                        )}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
+
+              case "quote":
+                return (
+                  <blockquote
+                    key={index}
+                    className="border-l-4 border-[#833416] pl-4 italic text-gray-700 text-lg sm:text-xl my-6"
+                  >
+                    {block.content}
+                  </blockquote>
+                );
+
+              default:
+                return null;
+            }
+          })}
         </section>
+
+        {/* Footnotes Section */}
+        {article.footnotes && article.footnotes.length > 0 && (
+          <section className="mt-12 pt-8 border-t-2 border-gray-300">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">註解</h2>
+            <ol className="space-y-3">
+              {article.footnotes.map((footnote) => (
+                <li key={footnote.id} className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                  <sup className="text-[#833416] font-bold mr-2">{footnote.id}</sup>
+                  {footnote.url ? (
+                    <a 
+                      href={footnote.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-700 hover:text-gray-900 underline decoration-gray-400 hover:decoration-gray-600"
+                    >
+                      {footnote.text}
+                    </a>
+                  ) : (
+                    footnote.text
+                  )}
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {/* Videos Section */}
+        {article.videos && article.videos.length > 0 && (
+          <section className="mt-12 pt-8 border-t-2 border-gray-300">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">影片</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {article.videos.map((videoUrl, index) => (
+                <div key={index} className="aspect-video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={videoUrl}
+                    title={`Video ${index + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Podcasts Section */}
+        {article.podcasts && article.podcasts.length > 0 && (
+          <section className="mt-12 pt-8 border-t-2 border-gray-300">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">相關Podcast</h2>
+            <div className="space-y-4">
+              {article.podcasts.map((podcastUrl, index) => (
+                <div key={index} className="aspect-video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={podcastUrl}
+                    title={`Podcast ${index + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
     </div>
     </PageLayout>

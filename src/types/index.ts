@@ -9,16 +9,6 @@ export interface Partner {
   category?: string;
 }
 
-export interface CultureItem {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  category?: string;
-  date?: string;
-  tags?: string[];
-}
-
 export interface BookData {
   id: string;
   bookName: string;
@@ -104,11 +94,28 @@ export interface Article {
   uploadDate: string;
   relatedArticlesIDs: number[];
   imageMain: string;
-  contentImages: string[];
-  paragraphs: string[];
+  paragraphs: ParagraphBlock[];
   videos: string[];
   podcasts: string[];
+  footnotes?: Array<{ id: string; text: string; url?: string }>;
 }
+
+export type ParagraphBlock =
+  | {
+      type: "text";
+      content: Array<{ text?: string; notation?: string }>;
+    }
+  | {
+      type: "image";
+      url: string;
+      caption?: string;
+      notation?: string;
+    }
+  | {
+      type: "quote";
+      content: string;
+    };
+
 
 // API 響應類型
 export interface ApiResponse<T> {

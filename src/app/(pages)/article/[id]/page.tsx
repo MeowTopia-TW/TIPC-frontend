@@ -5,14 +5,11 @@ import Image from "next/image";
 import { PageLayout } from '@/components';
 import articleData from '@/data/article.json';
 import { useParams } from "next/navigation";
-import { useState } from "react";
 
 export default function ArticlePage() {
 
   const params = useParams();
   const id = params?.id as string;
-
-  const [visibleCount, setVisibleCount] = useState(3); // 初始顯示數量
 
   // 按日期排序（新的在前）
   const sortedArticles = articleData.sort((a, b) => {
@@ -23,12 +20,6 @@ export default function ArticlePage() {
     return uploadDateB.getTime() - uploadDateA.getTime(); // 降序排列（新的在前）
   });
 
-  const articleToShow = sortedArticles.slice(0, visibleCount);
-
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + 3);
-  };
-
   return (
     <PageLayout title="觀點文章" subtitle="Articles" headerpic="/images/header/article.jpeg">
       <div className="min-h-screen bg-gray-50">
@@ -37,7 +28,7 @@ export default function ArticlePage() {
       <div className="mx-auto px-10 sm:px-10 lg:px-30 py-16">
         {/* 文化分類區域 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {articleToShow.map((Article) => (
+          {sortedArticles.map((Article) => (
             <Link 
               key={Article.id}
               href={`/article/${id}/${Article.id}`}
@@ -68,10 +59,6 @@ export default function ArticlePage() {
               {Article.title}
             </h2>
 
-            <p className="text-gray-700 text-sm sm:text-base mb-4 line-clamp-3">
-              {Article.description}
-            </p>
-
             {/* Tags */}
             {Article.keyWords && Article.keyWords.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
@@ -85,27 +72,10 @@ export default function ArticlePage() {
                 ))}
               </div>
             )}
-
-            <div className="absolute bottom-2 left-3">
-              <p className="text-xs text-gray-500">{Article.uploadDate}</p>
-            </div>
           </div>
           </Link>
         ))}
         </div>
-        
-        {/* 載入更多按鈕 */}
-        {visibleCount < sortedArticles.length && (
-          <div className="text-center mt-12">
-            <button
-              onClick={loadMore}
-              className="bg-[#833416] text-white px-8 py-3 rounded-lg hover:bg-[#a0471f] transition-colors font-semibold"
-            >
-              載入更多
-            </button>
-          </div>
-        )}
-
       </div>
     </div>
     </PageLayout>
