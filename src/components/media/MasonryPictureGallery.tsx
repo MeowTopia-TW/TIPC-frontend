@@ -9,7 +9,7 @@ import type { storyImage } from "@/types";
 import { ImageLightbox } from '@/components';
 import bookData from '@/data/book.json';
 import BookLightbox from "../sections/BookCard";
-import type { LoadMoreConfig, LightboxMode, MasonryGalleryProps } from '@/types';
+import type { MasonryGalleryProps } from '@/types';
 
 export default function MasonryGallery({
   images,
