@@ -2,7 +2,7 @@
 
 import { PageLayout, MasonryGallery } from '@/components';
 import storyPicturesData from '@/data/storyPictures.json';
-import type { GalleryImage } from '@/types';
+import type { storyImage } from '@/types';
 
 
 export default function StoryPage() {
@@ -14,7 +14,7 @@ export default function StoryPage() {
         {/* 主要內容區域 */}
         <div className="max-w-7xl mx-auto p-6">
           <MasonryGallery
-            images={storyPicturesData as GalleryImage[]}
+            images={storyPicturesData as storyImage[]}
             breakpointColumnsObj={{
               default: 4, // 4 columns desktop
               1280: 4,

@@ -1,4 +1,129 @@
 // 通用類型定義
+export interface PageLayoutProps {
+  title?: string;      
+  subtitle?: string;
+  headerpic?: string;
+  children: ReactNode;
+  showHeader?: boolean;
+  showFooter?: boolean;
+}
+export type ImageLightboxProps = {
+  image: storyImage | null;
+  isOpen: boolean;
+  onClose: () => void;
+  initialRect: DOMRect | null;
+  allImages?: storyImage[];
+  onImageChange?: (image: storyImage) => void;
+};
+export type LoadMoreConfig =
+  | {
+      mode: "append";
+      batchSize?: number; // how many per click
+      buttonText?: string;
+    }
+  | {
+      mode: "link";
+      href: string;
+      buttonText?: string;
+    };
+
+export type lightboxMode =
+  | {
+      mode: "Image";
+    }
+  | {
+      mode: "Book";
+    };
+
+export type MasonryGalleryProps = {
+  images: storyImage[];
+  breakpointColumnsObj: Record<string, number>;
+  loadMoreConfig?: LoadMoreConfig;
+  lightboxMode?: lightboxMode;
+  gap?: number;
+};
+
+export type ArchiveCardProps = {
+  id: number;
+  webName: string;
+  tag: string;
+  orgName: string;
+  orgWebLink: string;
+};
+
+export type ArchiveFilterProps = {
+  onFilterChange: (filter: string | null) => void;
+  activeFilter: string | null;
+};
+
+export type BookCardProps = {
+  book: BookData;
+  isOpen: boolean;
+  onClose: () => void;
+  initialRect: DOMRect | null;
+};
+export interface NavigationProps {
+  variant?: 'main' | 'header' | 'simplified';
+  className?: string;
+}
+export interface NineBlockCardProps {
+  number: number;
+  title: string;
+  subtitle: string;
+  color: string;
+  iconSrc: string;
+  categoryId: string;
+  onClick: (categoryId: string) => void;
+}
+
+export type Archive = {
+    id: number;
+    Class: string;
+    WebName: string;
+    OrgName: string;
+    OrgWebLink: string;
+};
+
+export type MediaType = 'video' | 'image' | 'article';
+export type SizeModifier = 'wide' | 'tall' | 'normal';
+
+export interface GalleryItem {
+  id: string;
+  type: MediaType;
+  size?: SizeModifier;
+  imageUrl: string;
+  altText: string;
+  title?: string;
+  tag?: string;
+  linkHref?: string;
+  author?: string;
+  photoDate?: string;
+  description?: string;
+  keywords?: string[];
+  duration?: string;
+  cakeCategory?: string[];
+}
+
+export interface MediaGalleryProps {
+  items?: GalleryItem[];
+}
+
+export interface VideoBlockProps {
+  video: VideoRecommendation;
+  onClick: (e: React.MouseEvent) => void;
+  showTextAlways?: boolean;
+  className?: string;
+}
+
+export interface LoadingScreenProps {
+  onLoadingComplete: () => void;
+}
+
+export interface HeaderProps {
+  title: string;
+  subtitle?: string;
+  headerpic?: string;
+}
 export interface Partner {
   id: string;
   name: string;
@@ -9,49 +134,38 @@ export interface Partner {
   category?: string;
 }
 
-export interface CultureItem {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  category?: string;
-  date?: string;
-  tags?: string[];
-}
-
 export interface BookData {
   id: string;
   bookName: string;
   author: string[];
   image: string;
-  category?: string;
-  publicDate?: string;
-  publisher?: string;
-  description?: string;
-  tags?: string[];
-  pages?: number;
-  isbn?: string;
-  eisbn?: string;
+  uploadDate: string;
+  publisher: string;
+  isbn: string;
+  referencePerson: string[];
 }
 
-export interface VideoItem {
-  id: string;
+export interface storyImage {
+  id: number;
+  src: string;
   title: string;
   description: string;
-  thumbnail: string;
-  videoUrl?: string;
-  duration?: string;
+  author: string;
+  uploadDate: string;
+  photoDate: string;
+  cakeCategory: string[];
+  nineBlocks: string[];
+  subID: string;
+  size: string;
 }
 
-export interface GalleryImage {
+
+export type PartnerCardProps = {
   id: number;
-  title: string;
-  src: string;
-  description?: string;
-  author?: string;
-  date?: string;
-  category?: string;
-  subID?: string;
+  link: string;
+  picture: string;
+  description: string;
+  name: string;
 };
 
 export interface CarouselImage {
@@ -69,39 +183,57 @@ export interface Event {
   mainImage: string;
   subTitle: string;
   description: string;
-  relatedImages: GalleryImage[];
+  relatedImages: storyImage[];
   type: "current" | "past"; // column grouping
   alt: string;
 }
 
-export interface CultureKnowledge {
-  id: string;
-  title: string;
-  image: string;
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-}
 
 export interface VideoRecommendation {
   id: string;
   title: string;
+  author: string;
+  shootingDate: string;
+  uploadDate: string;
   description: string;
   thumbnail: string;
   duration: string;
-  category: string;
-  type: 'youtube' | 'local';
+  cakeCategory: string[];
+  keywords: string[];
+  nineBlocks: string[];
   src: string;
-  detail: string;
 }
 
-// API 響應類型
-export interface ApiResponse<T> {
-  data: T;
-  message?: string;
-  status: 'success' | 'error';
+export interface Article {
+  id: number;
+  title: string;
+  author: string;
+  description: string;
+  cakeCategory: string[];
+  keyWords: string[];
+  nineBlocks: string[];
+  uploadDate: string;
+  relatedArticlesIDs: number[];
+  imageMain: string;
+  paragraphs: ParagraphBlock[];
+  videos: string[];
+  podcasts: string[];
+  footnotes?: Array<{ id: string; text: string; url?: string }>;
 }
 
-// 頁面 Props 類型
-export interface PageProps {
-  params: { [key: string]: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
+export type ParagraphBlock =
+  | {
+      type: "text";
+      content: Array<{ text?: string; notation?: string }>;
+    }
+  | {
+      type: "image";
+      url: string;
+      caption?: string;
+      notation?: string;
+    }
+  | {
+      type: "quote";
+      content: string;
+    };
+

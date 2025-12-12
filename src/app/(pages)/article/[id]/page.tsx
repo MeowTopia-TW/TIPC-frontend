@@ -3,31 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PageLayout } from '@/components';
-import { CultureArticleData } from "@/data";
+import articleData from '@/data/article.json';
 import { useParams } from "next/navigation";
-import { useState } from "react";
 
 export default function ArticlePage() {
 
   const params = useParams();
   const id = params?.id as string;
 
-  const [visibleCount, setVisibleCount] = useState(3); // 初始顯示數量
-
   // 按日期排序（新的在前）
-  const sortedArticles = CultureArticleData.sort((a, b) => {
-    // 將日期字串轉換為 Date 物件進行比較
-    if (!a.date || !b.date) return 0;
-    const dateA = new Date(a.date.replace(/\//g, '-'));
-    const dateB = new Date(b.date.replace(/\//g, '-'));
-    return dateB.getTime() - dateA.getTime(); // 降序排列（新的在前）
+  const sortedArticles = articleData.sort((a, b) => {
+    // 將日期字串轉換為 uploadDate 物件進行比較
+    if (!a.uploadDate || !b.uploadDate) return 0;
+    const uploadDateA = new Date(a.uploadDate.replace(/\//g, '-'));
+    const uploadDateB = new Date(b.uploadDate.replace(/\//g, '-'));
+    return uploadDateB.getTime() - uploadDateA.getTime(); // 降序排列（新的在前）
   });
-
-  const articleToShow = sortedArticles.slice(0, visibleCount);
-
-  const loadMore = () => {
-    setVisibleCount((prev) => prev + 3);
-  };
 
   return (
     <PageLayout title="觀點文章" subtitle="Articles" headerpic="/images/header/article.jpeg">
@@ -37,7 +28,7 @@ export default function ArticlePage() {
       <div className="mx-auto px-10 sm:px-10 lg:px-30 py-16">
         {/* 文化分類區域 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {articleToShow.map((Article) => (
+          {sortedArticles.map((Article) => (
             <Link 
               key={Article.id}
               href={`/article/${id}/${Article.id}`}
@@ -48,14 +39,14 @@ export default function ArticlePage() {
             {/* Thumbnail */}
           <div className="relative w-full h-60">
             <Image
-              src={Article.image}
+              src={Article.imageMain}
               alt={Article.title}
               fill
               className="object-cover"
             />
             
             {/* Category Badge */}
-            {Article.category && (
+            {Article.nineBlocks && (
               <div className="absolute bottom-0 left-0 bg-orange-600 text-white px-4 py-2 font-bold text-base w-1/2 text-center">
                 文化影響力平台
               </div>
@@ -68,44 +59,23 @@ export default function ArticlePage() {
               {Article.title}
             </h2>
 
-            <p className="text-gray-700 text-sm sm:text-base mb-4 line-clamp-3">
-              {Article.description}
-            </p>
-
             {/* Tags */}
-            {Article.tags && Article.tags.length > 0 && (
+            {Article.keyWords && Article.keyWords.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
-                {Article.tags.map((tag, index) => (
+                {Article.keyWords.map((keyWords, index) => (
                   <span
                     key={index}
                     className="inline-block bg-white text-black text-xs sm:text-base font-semibold px-3 py-1 rounded-full border border-gray-300"
                   >
-                    {tag}
+                    {keyWords}
                   </span>
                 ))}
               </div>
             )}
-
-            <div className="absolute bottom-2 left-3">
-              <p className="text-xs text-gray-500">{Article.date}</p>
-            </div>
           </div>
           </Link>
         ))}
         </div>
-        
-        {/* 載入更多按鈕 */}
-        {visibleCount < sortedArticles.length && (
-          <div className="text-center mt-12">
-            <button
-              onClick={loadMore}
-              className="bg-[#833416] text-white px-8 py-3 rounded-lg hover:bg-[#a0471f] transition-colors font-semibold"
-            >
-              載入更多
-            </button>
-          </div>
-        )}
-
       </div>
     </div>
     </PageLayout>
