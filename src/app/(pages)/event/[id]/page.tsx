@@ -2,7 +2,12 @@
 import Image from "next/image";
 import { PageLayout, MasonryGallery } from '@/components';
 import { useParams } from "next/navigation";
-import  eventData  from "@/data/events.json";
+import eventDataRaw from "@/data/events.json";
+import { processEvents, type EventRaw } from "@/lib/eventUtils";
+import type { Event } from "@/types";
+
+// Automatically update event types based on dates
+const eventData = processEvents(eventDataRaw as EventRaw[]);
 
 export default function EventContentPage() {
   const params = useParams();

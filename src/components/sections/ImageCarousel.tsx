@@ -6,7 +6,12 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import eventData from "@/data/events.json";
+import eventDataRaw from "@/data/events.json";
+import { processEvents, type EventRaw } from "@/lib/eventUtils";
+import type { Event } from "@/types";
+
+// Automatically update event types based on dates
+const eventData = processEvents(eventDataRaw as EventRaw[]);
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
