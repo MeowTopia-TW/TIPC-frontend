@@ -8,7 +8,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import eventDataRaw from "@/data/events.json";
 import { processEvents, type EventRaw } from "@/lib/eventUtils";
-import type { Event } from "@/types";
 
 // Automatically update event types based on dates
 const eventData = processEvents(eventDataRaw as EventRaw[]);

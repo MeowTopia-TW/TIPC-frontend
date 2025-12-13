@@ -4,7 +4,6 @@ import { PageLayout, MasonryGallery } from '@/components';
 import { useParams } from "next/navigation";
 import eventDataRaw from "@/data/events.json";
 import { processEvents, type EventRaw } from "@/lib/eventUtils";
-import type { Event } from "@/types";
 
 // Automatically update event types based on dates
 const eventData = processEvents(eventDataRaw as EventRaw[]);
