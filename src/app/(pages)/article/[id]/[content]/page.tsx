@@ -1,13 +1,17 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { PageLayout } from '@/components';
 import { useParams } from "next/navigation";
 import articlesData  from  '@/data/article.json';
-import { notoSerifTC } from '@/lib/fonts';
+import { notoSerifTC, notoSansTC } from '@/lib/fonts';
+import { useState } from 'react';
 
 export default function ArticleContentPage() {
   const params = useParams();
   const content = params?.content as string;
+  const [showShareMenu, setShowShareMenu] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   if (!content) return null;
   
@@ -17,9 +21,48 @@ export default function ArticleContentPage() {
   if (!article) {
     return <p className="text-center mt-10">Article not found.</p>;
   }
+
+  // Get related articles from the same cake category
+  const relatedArticles = articlesData
+    .filter((item) => 
+      item.id !== article.id && // Exclude current article
+      item.cakeCategory.some((cat) => article.cakeCategory.includes(cat)) // Same cake category
+    )
+    .sort((a, b) => {
+      // Sort by uploadDate (newest first)
+      const dateA = new Date(a.uploadDate);
+      const dateB = new Date(b.uploadDate);
+      return dateB.getTime() - dateA.getTime();
+    })
+    .slice(0, 3); // Get maximum 3 articles
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShowShareMenu(false);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const handleShareFacebook = () => {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    setShowShareMenu(false);
+  };
   
   return (
-    <PageLayout title={article.title} subtitle="Article" headerpic="/images/header/article.jpeg">
+    <PageLayout title="觀點文章" subtitle="TIPC Articles" headerpic="/images/header/article.jpeg">
+      {/* Toast Notification - Outside scrollable content */}
+      {showToast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[9999] animate-slide-down pointer-events-none">
+          <div className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 whitespace-nowrap">
+            <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="font-medium">已複製文章連結</span>
+          </div>
+        </div>
+      )}
+
       <div className="min-h-screen bg-gray-50">
 
       {/* 主要內容區域 */}
@@ -29,30 +72,83 @@ export default function ArticleContentPage() {
           <blockquote className="text-4xl sm:text-6xl font-bold text-[#833416] border-l-4 border-[#833416] pl-4 mb-4">
             <h1 className={`article-title ${notoSerifTC.className}`}>{article.title}</h1>
           </blockquote>
-          <div className="flex items-center space-x-2 flex-wrap gap-2">
-            <p className="text-gray-700 text-xl sm:text-2xl">作者:{article.author}</p>
-            {article.keyWords.map((keyword, index) => (
-              <div key={index} className="
-                px-3 py-1            /* Horizontal and vertical padding */
-                rounded-full         /* Full rounded corners */
-                border-2 border-gray-700 /* Outline color */
-                text-gray-700         /* Text color */
-                text-base sm:text-lg /* Larger text size */
-                font-medium          /* Medium font weight */
-              ">
-                {keyword}
-              </div>
-            ))}
+          <hr className="border-t border-gray-300 mb-4" />
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center space-x-2 flex-wrap gap-2">
+              <p className="text-gray-700 text-base sm:text-xl md:text-2xl">作者:{article.author}</p>
+              {article.keyWords.map((keyword, index) => (
+                <div key={index} className="
+                  px-2 py-0.5 sm:px-3 sm:py-1 /* Horizontal and vertical padding */
+                  rounded-full         /* Full rounded corners */
+                  border-2 border-gray-700 /* Outline color */
+                  text-gray-700         /* Text color */
+                  text-sm sm:text-base md:text-lg /* Responsive text size */
+                  font-medium          /* Medium font weight */
+                ">
+                  {keyword}
+                </div>
+              ))}
+            </div>
+            <div className="relative flex-shrink-0">
+              <button 
+                onClick={() => setShowShareMenu(!showShareMenu)}
+                className="hover:opacity-70 px-5 transition-opacity"
+                aria-label="分享文章"
+              >
+                <Image 
+                  src="/icons/share.png" 
+                  alt="分享" 
+                  width={32} 
+                  height={32}
+                  className="w-8 h-8"
+                />
+              </button>
+              
+              {/* Share Menu Dropdown */}
+              {showShareMenu && (
+                <>
+                  <div 
+                    className="fixed inset-0 z-40" 
+                    onClick={() => setShowShareMenu(false)}
+                  />
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    <button
+                      onClick={handleCopyLink}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3 rounded-t-lg transition-colors"
+                    >
+                      <Image 
+                        src="/icons/copyLink.png" 
+                        alt="複製連結" 
+                        width={20} 
+                        height={20}
+                        className="w-5 h-5"
+                      />
+                      <span className="text-gray-700">複製連結</span>
+                    </button>
+                    <button
+                      onClick={handleShareFacebook}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3 rounded-b-lg transition-colors border-t border-gray-100"
+                    >
+                      <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      <span className="text-gray-700">分享到 Facebook</span>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
+          <hr className="border-t border-gray-300 mt-4" />
         </header>
 
         {/* Article Content */}
-        <section className="prose prose-xl max-w-none">
+        <section className={`prose prose-xl max-w-none ${notoSansTC.className} font-light`}>
           {article.paragraphs.map((block, index) => {
             switch (block.type) {
               case "text":
                 return (
-                  <p key={index} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4">
+                  <p key={index} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4 font-light">
                     {block.content.map((chunk, i) => {
                       if (chunk.text) return <span key={i}>{chunk.text}</span>;
                       if (chunk.notation) return <sup key={i} className="text-[#833416] font-bold">{chunk.notation}</sup>;
@@ -165,6 +261,52 @@ export default function ArticleContentPage() {
                     className="rounded-lg"
                   ></iframe>
                 </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Related Articles Section */}
+        {relatedArticles.length > 0 && (
+          <section className="mt-12 pt-8 border-t-2 border-gray-300">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">相關文章</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedArticles.map((relatedArticle) => (
+                <Link 
+                  key={relatedArticle.id}
+                  href={`/article/${relatedArticle.id}/${relatedArticle.id}`}
+                  className="group block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+                >
+                  {/* Article Image */}
+                  <div className="relative w-full h-48 overflow-hidden">
+                    <Image
+                      src={relatedArticle.imageMain}
+                      alt={relatedArticle.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Article Info */}
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#833416] transition-colors">
+                      {relatedArticle.title}
+                    </h3>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {relatedArticle.cakeCategory.map((cat, idx) => (
+                        <span 
+                          key={idx}
+                          className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {relatedArticle.author} · {relatedArticle.uploadDate}
+                    </p>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>
