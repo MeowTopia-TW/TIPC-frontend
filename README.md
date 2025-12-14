@@ -1,6 +1,6 @@
 # 台灣文化影響力平台 🏛️
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.4.4-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/) [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) [![GSAP](https://img.shields.io/badge/GSAP-3.13.0-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/) [![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16.0.7-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/) [![React](https://img.shields.io/badge/React-19.2.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) [![GSAP](https://img.shields.io/badge/GSAP-3.13.0-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/) [![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 
 ## 🌟 專案狀態
@@ -43,8 +43,8 @@
 
 ## 🛠️ 技術架構
 
-- **Next.js 15.4.4** - 使用 App Router 的 React 框架（支援 Turbopack）
-- **React 19.1.0** - 最新版本 React UI 程式庫
+- **Next.js 16.0.7** - 使用 App Router 的 React 框架（支援 Turbopack）
+- **React 19.2.1** - 最新版本 React UI 程式庫
 - **TypeScript 5** - 型別安全開發
 - **Tailwind CSS 4** - 最新版實用優先的 CSS 框架
 - **GSAP 3.13.0 + @gsap/react 2.1.2** - 現代化動畫引擎與 React Hook 整合
@@ -362,36 +362,6 @@ useEffect(() => {
 - 桌面版支援滑鼠滾輪操作
 - 動態顯示左右滑動箭頭
 
-## 🤝 貢獻指南
-
-我們歡迎所有形式的貢獻！請閱讀 [CONTRIBUTING.md](./CONTRIBUTING.md) 瞭解詳細資訊。
-
-### 快速貢獻步驟
-
-1. Fork 本專案到您的 GitHub 帳號
-2. 複製到本機：`git clone https://github.com/YOUR_USERNAME/Cultural-Website.git`
-3. 安裝依賴：`npm install`
-4. 建立功能分支：`git checkout -b feature/amazing-feature`
-5. 開發並測試您的功能
-6. 提交更改：`git commit -m 'feat: 新增驚豔功能'`
-7. 推送分支：`git push origin feature/amazing-feature`
-8. 建立 Pull Request
-
-### 程式碼規範
-- 使用 TypeScript 進行開發
-- 遵循 ESLint 規範
-- 組件名稱使用 PascalCase
-- 檔案名稱使用 kebab-case
-- 提交訊息遵循 [Conventional Commits](https://www.conventionalcommits.org/) 規範
-
-## 🐛 問題回報
-
-遇到問題嗎？請：
-
-1. 檢查 [Issues](../../issues) 是否已有相同問題
-2. 如果沒有，請建立新的 Issue
-3. 提供詳細的錯誤描述和重現步驟
-4. 附上您的環境資訊（作業系統、Node.js 版本、瀏覽器版本）
 
 ## 📊 專案完成度
 
@@ -406,19 +376,10 @@ useEffect(() => {
 - 🚧 **多語言支援** - 規劃中
 - 🚧 **內容管理系統** - 規劃中
 
-## �📄 授權條款
+## 📄 授權條款
 
 本專案採用 MIT 授權條款 - 詳見 [LICENSE](./LICENSE) 檔案
 
-## 🙏 致謝
-
-感謝所有貢獻者和開源社群的支持！
-
-特別感謝：
-- 台灣各大博物館提供的文化資源和圖片
-- Next.js、React 和 Tailwind CSS 開發團隊
-- GSAP 動畫引擎與 @gsap/react 團隊提供的強大功能
-- 所有參與 SVG 動畫設計的藝術家和設計師
 
 ---
 
