@@ -1,16 +1,18 @@
 "use client";
 
+import { notoSerifTC } from '@/lib/fonts';
+
 export default function FirstCakeInstruction() {
     return (
-        <section className="relative flex flex-col items-center justify-center overflow-visible py-8 sm:py-12" style={{ backgroundColor: '#F0A559' }}>
+        <section className="relative bg-[#FAF9EB] flex flex-col items-center justify-center overflow-visible py-8 sm:py-12">
             <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="text-black text-lg sm:text-2xl lg:text-3xl font-semibold mb-8 sm:mb-12 text-center">
+                <div className={`text-black text-2xl sm:text-3xl lg:text-4xl font-semibold mb-8 sm:mb-12 text-center ${notoSerifTC.className}`}>
                     邀請您一起在這個平台上找回台灣的文化驕傲與創生活力
                 </div>
                 
-                {/* 可調整的內容容器 - 有左右邊界線 */}
-                <div className="border-l-4 border-r-4 border-black px-4 sm:px-6 lg:px-8 py-6 mx-auto max-w-4xl">
-                    <div className="space-y-2 text-base sm:text-lg lg:text-xl leading-relaxed text-left" style={{ color: '#2D2B2B' }}>
+                {/* 可調整的內容容器 */}
+                <div className="py-6 mx-auto max-w-4xl">
+                    <div className="space-y-2 text-lg sm:text-xl lg:text-2xl leading-relaxed text-left" style={{ color: '#2D2B2B' }}>
                         <p>讓我們從文化(影像)記憶的找尋開始</p>
                         <p>接著進入充滿文化記憶的文化資產或文化活動中</p>
                         <p>品嘗屬於台灣的人文味道與感性</p>

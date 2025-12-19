@@ -9,6 +9,7 @@ import {
   EditorPick,
   Footer,
   FirstCakeInstruction,
+  SecondCakeInstruction,
   LoadingScreen
 } from '@/components';
 
@@ -32,9 +33,11 @@ export default function Home() {
         
         {/* 蛋糕圖區塊  <CakeDiagram />*/}
         <CakeDiagram />
+
+        <SecondCakeInstruction />
         
         {/* 影音推薦區塊  <VideoRecommendations /> */}
-       <VideoRecommendations />
+        <VideoRecommendations />
         
         {/* 編輯精選區塊 <EditorPick /> */}
         <EditorPick />
