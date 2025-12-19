@@ -767,7 +767,7 @@
         "nineBlocks":["住","行"],
         "uploadDate": "2025/12/18",
         "relatedArticlesIDs": [],
-        "imageMain":"/images/article/9-1.jpg",
+        "imageMain":"/images/article/9-1.JPG",
         "paragraphs": [
             {
                 "type": "text",
@@ -786,7 +786,7 @@
             },
             {
                 "type": "image",
-                "url": "/images/article/9-1.jpg",
+                "url": "/images/article/9-1.JPG",
                 "caption": "圖1：嚴教官於高雄岡山指導飛行員。"
             },
             {
