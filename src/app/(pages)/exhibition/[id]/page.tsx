@@ -2,9 +2,8 @@
 import Image from "next/image";
 import { PageLayout, MasonryGallery, UnityEmbed } from '@/components';
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import  exhibitionData  from "@/data/exhibition.json";
-import type { Exhibition } from "@/types";
+
 
 export default function ExhibitionContentPage() {
   const params = useParams();

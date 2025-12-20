@@ -11,7 +11,7 @@ export default function UnityEmbed({ buildname }: UnityEmbedProps) {
   
   // States
   const [isStarted, setIsStarted] = useState(false);
-  const [isEngineLoaded, setIsEngineLoaded] = useState(false); // Engine is running
+  //const [isEngineLoaded, setIsEngineLoaded] = useState(false); // Engine is running
   const [isGameReady, setIsGameReady] = useState(false);       // Addressables are done (Hide Screen)
   const [progress, setProgress] = useState(0);                 // 0-100
   const [loadingText, setLoadingText] = useState("LOADING ENGINE..."); // To show "Downloading Assets..." later
@@ -122,7 +122,7 @@ export default function UnityEmbed({ buildname }: UnityEmbedProps) {
               setLoadingText("LOADING ENGINE...");
           }
           else if (type === "ENGINE_STARTED") {
-              setIsEngineLoaded(true);
+              //setIsEngineLoaded(true);
               setLoadingText("DOWNLOADING ASSETS..."); // Update text!
               setProgress(50); // Engine done, now at 50%
           }
