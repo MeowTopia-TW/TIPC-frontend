@@ -360,13 +360,113 @@
         "referencePerson": ["葉姿吟"]
     },
     {
-        "id": "36",
+        "id": "37",
         "bookName": "瓦貓",
         "author": ["葛亮"],
         "image": "/images/books/瓦貓.jpg",
         "uploadDate": "2025/12/20",
         "publisher": "印刻文學",
         "isbn": "9789863875888",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "38",
+        "bookName": "守破離",
+        "author": ["葛維櫻","王丹陽","王鴻諒"],
+        "image": "/images/books/守破離.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "時報文化",
+        "isbn": "9789571383620",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "39",
+        "bookName": "匠人精神：一流人才育成的30條法則",
+        "author": ["秋山利輝"],
+        "image": "/images/books/匠人精神.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "中信",
+        "isbn": "9787508656151",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "39",
+        "bookName": "武士道：讓日本人成為今日的日本人的思想集",
+        "author": ["新渡戶稻造"],
+        "image": "/images/books/武士道.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "不二家",
+        "isbn": "9789869706964",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "40",
+        "bookName": "為什麼讀經典",
+        "author": ["伊塔羅．卡爾維諾"],
+        "image": "/images/books/為什麼讀經典.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "時報",
+        "isbn": "9789571343389",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "41",
+        "bookName": "傳奇不遠，歷史風濤中的文化人",
+        "author": ["魏邦良"],
+        "image": "/images/books/傳奇不遠，歷史風濤中的文化人.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "崧燁文化",
+        "isbn": "9786264160414",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "41",
+        "bookName": "天才的思考：高畑勳與宮崎駿",
+        "author": ["鈴木敏夫"],
+        "image": "/images/books/天才的思考.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "新經典文化",
+        "isbn": "9789860635454",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "42",
+        "bookName": "吉卜力的哲學：改變的事物與不變的事物",
+        "author": ["鈴木敏夫"],
+        "image": "/images/books/吉卜力的哲學.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "台灣東販",
+        "isbn": "9789864759996",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "43",
+        "bookName": "吉卜力：一直做下去",
+        "author": ["鈴木敏夫","柳橋閑"],
+        "image": "/images/books/吉卜力.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "中信",
+        "isbn": "9787521748284",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "44",
+        "bookName": "煙霞丘壑：中國古代畫家和他們的世界",
+        "author": ["尚剛"],
+        "image": "/images/books/煙霞丘壑.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "北京大學",
+        "isbn": "9787301293676",
+        "referencePerson": ["葉姿吟"]
+    },
+    {
+        "id": "45",
+        "bookName": "小山河",
+        "author": ["葛亮"],
+        "image": "/images/books/小山河.jpg",
+        "uploadDate": "2025/12/20",
+        "publisher": "九歌",
+        "isbn": "9789864501328",
         "referencePerson": ["葉姿吟"]
     }
 ]
