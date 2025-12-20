@@ -11,6 +11,7 @@ export { default as Navigation } from './navigation/Navigation';
 export { default as ImageLightbox } from './media/ImageLightBox';
 export { default as MasonryGallery } from './media/MasonryPictureGallery';
 export { default as VideoBlock } from './media/VideoBlock';
+export { default as UnityEmbed } from './media/UnityEmbed';
 
 // Section Components
 export { default as MainVisual } from './sections/MainVisual';
