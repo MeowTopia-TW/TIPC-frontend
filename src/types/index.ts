@@ -236,3 +236,21 @@ export type ParagraphBlock =
       content: string;
     };
 
+  export interface Exhibition {
+  id: string;
+  title: string;
+  date: string;
+  mainImage: string;
+  subTitle: string;
+  description: string;
+  Tutorial: string;
+  exhibitor: string;
+  relatedImages: storyImage[];
+  BuildName: string;
+  alt: string;
+}
+
+
+export type UnityEmbedProps = {
+  buildname: string;
+};
