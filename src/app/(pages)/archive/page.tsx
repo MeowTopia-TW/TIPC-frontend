@@ -22,7 +22,7 @@ export default function ArchivePage() {
     return (
          <PageLayout title="典藏索引" subtitle="Database Index on Taiwan" headerpic="/images/header/archive.jpeg">
             
-            <div className="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"> 
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"> 
                 <ArchiveFilter 
                     onFilterChange={handleFilterChange}
                     activeFilter={activeFilter}

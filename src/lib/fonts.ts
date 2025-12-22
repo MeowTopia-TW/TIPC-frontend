@@ -1,4 +1,5 @@
 import { Inter, Noto_Serif_TC, Noto_Sans_TC } from 'next/font/google';
+import localFont from 'next/font/local';
 
 
 // 英文字體 - Inter
@@ -21,5 +22,12 @@ export const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '700'],
   variable: '--font-noto-sans-tc',
+  display: 'swap',
+});
+
+// 中文字體 - Taipei Sans TC
+export const taipeiSansTC = localFont({
+  src: '../../public/font/TaipeiSansTCBeta-Regular.ttf',
+  variable: '--font-taipei-sans-tc',
   display: 'swap',
 });

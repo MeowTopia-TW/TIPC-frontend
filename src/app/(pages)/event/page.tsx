@@ -120,7 +120,7 @@ export default function EventPage() {
 
       {/* Past Events */}
       <div className="">
-        <h2 className="bg-[#833416] rounded-xl text-center text-2xl font-bold my-3">過往活動</h2>
+        <h2 className="bg-[#833416] rounded-xl text-center text-2xl font-bold my-3">活動花絮</h2>
         {pastEvents.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}

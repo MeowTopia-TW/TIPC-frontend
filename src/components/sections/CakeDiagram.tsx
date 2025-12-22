@@ -23,10 +23,10 @@ export default function CakeDiagram() {
       svgPath: '/cakeDiagram/產業.svg',
       link: '/industry-brand',
       position: { 
-        base: { top: '45%', left: '52%' },  // Mobile
-        md: { top: '45%', left: '52%' },    // Tablet 768px+
-        lg: { top: '45%', left: '52%' },    // iPad Pro 1024px+
-        xl: { top: '45%', left: '52%' }     // Desktop 1240px+
+        base: { top: '38%', left: '55.5%' },  // Mobile
+        md: { top: '38%', left: '55.5%' },    // Tablet 768px+
+        lg: { top: '38%', left: '55.5%' },    // iPad Pro 1024px+
+        xl: { top: '38%', left: '55.5%' }     // Desktop 1240px+
       },
       scale: { base: 0.45, md: 0.45, lg: 0.4, xl: 0.8 }
     },
@@ -35,10 +35,10 @@ export default function CakeDiagram() {
       svgPath: '/cakeDiagram/文化活動.svg',
       link: '/cultural-heritage',
       position: { 
-        base: { top: '63%', left: '52%' },
-        md: { top: '63%', left: '52%' },
-        lg: { top: '63%', left: '52%' },
-        xl: { top: '63%', left: '52%' }
+        base: { top: '58%', left: '56%' },
+        md: { top: '58%', left: '56%' },
+        lg: { top: '58%', left: '56%' },
+        xl: { top: '58%', left: '56%' }
       },
       scale: { base: 0.8, md: 0.8, lg: 0.8, xl: 1.4 }
     },
@@ -47,10 +47,10 @@ export default function CakeDiagram() {
       svgPath: '/cakeDiagram/共享.svg',
       link: '/shared-memory',
       position: { 
-        base: { top: '84%', left: '52%' },
-        md: { top: '84%', left: '52%' },
-        lg: { top: '84%', left: '52%' },
-        xl: { top: '84%', left: '52%' }
+        base: { top: '83%', left: '56%' },
+        md: { top: '83%', left: '56%' },
+        lg: { top: '83%', left: '56%' },
+        xl: { top: '83%', left: '56%' }
       },
       scale: { base: 1.0, md: 1.0, lg: 1.0, xl: 1.7 }
     }
@@ -63,10 +63,10 @@ export default function CakeDiagram() {
       svgPath: '/cakeDiagram/科技數位.svg',
       // Position as percentage of container - adjust per breakpoint for proper alignment
       position: { 
-        base: { top: '55%', left: '13%' },  // Mobile
-        md: { top: '55%', left: '13%' },    // Tablet 768px+
-        lg: { top: '55%', left: '13%' },    // iPad Pro 1024px+
-        xl: { top: '55%', left: '13%' }     // Desktop 1240px+
+        base: { top: '50%', left: '14%' },  // Mobile
+        md: { top: '50%', left: '14%' },    // Tablet 768px+
+        lg: { top: '50%', left: '14%' },    // iPad Pro 1024px+
+        xl: { top: '50%', left: '14%' }     // Desktop 1240px+
       },
       clickable: false,
       link: '',
@@ -77,10 +77,10 @@ export default function CakeDiagram() {
       id: 'local-revitalization',
       svgPath: '/cakeDiagram/地方創生.svg',
       position: { 
-        base: { top: '54%', left: '20.5%' },
-        md: { top: '54%', left: '20.5%' },
-        lg: { top: '54%', left: '20.5%' },
-        xl: { top: '54%', left: '20.5%' }
+        base: { top: '49%', left: '21.5%' },
+        md: { top: '49%', left: '21.5%' },
+        lg: { top: '49%', left: '21.5%' },
+        xl: { top: '49%', left: '21.5%' }
       },
       clickable: true,
       link: '/local-revitalization',
@@ -91,10 +91,10 @@ export default function CakeDiagram() {
       id: 'tech-enable-right',
       svgPath: '/cakeDiagram/科技.svg', 
       position: { 
-        base: { top: '48%', left: '81%' },
-        md: { top: '48%', left: '81%' },
-        lg: { top: '48%', left: '81%' },
-        xl: { top: '48%', left: '81%' }
+        base: { top: '45%', left: '87%' },
+        md: { top: '45%', left: '87%' },
+        lg: { top: '45%', left: '87%' },
+        xl: { top: '45%', left: '87%' }
       },
       clickable: false,
       link: '',
@@ -105,10 +105,10 @@ export default function CakeDiagram() {
       id: 'marketing-education',
       svgPath: '/cakeDiagram/行銷.svg',
       position: { 
-        base: { top: '52%', left: '74%' },
-        md: { top: '52%', left: '74%' },
-        lg: { top: '52%', left: '74%' },
-        xl: { top: '52%', left: '74%' }
+        base: { top: '50%', left: '79%' },
+        md: { top: '50%', left: '79%' },
+        lg: { top: '50%', left: '79%' },
+        xl: { top: '50%', left: '79%' }
       },
       clickable: false,
       link: '',
@@ -142,7 +142,7 @@ export default function CakeDiagram() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative bg-[#FAF9EB] flex items-center justify-center overflow-visible py-8 sm:py-12"
+      className="relative bg-[#FAF9EB] flex items-center justify-center overflow-visible"
     >
       <div className="relative w-full mx-auto">
         
@@ -152,7 +152,7 @@ export default function CakeDiagram() {
           {/* Base Cake Image */}
           <div className="relative w-full">
             <Image
-              src="/cakeDiagram/cakePic.png"
+              src="/cakeDiagram/cakePicture.png"
               alt="蛋糕圖"
               width={1400}
               height={950}

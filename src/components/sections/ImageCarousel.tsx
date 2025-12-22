@@ -106,16 +106,6 @@ export default function ImageCarousel() {
                   sizes="(max-width: 768px) 100vw, 64vw"
                   priority
                 />
-                
-                {/* 主圖標題和描述 */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2">
-                    {eventData[currentSlide].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                    {eventData[currentSlide].subTitle}
-                  </p>
-                </div>
               </Link>
             </div>
 
