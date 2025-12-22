@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#833416] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[40%_35%_25%] gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-4 sm:gap-6 lg:gap-8">
           {/* Brand Section */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+          <div className="col-span-1">
             <Link 
               href="/"
               className="flex justify-center lg:justify-start items-center mb-2 sm:mb-3 lg:mb-4">
@@ -51,37 +51,14 @@ export default function Footer() {
             </div>
           </div>
           
-          {/* Partner Logos */}
-          <div className="col-span-1 text-center">
-            <h4 className="text-sm sm:text-base lg:text-lg font-semibold mb-2 sm:mb-3 lg:mb-4">合作夥伴</h4>
-            <div className="space-y-2 sm:space-y-3">
-              {/* 合作廠商 logo 預留區塊 */}
-              <div className="flex flex-col items-center space-y-2">
-                {/* Logo 1 */}
-                <div className="w-20 h-8 sm:w-24 sm:h-10 lg:w-28 lg:h-12 bg-white/10 rounded border border-white/20 flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Logo 1</span>
-                </div>
-                {/* Logo 2 */}
-                <div className="w-20 h-8 sm:w-24 sm:h-10 lg:w-28 lg:h-12 bg-white/10 rounded border border-white/20 flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Logo 2</span>
-                </div>
-                {/* Logo 3 */}
-                <div className="w-20 h-8 sm:w-24 sm:h-10 lg:w-28 lg:h-12 bg-white/10 rounded border border-white/20 flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Logo 3</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
           {/* Quick Links */}
-          <div className="col-span-1 text-center sm:text-left">
-            <h4 className="text-center text-sm sm:text-base lg:text-lg font-semibold mb-4">快速連結</h4>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+          <div className="col-span-1 text-center sm:text-left flex items-center">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 w-full">
               {navItems.map((item, idx) => (
                 <li key={idx}>
                   <Link
                     href={item.href}
-                    className="text-center text-xs sm:text-sm lg:text-base text-gray-400 hover:text-white transition-colors block"
+                    className="text-center text-lg sm:text-xl lg:text-2xl text-gray-400 hover:text-white transition-colors block"
                   >
                     {item.label}
                   </Link>

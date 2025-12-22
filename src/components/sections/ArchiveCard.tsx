@@ -12,11 +12,11 @@ import { ArchiveCardProps } from "@/types";
 function getclassColor(tag: string) {
   switch (tag.toLowerCase()) {
     case "照片":
-      return "bg-green-100 text-green-700";
+      return "bg-[#833416] text-white";
     case "影音":
-      return "bg-yellow-100 text-yellow-700";
+      return "bg-[#CC6915] text-white";
     case "地圖":
-      return "bg-blue-100 text-blue-700";
+      return "bg-[#FAF9EB] text-gray-800";
   }
 }
 
@@ -44,7 +44,7 @@ export default function ArchiveCard({id, webName, tag, orgName, orgWebLink }: Ar
             variant="text"
             className="flex items-center gap-2 transition-transform duration-200 hover:scale-105 hover:text-[#CC6915]"
           >
-            Learn More
+            See More
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

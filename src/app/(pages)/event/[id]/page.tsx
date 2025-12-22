@@ -44,7 +44,6 @@ export default function EventContentPage() {
           <blockquote className="text-4xl sm:text-6xl font-bold text-[#89986A] border-l-4 border-[#89986A] pl-4 mb-4">
             <h1 className={notoSerifTC.className}>{Eventitem.title}</h1>
           </blockquote>
-          <p className="text-gray-500 text-xl sm:text-2xl">{Eventitem.date}</p>
         </header>
 
         {/* Cover Image */}

@@ -183,14 +183,11 @@ const Tile = ({
         {/* === Article Type === */}
         {item.type === 'article' && (
           <div className="w-full translate-y-0 transition-transform duration-300">
-            <span className="mb-2 block text-xs font-semibold uppercase tracking-[1.5px] text-gray-300">
-              {item.tag}
-            </span>
             <h3 className="mb-4 font-serif text-2xl font-normal leading-snug text-white">
               {item.title}
             </h3>
             <div className="flex items-center justify-between border-t border-white/30 pt-4 text-sm text-gray-300">
-              <span>Read Story</span>
+              <span>See More</span>
               <span className="text-lg transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white">
                 →
               </span>
