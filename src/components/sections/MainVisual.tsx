@@ -46,15 +46,16 @@ export default function MainVisual() {
         <Navigation/>
 
         {/* Responsive Background Images */}
-        <div className="absolute inset-0 z-0">
-          {/* Mobile Background - visible on screens < 768px */}
+        <div className="absolute inset-0 z-0 w-full h-full">
+          {/* Desktop Background - default for all large screens >= 1024px */}
           <Image
-            src="/mainVisual/phone_main.jpg"
-            alt="Main visual background for mobile"
+            src="/mainVisual/PC_main.jpg"
+            alt="Main visual background for desktop"
             fill
-            className="object-cover block md:hidden"
+            className="object-cover"
             priority
             quality={90}
+            sizes="100vw"
           />
           
           {/* Tablet Background - visible on screens 768px to 1023px */}
@@ -62,19 +63,21 @@ export default function MainVisual() {
             src="/mainVisual/ipad_main.jpg"
             alt="Main visual background for tablet"
             fill
-            className="object-cover hidden md:block lg:hidden"
+            className="object-cover md:block lg:hidden"
             priority
             quality={90}
+            sizes="100vw"
           />
           
-          {/* Desktop Background - visible on screens >= 1024px */}
+          {/* Mobile Background - visible on screens < 768px */}
           <Image
-            src="/mainVisual/PC_main.jpg"
-            alt="Main visual background for desktop"
+            src="/mainVisual/phone_main.jpg"
+            alt="Main visual background for mobile"
             fill
-            className="object-cover hidden lg:block"
+            className="object-cover md:hidden"
             priority
             quality={90}
+            sizes="100vw"
           />
         </div>
         
