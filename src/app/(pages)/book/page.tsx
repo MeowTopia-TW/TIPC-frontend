@@ -6,11 +6,14 @@ import type { photographImage } from "@/types";
 
 export default function BookPage() {
 
-  const BookCoverImages: photographImage[] = Array.from({ length: bookData.length }, (_, index) => ({
-    id: index ,
-    title: `Book ${index + 1}`,
-    src: bookData[index].image
-  }));
+  const BookCoverImages: photographImage[] = Array.from({ length: bookData.length }, (_, index) => {
+    const reversedIndex = bookData.length - 1 - index;
+    return {
+      id: reversedIndex,
+      title: `Book ${reversedIndex + 1}`,
+      src: bookData[reversedIndex].image
+    };
+  });
 
   return (
     <PageLayout title="TIPC選書" subtitle="Books We Love" headerpic="/images/header/book.jpeg">

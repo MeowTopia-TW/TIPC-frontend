@@ -37,43 +37,25 @@ function EventCard({ event }: { event: Event }) {
             className="object-cover"
           />
 
-          {/* Overlay */}
-
-          <div 
-            className="absolute inset-0 bg-gradient-to-t to-transparent flex items-end"
-            style={{
-              backgroundImage: event.type === "current" 
-                ? 'linear-gradient(to top, rgba(204, 105, 21, 0.8) 0%, rgba(204, 105, 21, 0.8) 1%, transparent 100%)' 
-                : 'linear-gradient(to top, rgba(131, 52, 22, 0.8) 0%, rgba(131, 52, 22, 0.8) 1%, transparent 50%)'
+          {/* ▼ button */}
+          <button
+            className="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-white/80 text-black rounded-full p-1 hover:bg-white transition z-10"
+            onClick={(e) => {
+              e.preventDefault();
+              setExpanded((prev) => !prev);
             }}
           >
-            <div className="p-4 md:p-6 text-white">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3">{event.title}</h3>
-              <p className="text-xs md:text-sm leading-relaxed text-gray-200 line-clamp-3 md:line-clamp-none">{event.subTitle}</p>
-              <div className="mt-3 md:mt-4 flex items-center justify-start">
-                <span className="text-xs md:text-sm font-medium">{event.date}</span>
-              </div>
-              {/* ▼ button */}
-              <button
-                className="absolute bottom-3 right-1/2 bg-white/80 text-black rounded-full p-1 hover:bg-white transition"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setExpanded((prev) => !prev);
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`w-5 h-5 transform transition ${expanded ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`w-5 h-5 transform transition ${expanded ? "rotate-180" : ""}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
       </Link>
 
