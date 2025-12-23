@@ -29,7 +29,7 @@ function EventCard({ event }: { event: Event }) {
         }}
       >
         {/* Main Image */}
-        <div className="relative w-full aspect-[16/9] mb-8 rounded-xl overflow-hidden shadow">
+        <div className="relative w-full aspect-[1000/583] mb-8 rounded-xl overflow-hidden shadow">
           <Image
             src={event.mainImage}
             alt={event.title}
