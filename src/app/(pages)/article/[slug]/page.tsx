@@ -2,11 +2,11 @@ import type { Article } from '@/types/types';
 import type { Metadata } from 'next';
 import ArticleClient from './ArticleClient';
 
-// Fetch single article info from API
-async function getArticle(id: string): Promise<Article | null> {
+// Fetch single article info from API by slug
+async function getArticle(slug: string): Promise<Article | null> {
   try {
     // Use relative URL for server-side fetch (works both locally and in production)
-    const res = await fetch(`http://localhost:3000/api/articles/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/articles/slug/${slug}`, {
       cache: 'no-store', // Always fetch fresh data
     });
 
@@ -63,9 +63,9 @@ async function getRelatedArticles(article: Article): Promise<Article[]> {
 }
 
 // Generate metadata for SEO and social sharing
-export async function generateMetadata({ params }: { params: Promise<{ content: string }> }): Promise<Metadata> {
-  const { content } = await params;
-  const article = await getArticle(content);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await getArticle(slug);
 
   if (!article) {
     return {
@@ -81,7 +81,7 @@ export async function generateMetadata({ params }: { params: Promise<{ content: 
 
   // Use localhost for local development
   const baseUrl = 'http://localhost:3000';
-  const articleUrl = `${baseUrl}/article/${article.id}/${article.id}`;
+  const articleUrl = `${baseUrl}/article/${article.slug}`;
   const imageUrl = article.coverImage.startsWith('http') 
     ? article.coverImage 
     : `${baseUrl}${article.coverImage}`;
@@ -118,9 +118,9 @@ export async function generateMetadata({ params }: { params: Promise<{ content: 
   };
 }
 
-export default async function ArticleContentPage({ params }: { params: Promise<{ content: string }> }) {
-  const { content } = await params;
-  const article = await getArticle(content);
+export default async function ArticleContentPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticle(slug);
 
   if (!article) {
     return <p className="text-center mt-10">Article not found.</p>;

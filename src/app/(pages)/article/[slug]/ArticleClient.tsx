@@ -264,7 +264,7 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
                 {relatedArticles.map((relatedArticle) => (
                   <Link 
                     key={relatedArticle.id}
-                    href={`/article/${relatedArticle.id}/${relatedArticle.id}`}
+                    href={`/article/${relatedArticle.slug}`}
                     className="group block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
                   >
                     {/* Article Image */}
