@@ -50,7 +50,7 @@ function CategoryContent() {
               altText: article.title,
               title: article.title,
               tag: article.keyWords?.[0]?.keyWord.name || '',
-              linkHref: `/article/all/${article.id}`,
+              linkHref: `/article/${article.slug}`,
             }));
           setFilteredArticles(articles);
         }
