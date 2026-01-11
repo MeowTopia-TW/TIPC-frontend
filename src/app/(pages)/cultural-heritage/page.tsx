@@ -1,31 +1,64 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MediaGallery from "@/components/sections/MediaGallery";
 import PageLayout from "@/components/layout/PageLayout";
-import { GalleryItem } from '@/types';
-import articleData from '@/data/article.json';
+import { GalleryItem, Article } from '@/types';
 import photographData from '@/data/photograph.json';
 import videoData from '@/data/video.json';
 
 export default function CulturalHeritagePage() {
+  const [filteredArticles, setFilteredArticles] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    async function fetchArticles() {
+      try {
+        const res = await fetch('/api/articles?limit=100');
+        const data = await res.json();
+        
+        if (data.success) {
+          // Filter and transform articles
+          const articles: GalleryItem[] = data.data
+            .filter((article: Article) => 
+              article.cakeCategory?.some(cc => cc.cakeCategory.name === "文化資產與文化活動")
+            )
+            .map((article: Article) => ({
+              id: `article-${article.id}`,
+              type: 'article' as const,
+              imageUrl: article.coverImage,
+              altText: article.title,
+              title: article.title,
+              tag: article.keyWords?.[0]?.keyWord.name || '',
+              linkHref: `/article/all/${article.id}`,
+            }));
+          setFilteredArticles(articles);
+        }
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchArticles();
   }, []);
-  // Filter and transform articles
-  const filteredArticles: GalleryItem[] = articleData
-    .filter((article) => 
-      article.cakeCategory?.includes("文化資產與文化活動")
-    )
-    .map((article) => ({
-      id: `article-${article.id}`,
-      type: 'article' as const,
-      imageUrl: article.imageMain,
-      altText: article.title,
-      title: article.title,
-      tag: article.keyWords?.[0] || '',
-      linkHref: `/article/all/${article.id}`,
-    }));
+  
+  if (loading) {
+    return (
+      <PageLayout 
+        title="文化資產與文化活動" 
+        subtitle="Cultural Heritage/Cultural Activities "
+        headerpic="/images/header/NineBlock.jpg"
+      >
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <p className="text-xl text-gray-600">載入中...</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
   // Filter and transform photograph pictures
   const filteredPhotographs: GalleryItem[] = photographData

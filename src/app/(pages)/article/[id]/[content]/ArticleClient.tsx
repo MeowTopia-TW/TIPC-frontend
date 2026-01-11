@@ -6,7 +6,7 @@ import { PageLayout } from '@/components';
 import { notoSerifTC, notoSansTC } from '@/lib/fonts';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import type { Article } from '@/types/types';
+import type { Article, TextBlockData, ImageBlockData, QuoteBlockData } from '@/types/types';
 
 interface ArticleClientProps {
   article: Article;
@@ -49,7 +49,7 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center space-x-2 flex-wrap gap-2">
                 <p className="text-gray-700 text-base sm:text-xl md:text-2xl">作者:{article.author}</p>
-                {article.keyWords.map((keyword, index) => (
+                {article.keyWords.map((kw, index) => (
                   <div key={index} className="
                     px-2 py-0.5 sm:px-3 sm:py-1
                     rounded-full
@@ -58,7 +58,7 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
                     text-sm sm:text-base md:text-lg
                     font-medium
                   ">
-                    {keyword}
+                    {kw.keyWord.name}
                   </div>
                 ))}
               </div>
@@ -117,49 +117,66 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
 
           {/* Article Content */}
           <section className={`prose prose-xl max-w-none ${notoSansTC.className} font-light`}>
-            {article.paragraphs.map((block, index) => {
+            {article.blocks.map((block, index) => {
               switch (block.type) {
-                case "text":
+                case "text": {
+                  const textData = block.data as TextBlockData;
+                  // Parse text content to handle inline markers like [1], [2]
+                  const renderTextWithMarkers = (content: string) => {
+                    const parts = content.split(/(\[\d+\])/g);
+                    return parts.map((part, i) => {
+                      const match = part.match(/\[(\d+)\]/);
+                      if (match) {
+                        return <sup key={i} className="text-[#833416] font-bold">[{match[1]}]</sup>;
+                      }
+                      return <span key={i}>{part}</span>;
+                    });
+                  };
+
                   return (
-                    <p key={index} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4 font-light">
-                      {block.content.map((chunk, i) => {
-                        if (chunk.text) return <span key={i}>{chunk.text}</span>;
-                        if (chunk.notation) return <sup key={i} className="text-[#833416] font-bold">{chunk.notation}</sup>;
-                        return null;
-                      })}
+                    <p key={block.id} className="text-gray-700 text-lg sm:text-xl md:text-2xl leading-relaxed mb-4 font-light">
+                      {renderTextWithMarkers(textData.content)}
                     </p>
                   );
+                }
 
-                case "image":
+                case "image": {
+                  const imageData = block.data as ImageBlockData;
                   return (
-                    <figure key={index} className="my-8">
-                      <Image
-                        src={block.url}
-                        alt={block.caption || article.title}
-                        width={800}
-                        height={500}
-                        className="rounded-lg object-contain mx-auto"
-                      />
-                      {(block.caption || block.notation) && (
+                    <figure key={block.id} className="my-8">
+                      <div className="relative w-full" style={{ minHeight: '400px' }}>
+                        <Image
+                          src={imageData.url}
+                          alt={imageData.alt || imageData.caption || article.title}
+                          width={1200}
+                          height={800}
+                          className="rounded-lg object-contain mx-auto w-full h-auto"
+                          unoptimized
+                        />
+                      </div>
+                      {imageData.caption && (
                         <figcaption className="text-base text-gray-500 mt-2 text-left whitespace-pre-line">
-                          {block.caption}
-                          {block.notation && (
-                            <sup className="text-[#833416] font-bold ml-1">{block.notation}</sup>
-                          )}
+                          {imageData.caption}
                         </figcaption>
                       )}
                     </figure>
                   );
+                }
 
-                case "quote":
+                case "quote": {
+                  const quoteData = block.data as QuoteBlockData;
                   return (
                     <blockquote
-                      key={index}
+                      key={block.id}
                       className="border-l-4 border-[#833416] pl-4 italic text-gray-700 text-lg sm:text-xl my-6 whitespace-pre-line"
                     >
-                      {block.content}
+                      <p>{quoteData.content}</p>
+                      {quoteData.source && (
+                        <footer className="text-sm text-gray-600 mt-2">— {quoteData.source}</footer>
+                      )}
                     </blockquote>
                   );
+                }
 
                 default:
                   return null;
@@ -167,25 +184,25 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
             })}
           </section>
 
-          {/* Footnotes Section */}
-          {article.footnotes && article.footnotes.length > 0 && (
+          {/* Annotations Section */}
+          {article.annotations && article.annotations.length > 0 && (
             <section className="mt-12 pt-8 border-t-2 border-gray-300">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">註解</h2>
               <ol className="space-y-3">
-                {article.footnotes.map((footnote) => (
-                  <li key={footnote.id} className="text-gray-700 text-base sm:text-lg leading-relaxed">
-                    <sup className="text-[#833416] font-bold mr-2">{footnote.id}</sup>
-                    {footnote.url ? (
+                {article.annotations.map((annotation) => (
+                  <li key={annotation.id} className="text-gray-700 text-base sm:text-lg leading-relaxed">
+                    <sup className="text-[#833416] font-bold mr-2">[{annotation.marker}]</sup>
+                    {annotation.url ? (
                       <a 
-                        href={footnote.url} 
+                        href={annotation.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-gray-700 hover:text-gray-900 underline decoration-gray-400 hover:decoration-gray-600"
                       >
-                        {footnote.text}
+                        {annotation.text}
                       </a>
                     ) : (
-                      footnote.text
+                      annotation.text
                     )}
                   </li>
                 ))}
@@ -198,13 +215,13 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
             <section className="mt-12 pt-8 border-t-2 border-gray-300">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">影片</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {article.videos.map((videoUrl, index) => (
-                  <div key={index} className="aspect-video">
+                {article.videos.map((video) => (
+                  <div key={video.id} className="aspect-video">
                     <iframe
                       width="100%"
                       height="100%"
-                      src={videoUrl}
-                      title={`Video ${index + 1}`}
+                      src={video.url}
+                      title={`Video ${video.id}`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -221,13 +238,13 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
             <section className="mt-12 pt-8 border-t-2 border-gray-300">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">相關Podcast</h2>
               <div className="space-y-4">
-                {article.podcasts.map((podcastUrl, index) => (
-                  <div key={index} className="aspect-video">
+                {article.podcasts.map((podcast) => (
+                  <div key={podcast.id} className="aspect-video">
                     <iframe
                       width="100%"
                       height="100%"
-                      src={podcastUrl}
-                      title={`Podcast ${index + 1}`}
+                      src={podcast.url}
+                      title={`Podcast ${podcast.id}`}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -253,7 +270,7 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
                     {/* Article Image */}
                     <div className="relative w-full h-48 overflow-hidden">
                       <Image
-                        src={relatedArticle.imageMain}
+                        src={relatedArticle.coverImage}
                         alt={relatedArticle.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -266,17 +283,17 @@ export default function ArticleClient({ article, relatedArticles }: ArticleClien
                         {relatedArticle.title}
                       </h3>
                       <div className="flex flex-wrap gap-2 mb-2">
-                        {relatedArticle.cakeCategory.map((cat, idx) => (
+                        {relatedArticle.cakeCategory.map((cc) => (
                           <span 
-                            key={idx}
+                            key={cc.cakeCategoryId}
                             className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
                           >
-                            {cat}
+                            {cc.cakeCategory.name}
                           </span>
                         ))}
                       </div>
                       <p className="text-sm text-gray-500">
-                        {relatedArticle.author} · {relatedArticle.uploadDate}
+                        {relatedArticle.author} · {relatedArticle.publishedAt ? new Date(relatedArticle.publishedAt).toLocaleDateString('zh-TW') : ''}
                       </p>
                     </div>
                   </Link>

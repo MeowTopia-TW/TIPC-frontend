@@ -144,6 +144,7 @@ export interface BookData {
   isbn: string;
 }
 
+// Old JSON-based photograph structure (kept for backward compatibility)
 export interface photographImage {
   id: number;
   src: string;
@@ -156,6 +157,38 @@ export interface photographImage {
   nineBlocks: string[];
   subID: string;
   size: string;
+}
+
+// New database-based photograph structure
+export interface Photograph {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  author: string;
+  photoDate: string;
+  createdAt: string;
+  updatedAt: string;
+  nineBlocks: PhotographNineBlockRelation[];
+  cakeCategory: PhotographCakeCategoryRelation[];
+}
+
+export interface PhotographNineBlockRelation {
+  photographId: string;
+  nineBlockId: string;
+  nineBlock: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface PhotographCakeCategoryRelation {
+  photographId: string;
+  cakeCategoryId: string;
+  cakeCategory: {
+    id: string;
+    name: string;
+  };
 }
 
 
@@ -203,6 +236,105 @@ export interface VideoRecommendation {
 }
 
 export interface Article {
+  id: string; // Changed from number to string (cuid)
+  englishTitle?: string;
+  title: string;
+  author: string;
+  coverImage: string; // Previously imageMain
+  slug: string;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  blocks: ArticleBlock[];
+  annotations: ArticleAnnotation[];
+  videos: ArticleVideo[];
+  podcasts: ArticlePodcast[];
+  keyWords: ArticleKeyWordRelation[];
+  nineBlocks: ArticleNineBlockRelation[];
+  cakeCategory: ArticleCakeCategoryRelation[];
+}
+
+export interface ArticleBlock {
+  id: string;
+  articleId: string;
+  position: number;
+  type: 'text' | 'image' | 'quote';
+  data: TextBlockData | ImageBlockData | QuoteBlockData;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TextBlockData {
+  content: string; // Can contain inline markers like [1], [2]
+}
+
+export interface ImageBlockData {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+
+export interface QuoteBlockData {
+  content: string;
+  source?: string;
+}
+
+export interface ArticleAnnotation {
+  id: string;
+  articleId: string;
+  marker: string; // "1", "2", "a", etc.
+  text: string;
+  url?: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticleVideo {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticlePodcast {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticleKeyWordRelation {
+  articleId: string;
+  keyWordId: string;
+  keyWord: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ArticleNineBlockRelation {
+  articleId: string;
+  nineBlockId: string;
+  nineBlock: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ArticleCakeCategoryRelation {
+  articleId: string;
+  cakeCategoryId: string;
+  cakeCategory: {
+    id: string;
+    name: string;
+  };
+}
+
+// Legacy type for backward compatibility (to be removed after full migration)
+export interface ArticleLegacy {
   id: number;
   title: string;
   author: string;

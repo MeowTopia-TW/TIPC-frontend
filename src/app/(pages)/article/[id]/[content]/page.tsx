@@ -1,14 +1,71 @@
-// handle facebook share by setting absolute URL for images
-import articlesData from '@/data/article.json';
 import type { Article } from '@/types/types';
 import type { Metadata } from 'next';
 import ArticleClient from './ArticleClient';
 
+// Fetch single article info from API
+async function getArticle(id: string): Promise<Article | null> {
+  try {
+    // Use relative URL for server-side fetch (works both locally and in production)
+    const res = await fetch(`http://localhost:3000/api/articles/${id}`, {
+      cache: 'no-store', // Always fetch fresh data
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const data = await res.json();
+    return data.success ? data.data : null;
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    return null;
+  }
+}
+
+// Get related articles from same cake category
+async function getRelatedArticles(article: Article): Promise<Article[]> {
+  try {
+    // Use relative URL for server-side fetch (works both locally and in production)
+    const res = await fetch(`http://localhost:3000/api/articles?limit=100`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = await res.json();
+    if (!data.success) {
+      return [];
+    }
+
+    const allArticles: Article[] = data.data;
+    
+    // Filter articles by same cake category, exclude current article
+    const cakeCategoryNames = article.cakeCategory.map(cc => cc.cakeCategory.name);
+    
+    return allArticles
+      .filter((item) => 
+        item.id !== article.id && // Exclude current article
+        item.cakeCategory.some((cc) => cakeCategoryNames.includes(cc.cakeCategory.name)) // Same cake category
+      )
+      .sort((a, b) => {
+        // Sort by publishedAt (newest first)
+        const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+        const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+        return dateB - dateA;
+      })
+      .slice(0, 3); // Get maximum 3 articles
+  } catch (error) {
+    console.error('Error fetching related articles:', error);
+    return [];
+  }
+}
+
 // Generate metadata for SEO and social sharing
 export async function generateMetadata({ params }: { params: Promise<{ content: string }> }): Promise<Metadata> {
   const { content } = await params;
-  const articleId = parseInt(content);
-  const article = articlesData.find((item) => item.id === articleId) as Article | undefined;
+  const article = await getArticle(content);
 
   if (!article) {
     return {
@@ -16,22 +73,23 @@ export async function generateMetadata({ params }: { params: Promise<{ content: 
     };
   }
 
-  // Get first text paragraph for description
-  const firstTextParagraph = article.paragraphs.find((p) => p.type === 'text');
-  const description = firstTextParagraph && firstTextParagraph.type === 'text' 
-    ? firstTextParagraph.content.map((c) => c.text || '').join('').slice(0, 200)
+  // Get first text block for description
+  const firstTextBlock = article.blocks.find((block) => block.type === 'text');
+  const description = firstTextBlock && firstTextBlock.type === 'text'
+    ? (firstTextBlock.data as { content: string }).content.slice(0, 200)
     : article.title;
 
-  // Auto-detect base URL or use environment variable
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+  // Use localhost for local development
+  const baseUrl = 'http://localhost:3000';
   const articleUrl = `${baseUrl}/article/${article.id}/${article.id}`;
-  const imageUrl = `${baseUrl}${article.imageMain}`;
+  const imageUrl = article.coverImage.startsWith('http') 
+    ? article.coverImage 
+    : `${baseUrl}${article.coverImage}`;
 
   return {
     title: `${article.title} | 文化影響力平台`,
     description,
-    keywords: article.keyWords.join(', '),
+    keywords: article.keyWords.map(kw => kw.keyWord.name).join(', '),
     authors: [{ name: article.author }],
     openGraph: {
       type: 'article',
@@ -47,9 +105,9 @@ export async function generateMetadata({ params }: { params: Promise<{ content: 
         },
       ],
       siteName: '文化影響力平台',
-      publishedTime: article.uploadDate,
+      publishedTime: article.publishedAt || undefined,
       authors: [article.author],
-      tags: article.keyWords,
+      tags: article.keyWords.map(kw => kw.keyWord.name),
     },
     twitter: {
       card: 'summary_large_image',
@@ -62,26 +120,13 @@ export async function generateMetadata({ params }: { params: Promise<{ content: 
 
 export default async function ArticleContentPage({ params }: { params: Promise<{ content: string }> }) {
   const { content } = await params;
-  const articleId = parseInt(content);
-  const article = articlesData.find((item) => item.id === articleId) as Article | undefined;
+  const article = await getArticle(content);
 
   if (!article) {
     return <p className="text-center mt-10">Article not found.</p>;
   }
 
-  // Get related articles from the same cake category
-  const relatedArticles = articlesData
-    .filter((item) => 
-      item.id !== article.id && // Exclude current article
-      item.cakeCategory.some((cat) => article.cakeCategory.includes(cat)) // Same cake category
-    )
-    .sort((a, b) => {
-      // Sort by uploadDate (newest first)
-      const dateA = new Date(a.uploadDate);
-      const dateB = new Date(b.uploadDate);
-      return dateB.getTime() - dateA.getTime();
-    })
-    .slice(0, 3) as Article[]; // Get maximum 3 articles
+  const relatedArticles = await getRelatedArticles(article);
 
   return <ArticleClient article={article} relatedArticles={relatedArticles} />;
 }

@@ -1,11 +1,10 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 import { PageLayout } from '@/components';
 import MediaGallery from '@/components/sections/MediaGallery';
-import { GalleryItem } from '@/types';
-import articleData from '@/data/article.json';
+import { GalleryItem, Article } from '@/types';
 import photographData from '@/data/photograph.json';
 import videoData from '@/data/video.json';
 
@@ -26,26 +25,44 @@ function CategoryContent() {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('id') || '';
   const categoryName = categoryMap[categoryId] || categoryId;
+  const [filteredArticles, setFilteredArticles] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    async function fetchArticles() {
+      try {
+        const res = await fetch('/api/articles?limit=100');
+        const data = await res.json();
+        
+        if (data.success) {
+          // Filter and transform articles
+          const articles: GalleryItem[] = data.data
+            .filter((article: Article) => 
+              article.cakeCategory?.some(cc => cc.cakeCategory.name === "文化記憶") &&
+              article.nineBlocks?.some(nb => nb.nineBlock.name === categoryName)
+            )
+            .map((article: Article) => ({
+              id: `article-${article.id}`,
+              type: 'article' as const,
+              imageUrl: article.coverImage,
+              altText: article.title,
+              title: article.title,
+              tag: article.keyWords?.[0]?.keyWord.name || '',
+              linkHref: `/article/all/${article.id}`,
+            }));
+          setFilteredArticles(articles);
+        }
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  // Filter and transform articles
-  const filteredArticles: GalleryItem[] = articleData
-    .filter((article) => 
-      article.cakeCategory?.includes("文化記憶") &&
-      article.nineBlocks?.includes(categoryName)
-    )
-    .map((article) => ({
-      id: `article-${article.id}`,
-      type: 'article' as const,
-      imageUrl: article.imageMain,
-      altText: article.title,
-      title: article.title,
-      tag: article.keyWords?.[0] || '',
-      linkHref: `/article/all/${article.id}`,
-    }));
+    fetchArticles();
+  }, [categoryName]);
 
   // Filter and transform photograph pictures
   const filteredPhotographs: GalleryItem[] = photographData
@@ -90,6 +107,20 @@ function CategoryContent() {
     ...filteredPhotographs,
     ...filteredVideos,
   ];
+  
+  if (loading) {
+    return (
+      <PageLayout 
+        title={`文化記憶 - ${categoryName}`} 
+        subtitle="Cultural Memory" 
+        headerpic="/images/header/NineBlock.jpg"
+      >
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <p className="text-xl text-gray-600">載入中...</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout 
