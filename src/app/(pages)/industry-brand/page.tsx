@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import MediaGallery from "@/components/sections/MediaGallery";
 import PageLayout from "@/components/layout/PageLayout";
-import { GalleryItem, Article, Video } from '@/types';
-import photographData from '@/data/photograph.json';
+import { GalleryItem, Article, Video, Photograph } from '@/types';
 
 export default function IndustryBrandPage() {
   const [filteredArticles, setFilteredArticles] = useState<GalleryItem[]>([]);
   const [filteredVideos, setFilteredVideos] = useState<GalleryItem[]>([]);
+  const [filteredPhotographs, setFilteredPhotographs] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,6 +59,28 @@ export default function IndustryBrandPage() {
             }));
           setFilteredVideos(videos);
         }
+
+        // Fetch photographs
+        const photographsRes = await fetch('/api/photographs');
+        const photographsData = await photographsRes.json();
+        
+        if (photographsData.success) {
+          const photographs: GalleryItem[] = photographsData.data
+            .filter((photograph: Photograph) => 
+              photograph.cakeCategory?.some(cc => cc.cakeCategory.name === "產業/品牌")
+            )
+            .map((photograph: Photograph) => ({
+              id: `photograph-${photograph.id}`,
+              type: 'image' as const,
+              imageUrl: photograph.url,
+              altText: photograph.title,
+              title: photograph.title,
+              author: photograph.author,
+              photoDate: photograph.photoDate,
+              description: photograph.description,
+            }));
+          setFilteredPhotographs(photographs);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -82,23 +104,6 @@ export default function IndustryBrandPage() {
       </PageLayout>
     );
   }
-
-  // Filter and transform photograph pictures
-  const filteredPhotographs: GalleryItem[] = photographData
-    .filter((photograph) => 
-      photograph.cakeCategory?.includes("產業/品牌")
-    )
-    .map((photograph) => ({
-      id: `photograph-${photograph.id}`,
-      type: 'image' as const,
-      size: photograph.size || 'wide' as 'wide' | 'tall' | 'normal' | undefined,
-      imageUrl: photograph.src,
-      altText: photograph.title,
-      title: photograph.title,
-      author: photograph.author,
-      photoDate: photograph.photoDate,
-      description: photograph.description,
-    }));
 
   // Combine all filtered media
   const allFilteredMedia = [

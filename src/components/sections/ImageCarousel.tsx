@@ -26,11 +26,12 @@ export default function ImageCarousel() {
         const response = await fetch('/api/events');
         const result = await response.json();
         if (result.success) {
-          // Filter for current events only
-          const currentEvents = result.data.filter((event: any) => 
-            new Date(event.eventDate) > new Date()
-          );
-          setEventData(currentEvents);
+          // Filter for events that should show in carousel (showInImgCarousel = true)
+          // and limit to maximum 4 events
+          const carouselEvents = result.data
+            .filter((event: any) => event.showInImgCarousel === true)
+            .slice(0, 4);
+          setEventData(carouselEvents);
         }
       } catch (error) {
         console.error('Failed to fetch events:', error);

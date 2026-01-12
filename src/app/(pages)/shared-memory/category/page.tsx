@@ -4,8 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, Suspense, useState } from 'react';
 import { PageLayout } from '@/components';
 import MediaGallery from '@/components/sections/MediaGallery';
-import { GalleryItem, Article, Video } from '@/types';
-import photographData from '@/data/photograph.json';
+import { GalleryItem, Article, Video, Photograph } from '@/types';
 
 // Mapping from categoryId to Chinese category name
 const categoryMap: { [key: string]: string } = {
@@ -26,6 +25,7 @@ function CategoryContent() {
   const categoryName = categoryMap[categoryId] || categoryId;
   const [filteredArticles, setFilteredArticles] = useState<GalleryItem[]>([]);
   const [filteredVideos, setFilteredVideos] = useState<GalleryItem[]>([]);
+  const [filteredPhotographs, setFilteredPhotographs] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,6 +77,29 @@ function CategoryContent() {
             }));
           setFilteredVideos(videos);
         }
+
+        // Fetch photographs
+        const photographsRes = await fetch('/api/photographs');
+        const photographsData = await photographsRes.json();
+        
+        if (photographsData.success) {
+          const photographs: GalleryItem[] = photographsData.data
+            .filter((photograph: Photograph) => 
+              photograph.cakeCategory?.some(cc => cc.cakeCategory.name === "文化記憶") &&
+              photograph.nineBlocks?.some(nb => nb.nineBlock.name === categoryName)
+            )
+            .map((photograph: Photograph) => ({
+              id: `photograph-${photograph.id}`,
+              type: 'image' as const,
+              imageUrl: photograph.url,
+              altText: photograph.title,
+              title: photograph.title,
+              author: photograph.author,
+              photoDate: photograph.photoDate,
+              description: photograph.description,
+            }));
+          setFilteredPhotographs(photographs);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -86,24 +109,6 @@ function CategoryContent() {
 
     fetchData();
   }, [categoryName]);
-
-  // Filter and transform photograph pictures
-  const filteredPhotographs: GalleryItem[] = photographData
-    .filter((photograph) => 
-      photograph.cakeCategory?.includes("文化記憶") &&
-      photograph.nineBlocks?.includes(categoryName)
-    )
-    .map((photograph) => ({
-      id: `photograph-${photograph.id}`,
-      type: 'image' as const,
-      size: photograph.size || 'wide' as 'wide' | 'tall' | 'normal' | undefined,
-      imageUrl: photograph.src,
-      altText: photograph.title,
-      title: photograph.title,
-      author: photograph.author,
-      photoDate: photograph.photoDate,
-      description: photograph.description,
-    }));
 
   // Combine all filtered media
   const allFilteredMedia = [
