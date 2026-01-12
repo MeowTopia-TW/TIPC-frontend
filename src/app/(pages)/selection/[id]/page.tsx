@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { PageLayout } from '@/components';
 import { useParams } from "next/navigation";
-import editorPickData from "@/data/editorPick.json";
+import selectionData from "@/data/selection.json";
 import { notoSerifTC, notoSansTC } from '@/lib/fonts';
 
-export default function EditorPickContentPage() {
+export default function selectionContentPage() {
   const params = useParams();
   const id = params?.id as string;
 
@@ -16,7 +16,7 @@ export default function EditorPickContentPage() {
   }, []);
 
   if (!id) return null;
-  const pickItem = editorPickData.find((item) => item.id === id);
+  const pickItem = selectionData.find((item) => item.id === id);
 
   if (!pickItem) {
     return <p className="text-center mt-10">內容未找到。</p>;

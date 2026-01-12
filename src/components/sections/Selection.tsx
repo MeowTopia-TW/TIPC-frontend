@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import editorPickData from "@/data/editorPick.json";
+import selectionData from "@/data/selection.json";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-export default function EditorPick() {
+export default function selection() {
   const [isClient, setIsClient] = useState(false);
   
   // Animation refs
@@ -86,7 +86,7 @@ export default function EditorPick() {
 
   const handlePartnerClick = (id: string) => {
     // 導航到編輯精選詳細頁面
-    window.location.href = `/editorPick/${id}`;
+    window.location.href = `/selection/${id}`;
   };
   
   return (
@@ -102,7 +102,7 @@ export default function EditorPick() {
           
           {/* 合作夥伴卡片 - 3個一排對齊Slogan */}
           <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {editorPickData.map((partner, index) => (
+            {selectionData.map((partner, index) => (
               <div 
                 key={`${partner.id}-${index}`}
                 onClick={() => handlePartnerClick(partner.id)}
@@ -143,7 +143,7 @@ export default function EditorPick() {
           {/* 點擊看更多按鈕 */}
           <div className="flex justify-center mt-8">
             <Link 
-              href="/editorPick"
+              href="/selection"
               className="px-8 py-3 bg-[#CC6915] text-white rounded-full font-semibold hover:bg-[#B55A12] transition-colors duration-300 shadow-lg hover:shadow-xl"
             >
               點擊看更多

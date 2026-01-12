@@ -3,9 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PageLayout } from '@/components';
-import editorPickData from '@/data/editorPick.json';
+import selectionData from '@/data/selection.json';
 
-export default function EditorPickAllPage() {
+export default function selectionAllPage() {
 
   return (
     <PageLayout title="影響力精選" subtitle="TIPC Selections" headerpic="/images/header/article.jpeg">
@@ -15,10 +15,10 @@ export default function EditorPickAllPage() {
       <div className="mx-auto px-10 sm:px-10 lg:px-30 py-16">
         {/* 精選新聞區域 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {editorPickData.map((pick) => (
+          {selectionData.map((pick) => (
             <Link 
               key={pick.id}
-              href={`/editorPick/${pick.id}`}
+              href={`/selection/${pick.id}`}
               className="group relative bg-white rounded-1xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
             >
             {/* 主要圖片區域 */}
