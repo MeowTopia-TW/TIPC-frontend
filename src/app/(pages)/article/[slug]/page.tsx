@@ -6,7 +6,7 @@ import ArticleClient from './ArticleClient';
 async function getArticle(slug: string): Promise<Article | null> {
   try {
     // Use relative URL for server-side fetch (works both locally and in production)
-    const res = await fetch(`http://localhost:3000/api/articles/slug/${slug}`, {
+    const res = await fetch(`/api/articles/slug/${slug}`, {
       cache: 'no-store', // Always fetch fresh data
     });
 
@@ -26,7 +26,7 @@ async function getArticle(slug: string): Promise<Article | null> {
 async function getRelatedArticles(article: Article): Promise<Article[]> {
   try {
     // Use relative URL for server-side fetch (works both locally and in production)
-    const res = await fetch(`http://localhost:3000/api/articles?limit=100`, {
+    const res = await fetch(`/api/articles?limit=100`, {
       cache: 'no-store',
     });
 
@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : article.title;
 
   // Use localhost for local development
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const articleUrl = `${baseUrl}/article/${article.slug}`;
   const imageUrl = article.coverImage.startsWith('http') 
     ? article.coverImage 

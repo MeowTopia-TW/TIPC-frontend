@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default async function SelectionContentPage({ params }: Props) {
-  console.log("params:", params);
   const { slug } = await params;
   if (!slug) notFound(); // guarantees id exists
   const selection = await prisma.selections.findUnique({
