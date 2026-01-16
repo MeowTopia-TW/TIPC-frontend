@@ -18,7 +18,7 @@ export { default as MainVisual } from './sections/MainVisual';
 export { default as ImageCarousel } from './sections/ImageCarousel';
 export { default as CakeDiagram } from './sections/CakeDiagram';
 export { default as VideoRecommendations } from './sections/VideoRecommendations';
-export { default as EditorPick } from './sections/EditorPick';
+export { default as Selection } from './sections/Selection';
 export { default as ArchiveCard } from './sections/ArchiveCard';
 export { default as ArchiveFilter } from './sections/ArchiveFilter';
 export { default as PartnerCard } from './sections/PartnerCard';

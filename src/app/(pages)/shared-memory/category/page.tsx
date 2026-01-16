@@ -1,13 +1,10 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 import { PageLayout } from '@/components';
 import MediaGallery from '@/components/sections/MediaGallery';
-import { GalleryItem } from '@/types';
-import articleData from '@/data/article.json';
-import photographData from '@/data/photograph.json';
-import videoData from '@/data/video.json';
+import { GalleryItem, Article, Video, Photograph } from '@/types';
 
 // Mapping from categoryId to Chinese category name
 const categoryMap: { [key: string]: string } = {
@@ -26,63 +23,92 @@ function CategoryContent() {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('id') || '';
   const categoryName = categoryMap[categoryId] || categoryId;
+  const [filteredArticles, setFilteredArticles] = useState<GalleryItem[]>([]);
+  const [filteredVideos, setFilteredVideos] = useState<GalleryItem[]>([]);
+  const [filteredPhotographs, setFilteredPhotographs] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    async function fetchData() {
+      try {
+        // Fetch articles
+        const articlesRes = await fetch('/api/articles?limit=100');
+        const articlesData = await articlesRes.json();
+        
+        if (articlesData.success) {
+          const articles: GalleryItem[] = articlesData.data
+            .filter((article: Article) => 
+              article.cakeCategory?.some(cc => cc.cakeCategory.name === "文化記憶") &&
+              article.nineBlocks?.some(nb => nb.nineBlock.name === categoryName)
+            )
+            .map((article: Article) => ({
+              id: `article-${article.id}`,
+              type: 'article' as const,
+              imageUrl: article.coverImage,
+              altText: article.title,
+              title: article.title,
+              tag: article.keyWords?.[0]?.keyWord.name || '',
+              linkHref: `/article/${article.slug}`,
+            }));
+          setFilteredArticles(articles);
+        }
 
-  // Filter and transform articles
-  const filteredArticles: GalleryItem[] = articleData
-    .filter((article) => 
-      article.cakeCategory?.includes("文化記憶") &&
-      article.nineBlocks?.includes(categoryName)
-    )
-    .map((article) => ({
-      id: `article-${article.id}`,
-      type: 'article' as const,
-      imageUrl: article.imageMain,
-      altText: article.title,
-      title: article.title,
-      tag: article.keyWords?.[0] || '',
-      linkHref: `/article/all/${article.id}`,
-    }));
+        // Fetch videos
+        const videosRes = await fetch('/api/videos');
+        const videosData = await videosRes.json();
+        
+        if (videosData.success) {
+          const videos: GalleryItem[] = videosData.data
+            .filter((video: Video) => 
+              video.cakeCategory?.some(cc => cc.cakeCategory.name === "文化記憶") &&
+              video.nineBlocks?.some(nb => nb.nineBlock.name === categoryName)
+            )
+            .map((video: Video) => ({
+              id: `video-${video.id}`,
+              type: 'video' as const,
+              imageUrl: video.mainImg,
+              altText: video.title,
+              title: video.title,
+              linkHref: video.url,
+              description: video.description,
+              keywords: video.keyWords?.map(kw => kw.keyWord.name) || [],
+            }));
+          setFilteredVideos(videos);
+        }
 
-  // Filter and transform photograph pictures
-  const filteredPhotographs: GalleryItem[] = photographData
-    .filter((photograph) => 
-      photograph.cakeCategory?.includes("文化記憶") &&
-      photograph.nineBlocks?.includes(categoryName)
-    )
-    .map((photograph) => ({
-      id: `photograph-${photograph.id}`,
-      type: 'image' as const,
-      size: photograph.size as 'wide' | 'tall' | 'normal' | undefined,
-      imageUrl: photograph.src,
-      altText: photograph.title,
-      title: photograph.title,
-      author: photograph.author,
-      photoDate: photograph.photoDate,
-      description: photograph.description,
-    }));
+        // Fetch photographs
+        const photographsRes = await fetch('/api/photographs');
+        const photographsData = await photographsRes.json();
+        
+        if (photographsData.success) {
+          const photographs: GalleryItem[] = photographsData.data
+            .filter((photograph: Photograph) => 
+              photograph.cakeCategory?.some(cc => cc.cakeCategory.name === "文化記憶") &&
+              photograph.nineBlocks?.some(nb => nb.nineBlock.name === categoryName)
+            )
+            .map((photograph: Photograph) => ({
+              id: `photograph-${photograph.id}`,
+              type: 'image' as const,
+              imageUrl: photograph.url,
+              altText: photograph.title,
+              title: photograph.title,
+              author: photograph.author,
+              photoDate: photograph.photoDate,
+              description: photograph.description,
+            }));
+          setFilteredPhotographs(photographs);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  // Filter and transform videos
-  const filteredVideos: GalleryItem[] = videoData
-    .filter((video) => 
-      video.cakeCategory?.includes("文化記憶") &&
-      video.nineBlocks?.includes(categoryName)
-    )
-    .map((video) => ({
-      id: `video-${video.id}`,
-      type: 'video' as const,
-      imageUrl: video.thumbnail,
-      altText: video.title,
-      title: video.title,
-      linkHref: video.src,
-      description: video.description,
-      keywords: video.keywords,
-      duration: video.duration,
-      cakeCategory: video.cakeCategory,
-    }));
+    fetchData();
+  }, [categoryName]);
 
   // Combine all filtered media
   const allFilteredMedia = [
@@ -90,6 +116,20 @@ function CategoryContent() {
     ...filteredPhotographs,
     ...filteredVideos,
   ];
+  
+  if (loading) {
+    return (
+      <PageLayout 
+        title={`文化記憶 - ${categoryName}`} 
+        subtitle="Cultural Memory" 
+        headerpic="/images/header/NineBlock.jpg"
+      >
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <p className="text-xl text-gray-600">載入中...</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout 

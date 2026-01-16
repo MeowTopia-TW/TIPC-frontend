@@ -1,26 +1,397 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
+model Users {
+  id        String   @id @default(cuid())
+  account   String   @unique
+  password  String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([account])
+  @@map("users")
+}
+
+model KeyWords {
+  id                 String               @id @default(cuid())
+  name               String               @unique
+  articles           ArticleKeyWord[]
+  selection_keywords selection_keywords[]
+  videos             VideoKeyWord[]
+}
+
+model CakeCategory {
+  id          String                   @id @default(cuid())
+  name        String
+  articles    ArticleCakeCategory[]
+  photographs PhotographCakeCategory[]
+  videos      VideoCakeCategory[]
+}
+
+model NineBlocks {
+  id          String                @id @default(cuid())
+  name        String
+  articles    ArticleNineBlock[]
+  photographs PhotographNineBlock[]
+  videos      VideoNineBlock[]
+}
+
+model ArticleCakeCategory {
+  articleId      String
+  cakeCategoryId String
+  article        Article      @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  cakeCategory   CakeCategory @relation(fields: [cakeCategoryId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, cakeCategoryId])
+  @@map("article_cake_categories")
+}
+
+model ArticleKeyWord {
+  articleId String
+  keyWordId String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  keyWord   KeyWords @relation(fields: [keyWordId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, keyWordId])
+  @@map("article_keywords")
+}
+
+model ArticleNineBlock {
+  articleId   String
+  nineBlockId String
+  article     Article    @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  nineBlock   NineBlocks @relation(fields: [nineBlockId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, nineBlockId])
+  @@map("article_nine_blocks")
+}
+
+model PhotographNineBlock {
+  photographId String
+  nineBlockId  String
+  nineBlock    NineBlocks @relation(fields: [nineBlockId], references: [id], onDelete: Cascade)
+  photograph   Photograph @relation(fields: [photographId], references: [id], onDelete: Cascade)
+
+  @@id([photographId, nineBlockId])
+  @@map("photograph_nine_blocks")
+}
+
+model PhotographCakeCategory {
+  photographId   String
+  cakeCategoryId String
+  cakeCategory   CakeCategory @relation(fields: [cakeCategoryId], references: [id], onDelete: Cascade)
+  photograph     Photograph   @relation(fields: [photographId], references: [id], onDelete: Cascade)
+
+  @@id([photographId, cakeCategoryId])
+  @@map("photograph_cake_categories")
+}
+
+model VideoKeyWord {
+  videoId   String
+  keyWordId String
+  keyWord   KeyWords @relation(fields: [keyWordId], references: [id], onDelete: Cascade)
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([videoId, keyWordId])
+  @@map("video_keywords")
+}
+
+model VideoNineBlock {
+  videoId     String
+  nineBlockId String
+  nineBlock   NineBlocks @relation(fields: [nineBlockId], references: [id], onDelete: Cascade)
+  video       Video      @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([videoId, nineBlockId])
+  @@map("video_nine_blocks")
+}
+
+model VideoCakeCategory {
+  videoId        String
+  cakeCategoryId String
+  cakeCategory   CakeCategory @relation(fields: [cakeCategoryId], references: [id], onDelete: Cascade)
+  video          Video        @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@id([videoId, cakeCategoryId])
+  @@map("video_cake_categories")
+}
+
+model Article {
+  id           String                @id @default(cuid())
+  englishTitle String?
+  title        String
+  author       String
+  coverImage   String
+  slug         String                @unique
+  publishedAt  DateTime?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  annotations  ArticleAnnotation[]
+  blocks       ArticleBlock[]
+  cakeCategory ArticleCakeCategory[]
+  keyWords     ArticleKeyWord[]
+  nineBlocks   ArticleNineBlock[]
+  podcasts     ArticlePodcast[]
+  videos       ArticleVideo[]
+
+  @@index([slug])
+  @@index([publishedAt])
+  @@map("articles")
+}
+
+model ArticleBlock {
+  id        String    @id @default(cuid())
+  articleId String
+  position  Int
+  type      BlockType
+  data      Json
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  article   Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, position])
+  @@index([articleId, position])
+  @@map("article_blocks")
+}
+
+model ArticleAnnotation {
+  id        String   @id @default(cuid())
+  articleId String
+  marker    String
+  text      String
+  url       String?
+  position  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, marker])
+  @@unique([articleId, position])
+  @@index([articleId, position])
+  @@map("article_annotations")
+}
+
+model ArticleVideo {
+  id        String   @id @default(cuid())
+  articleId String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("article_videos")
+}
+
+model ArticlePodcast {
+  id        String   @id @default(cuid())
+  articleId String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@map("article_podcasts")
+}
+
+model Photograph {
+  id           String                   @id @default(cuid())
+  url          String
+  title        String
+  description  String
+  author       String
+  photoDate    DateTime
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+  cakeCategory PhotographCakeCategory[]
+  nineBlocks   PhotographNineBlock[]
+
+  @@index([photoDate])
+  @@map("photographs")
+}
+
+model Video {
+  id           String              @id @default(cuid())
+  url          String
+  title        String
+  mainImg      String
+  description  String
+  author       String
+  videoDate    DateTime
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  cakeCategory VideoCakeCategory[]
+  keyWords     VideoKeyWord[]
+  nineBlocks   VideoNineBlock[]
+
+  @@index([videoDate])
+  @@map("videos")
+}
 
 model archiveIndex {
-  id        Int      @id @default(autoincrement())
-  Class     String
-  WebName   String
-  OrgName   String
-  OrgWebLink    String
+  id         Int      @id @default(autoincrement())
+  Class      String
+  WebName    String
+  OrgName    String
+  OrgWebLink String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
+model Partner {
+  id        Int      @id @default(autoincrement())
+  name      String
+  logo      String
+  webUrl    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
+  authors   String[]
+  bookname  String
+  publisher String
+  isbn      String
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id                String       @id @default(cuid())
+  title             String
+  eventDate         DateTime
+  mainImage         String
+  alt               String
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  showInImgCarousel Boolean      @default(false)
+  blocks            EventBlock[]
+  images            EventImage[]
+
+  @@index([eventDate])
+  @@map("events")
+}
+
+model EventBlock {
+  id        String    @id @default(cuid())
+  eventId   String
+  position  Int
+  type      BlockType
+  data      Json
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  event     Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, position])
+  @@index([eventId, position])
+  @@map("event_blocks")
+}
+
+model EventImage {
+  id        String   @id @default(cuid())
+  eventId   String
+  src       String
+  position  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, position])
+  @@index([eventId, position])
+  @@map("event_images")
+}
+
+model selection_annotations {
+  id          String     @id
+  selectionId String
+  marker      String
+  text        String
+  url         String?
+  position    Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  selections  selections @relation(fields: [selectionId], references: [id], onDelete: Cascade)
+
+  @@unique([selectionId, marker])
+  @@unique([selectionId, position])
+  @@index([selectionId, position])
+}
+
+model selection_blocks {
+  id          String     @id
+  selectionId String
+  position    Int
+  type        BlockType
+  data        Json
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  selections  selections @relation(fields: [selectionId], references: [id], onDelete: Cascade)
+
+  @@unique([selectionId, position])
+  @@index([selectionId, position])
+}
+
+model selection_keywords {
+  selectionId String
+  keyWordId   String
+  KeyWords    KeyWords   @relation(fields: [keyWordId], references: [id], onDelete: Cascade)
+  selections  selections @relation(fields: [selectionId], references: [id], onDelete: Cascade)
+
+  @@id([selectionId, keyWordId])
+}
+
+model selection_podcasts {
+  id          String     @id
+  selectionId String
+  url         String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  selections  selections @relation(fields: [selectionId], references: [id], onDelete: Cascade)
+}
+
+model selection_videos {
+  id          String     @id
+  selectionId String
+  url         String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  selections  selections @relation(fields: [selectionId], references: [id], onDelete: Cascade)
+}
+
+model selections {
+  id                    String                  @id
+  englishTitle          String?
+  title                 String
+  author                String
+  coverImage            String
+  slug                  String                  @unique
+  publishedAt           DateTime?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime
+  nation                String
+  url                   String
+  date                  DateTime
+  setUpSelection        Boolean                 @default(false)
+  selection_annotations selection_annotations[]
+  selection_blocks      selection_blocks[]
+  selection_keywords    selection_keywords[]
+  selection_podcasts    selection_podcasts[]
+  selection_videos      selection_videos[]
+
+  @@index([publishedAt])
+  @@index([slug])
+}
+
+enum BlockType {
+  text
+  image
+  quote
+}

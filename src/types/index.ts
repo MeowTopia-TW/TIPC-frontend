@@ -144,6 +144,7 @@ export interface BookData {
   isbn: string;
 }
 
+// Old JSON-based photograph structure (kept for backward compatibility)
 export interface photographImage {
   id: number;
   src: string;
@@ -156,6 +157,38 @@ export interface photographImage {
   nineBlocks: string[];
   subID: string;
   size: string;
+}
+
+// New database-based photograph structure
+export interface Photograph {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  author: string;
+  photoDate: string;
+  createdAt: string;
+  updatedAt: string;
+  nineBlocks: PhotographNineBlockRelation[];
+  cakeCategory: PhotographCakeCategoryRelation[];
+}
+
+export interface PhotographNineBlockRelation {
+  photographId: string;
+  nineBlockId: string;
+  nineBlock: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface PhotographCakeCategoryRelation {
+  photographId: string;
+  cakeCategoryId: string;
+  cakeCategory: {
+    id: string;
+    name: string;
+  };
 }
 
 
@@ -179,12 +212,10 @@ export interface Event {
   title: string;
   date: string;
   mainImage: string;
-  subTitle: string;
-  description: string;
   relatedImages: photographImage[];
-  type: "current" | "past"; // column grouping
   alt: string;
 }
+
 
 
 export interface VideoRecommendation {
@@ -202,7 +233,211 @@ export interface VideoRecommendation {
   src: string;
 }
 
+// Video with database relations
+export interface VideoKeyWordRelation {
+  videoId: string;
+  keyWordId: string;
+  keyWord: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface VideoNineBlockRelation {
+  videoId: string;
+  nineBlockId: string;
+  nineBlock: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface VideoCakeCategoryRelation {
+  videoId: string;
+  cakeCategoryId: string;
+  cakeCategory: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface Video {
+  id: string;
+  url: string;
+  title: string;
+  mainImg: string;
+  description: string;
+  keyWords: VideoKeyWordRelation[];
+  nineBlocks: VideoNineBlockRelation[];
+  cakeCategory: VideoCakeCategoryRelation[];
+  author: string;
+  videoDate: string | Date;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+}
+export interface Selection {
+  id:string;
+  englishTitle?:string;
+  title: string;
+  author:string;
+  coverImage: string;
+  slug:string;
+  publishedAt?:string | null;
+  createdAt: string;
+  updatedAt: string;
+  nation:string;
+  url:string;
+  date?:string;
+  selection_annotations: SelectionAnnotations[];
+  selection_blocks: SelectionBlocks[];
+  selection_keywords:SelectionKeywords[];
+  selection_podcasts:SelectionPodcasts[];
+  selection_videos:SelectionVideos[];
+}
+export interface SelectionBlocks {
+  id: string;
+  articleId: string;
+  position: number;
+  type: 'text' | 'image' | 'quote';
+  data: TextBlockData | ImageBlockData | QuoteBlockData;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface SelectionAnnotations {
+  id: string;
+  articleId: string;
+  marker: string; // "1", "2", "a", etc.
+  text: string;
+  url?: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface SelectionVideos {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SelectionPodcasts {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SelectionKeywords {
+  articleId: string;
+  keyWordId: string;
+  KeyWords: {
+    id: string;
+    name: string;
+  };
+}
+
 export interface Article {
+  id: string; // Changed from number to string (cuid)
+  englishTitle?: string;
+  title: string;
+  author: string;
+  coverImage: string; // Previously imageMain
+  slug: string;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  blocks: ArticleBlock[];
+  annotations: ArticleAnnotation[];
+  videos: ArticleVideo[];
+  podcasts: ArticlePodcast[];
+  keyWords: ArticleKeyWordRelation[];
+  nineBlocks: ArticleNineBlockRelation[];
+  cakeCategory: ArticleCakeCategoryRelation[];
+}
+
+export interface ArticleBlock {
+  id: string;
+  articleId: string;
+  position: number;
+  type: 'text' | 'image' | 'quote';
+  data: TextBlockData | ImageBlockData | QuoteBlockData;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TextBlockData {
+  content: string; // Can contain inline markers like [1], [2]
+}
+
+export interface ImageBlockData {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+
+export interface QuoteBlockData {
+  content: string;
+  source?: string;
+}
+
+export interface ArticleAnnotation {
+  id: string;
+  articleId: string;
+  marker: string; // "1", "2", "a", etc.
+  text: string;
+  url?: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticleVideo {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticlePodcast {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ArticleKeyWordRelation {
+  articleId: string;
+  keyWordId: string;
+  keyWord: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ArticleNineBlockRelation {
+  articleId: string;
+  nineBlockId: string;
+  nineBlock: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface ArticleCakeCategoryRelation {
+  articleId: string;
+  cakeCategoryId: string;
+  cakeCategory: {
+    id: string;
+    name: string;
+  };
+}
+
+// Legacy type for backward compatibility (to be removed after full migration)
+export interface ArticleLegacy {
   id: number;
   title: string;
   author: string;

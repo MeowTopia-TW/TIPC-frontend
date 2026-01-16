@@ -1,27 +1,23 @@
 [
   {
     "id": 1,
-    "src": "/images/photograph/1.jpg",
+    "src": "/images/photograph/八里海岸沙丘景觀.jpg",
     "title": "八里海岸沙丘景觀",
     "description": "",
     "author": "柯金源",
     "photoDate": "1987",
     "cakeCategory": ["文化記憶"],
     "nineBlocks": ["育"],
-    "subID": "",
-    "size": "wide",
     "uploadDate": "2025/12/10"
   },{
     "id": 2,
-    "src": "/images/photograph/2.jpg",
+    "src": "/images/photograph/高雄彌陀海岸.jpg",
     "title": "高雄彌陀海岸",
     "description": "",
     "author": "柯金源",
     "photoDate": "1997",
     "cakeCategory": ["文化記憶"],
     "nineBlocks": ["育"],
-    "subID": "",
-    "size": "wide",
     "uploadDate": "2025/12/10"
   },{
     "id": 3,
@@ -32,8 +28,6 @@
     "photoDate": "1997/09",
     "cakeCategory": ["文化記憶"],
     "nineBlocks": ["育"],
-    "subID": "",
-    "size": "wide",
     "uploadDate": "2025/12/10"
   },{
     "id": 4,
@@ -44,8 +38,6 @@
     "photoDate": "1997",
     "cakeCategory": ["文化記憶"],
     "nineBlocks": ["育"],
-    "subID": "",
-    "size": "wide",
     "uploadDate": "2025/12/10"
   }
 ]

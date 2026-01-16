@@ -1,32 +1,54 @@
-"use client";
-import { useEffect } from "react";
+import { prisma } from '@/lib/prisma';
 import Image from "next/image";
+import { notFound } from 'next/navigation';
 import { PageLayout, MasonryGallery } from '@/components';
-import { useParams } from "next/navigation";
-import eventDataRaw from "@/data/events.json";
-import { processEvents, type EventRaw } from "@/lib/eventUtils";
 import { notoSerifTC, notoSansTC } from '@/lib/fonts';
 
-// Automatically update event types based on dates
-const eventData = processEvents(eventDataRaw as EventRaw[]);
+interface Props {
+  params: { id: string } | Promise<{ id: string }>;
+}
+export default async function EventPage({ params }: Props) {
+  const { id } = await params;
+  if (!id) notFound(); // guarantees id exists
 
-export default function EventContentPage() {
-  const params = useParams();
-  const id = params?.id as string;
+  const event = await prisma.event.findUnique({
+    where: { id },
+    include: {
+      blocks: { orderBy: { position: 'asc' } },
+      images: { orderBy: { position: 'asc' } },
+    },
+  });
+  //window.scrollTo(0, 0);
+  const description = event.blocks
+  .filter((b) => b.type === 'text')
+  .map((b) => b.data.content)
+  .join('\n\n');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const relatedImages = event.images.map((img) => ({
+    id: img.id,
+    src: img.src,
+    title: event.title,
+    description: '',
+    author: '',
+    uploadDate: img.createdAt,
+    photoDate: img.createdAt,
+    cakeCategory: [],
+    nineBlocks: [],
+    subID: img.id,
+    size: '',
+  }));
 
-  if (!id) return null;
-  const Eventitem = eventData.find((item) => item.id === id);
 
-  if (!Eventitem) {
-    return <p className="text-center mt-10">Articledata not found.</p>;
+  if (!event) {
+    return (
+      <PageLayout title="活動探索" subtitle="Events" headerpic="/images/header/event.jpeg">
+        <p className="text-center mt-10">找不到此活動</p>
+      </PageLayout>
+    );
   }
 
   // Split description into paragraphs on newline(s) so each line becomes a separate paragraph
-  const descriptionParagraphs = (Eventitem.description || '')
+  const descriptionParagraphs = (description || '')
     .split(/\n+/)
     .map((p) => p.trim())
     .filter(Boolean);
@@ -43,10 +65,10 @@ export default function EventContentPage() {
         <header className="mb-4">
           <blockquote className="text-4xl sm:text-6xl font-bold text-[#89986A] border-l-4 border-[#89986A] pl-4 mb-4">
             <h1 className={`leading-relaxed ${notoSerifTC.className}`}>
-              {Eventitem.title.split('\n').map((line, index) => (
+              {event.title.split('\n').map((line, index) => (
                 <span key={index}>
                   {line}
-                  {index < Eventitem.title.split('\n').length - 1 && <br />}
+                  {index < event.title.split('\n').length - 1 && <br />}
                 </span>
               ))}
             </h1>
@@ -56,7 +78,7 @@ export default function EventContentPage() {
         {/* Cover Image */}
         <div className="relative w-full h-65 sm:h-[32rem] mb-4">
           <Image
-            src={Eventitem.mainImage}
+            src={event.mainImage}
             alt="cover"
             fill
             className="object-contain"
@@ -76,7 +98,7 @@ export default function EventContentPage() {
 
           {/* Inline Image */}
           <MasonryGallery
-            images={Eventitem.relatedImages}
+            images={relatedImages}
             breakpointColumnsObj={{
               default: 3, // 4 columns desktop
               1280: 3,
