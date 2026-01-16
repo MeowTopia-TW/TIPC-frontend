@@ -125,14 +125,14 @@ model VideoCakeCategory {
 
 model Article {
   id           String                @id @default(cuid())
+  englishTitle String?
   title        String
   author       String
+  coverImage   String
   slug         String                @unique
   publishedAt  DateTime?
   createdAt    DateTime              @default(now())
   updatedAt    DateTime              @updatedAt
-  coverImage   String
-  englishTitle String?
   annotations  ArticleAnnotation[]
   blocks       ArticleBlock[]
   cakeCategory ArticleCakeCategory[]
@@ -220,12 +220,12 @@ model Video {
   id           String              @id @default(cuid())
   url          String
   title        String
+  mainImg      String
   description  String
   author       String
   videoDate    DateTime
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
-  mainImg      String
   cakeCategory VideoCakeCategory[]
   keyWords     VideoKeyWord[]
   nineBlocks   VideoNineBlock[]
@@ -376,6 +376,10 @@ model selections {
   publishedAt           DateTime?
   createdAt             DateTime                @default(now())
   updatedAt             DateTime
+  nation                String
+  url                   String
+  date                  DateTime
+  setUpSelection        Boolean                 @default(false)
   selection_annotations selection_annotations[]
   selection_blocks      selection_blocks[]
   selection_keywords    selection_keywords[]

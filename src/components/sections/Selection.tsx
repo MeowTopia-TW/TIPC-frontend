@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import selectionData from "@/data/selection.json";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +17,31 @@ export default function selection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [selectionData, setSelectionDate] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch events from API
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch('/api/selections');
+        const result = await response.json();
+        if (result.success) {
+          // and limit to maximum 3 events
+          // const carouselEvents = result.data
+          //   .filter((event: any) => event.showInImgCarousel === true)
+          //   .slice(0, 4);
+          // setEventData(carouselEvents);
+          setSelectionDate(result.data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch events:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchEvents();
+  }, []);
 
   // Client-side detection
   useEffect(() => {
@@ -53,9 +77,9 @@ export default function selection() {
         );
       }
 
-      // Partner cards animation with stagger effect
+      // selection cards animation with stagger effect
       if (gridRef.current) {
-        const cards = gridRef.current.querySelectorAll('.partner-card');
+        const cards = gridRef.current.querySelectorAll('.selection-card');
         
         gsap.fromTo(cards,
           {
@@ -84,9 +108,9 @@ export default function selection() {
     return () => ctx.revert();
   }, [isClient]);
 
-  const handlePartnerClick = (id: string) => {
+  const handleSelectionClick = (slug: string) => {
     // 導航到編輯精選詳細頁面
-    window.location.href = `/selection/${id}`;
+    window.location.href = `/selection/${slug}`;
   };
   
   return (
@@ -100,19 +124,19 @@ export default function selection() {
             </p>
           </div>
           
-          {/* 合作夥伴卡片 - 3個一排對齊Slogan */}
+          {/* 3個一排對齊Slogan */}
           <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {selectionData.map((partner, index) => (
+            {selectionData.map((selection, index) => (
               <div 
-                key={`${partner.id}-${index}`}
-                onClick={() => handlePartnerClick(partner.id)}
-                className="partner-card group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
+                key={`${selection.id}-${index}`}
+                onClick={() => handleSelectionClick(selection.slug)}
+                className="selection-card group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
               >
                 {/* 圖片容器 */}
                 <div className="relative aspect-square overflow-hidden">
                   <Image 
-                    src={partner.image} 
-                    alt={partner.name}
+                    src={selection.coverImage} 
+                    alt={selection.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -123,15 +147,15 @@ export default function selection() {
                     <div className="p-4 sm:p-6 text-white w-full">
                       {/* 第一行 - 國家 (小字) */}
                       <p className="text-sm sm:text-base mb-1 text-gray-300">
-                        {partner.nation}
+                        {selection.nation}
                       </p>
                       {/* 第二行 - 標題 (大字) */}
                       <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 line-clamp-2">
-                        {partner.name}
+                        {selection.title}
                       </h3>
                       {/* 第三行 - 日期 (小字) */}
                       <p className="text-sm sm:text-base text-gray-300">
-                        {partner.date}
+                        {selection.date.split("T")[0]}
                       </p>
                     </div>
                   </div>

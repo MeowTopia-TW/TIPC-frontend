@@ -1,4 +1,4 @@
-import type { Article } from '@/types/types';
+import type { Article } from '@/types';
 import type { Metadata } from 'next';
 import ArticleClient from './ArticleClient';
 

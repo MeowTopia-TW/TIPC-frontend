@@ -6,7 +6,7 @@ import {
   ImageCarousel,
   CakeDiagram,
   VideoRecommendations,
-  selection,
+  Selection,
   Footer,
   FirstCakeInstruction,
   SecondCakeInstruction,
@@ -55,7 +55,7 @@ export default function Home() {
         <VideoRecommendations />
         
         {/* 編輯精選區塊 <selection /> */}
-        <selection />
+        <Selection />
 
         {/* 頁尾區塊   <Footer />*/}
         <Footer />

@@ -12,12 +12,12 @@ export default function ArticleAllPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     async function fetchArticles() {
       try {
         const res = await fetch('/api/articles?limit=100');
         const data = await res.json();
-        
+
         if (data.success) {
           // Sort by publishedAt (newest first)
           const sortedArticles = data.data.sort((a: Article, b: Article) => {
@@ -50,70 +50,70 @@ export default function ArticleAllPage() {
   return (
     <PageLayout title="觀點文章" subtitle="TIPC Articles" headerpic="/images/header/article.jpeg">
       <div className="min-h-screen bg-gray-50">
-      {/* 主要內容區域 */}
-      <div className="mx-auto px-10 sm:px-10 lg:px-30 py-16">
-        {/* 文章區域 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {articles.map((article) => (
-            <Link 
-              key={article.id}
-              href={`/article/${article.slug}`}
-              className="group relative bg-white rounded-1xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
-            >
-            {/* 主要圖片區域 */}
-            {/* 圖片容器 */}
-            {/* Thumbnail */}
-          <div className="relative w-full h-60">
-            <Image
-              src={article.coverImage}
-              alt={article.title}
-              fill
-              className="object-cover"
-            />
-            
-            {/* Category Badge */}
-            {article.nineBlocks && (
-              <div className="absolute bottom-0 left-0 flex">
-                <div className="bg-orange-600 text-white px-2 py-2 font-bold text-base text-center">
-                  文化影響力平台
-                </div>
-                <div className="bg-white text-black px-2 py-2 font-bold text-base text-center">
-                  TIPC
-                </div>
-              </div>
-            )}
-          </div>
+        {/* 主要內容區域 */}
+        <div className="mx-auto px-10 sm:px-10 lg:px-30 py-16">
+          {/* 文章區域 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {articles.map((article) => (
+              <Link
+                key={article.id}
+                href={`/article/${article.slug}`}
+                className="group relative bg-white rounded-1xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 cursor-pointer overflow-hidden border border-gray-100"
+              >
+                {/* 主要圖片區域 */}
+                {/* 圖片容器 */}
+                {/* Thumbnail */}
+                <div className="relative w-full h-60">
+                  <Image
+                    src={article.coverImage}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
 
-          {/* Content */}
-          <div className="p-4 flex flex-col h-full">
-            <h2 className="text-gray-900 text-lg sm:text-2xl font-bold mb-2 line-clamp-2">
-              {article.title.split('\n').map((line, index) => (
-                <span key={index}>
-                  {line}
-                  {index < article.title.split('\n').length - 1 && <br />}
-                </span>
-              ))}
-            </h2>
+                  {/* Category Badge */}
+                  {article.nineBlocks && (
+                    <div className="absolute bottom-0 left-0 flex">
+                      <div className="bg-orange-600 text-white px-2 py-2 font-bold text-base text-center">
+                        文化影響力平台
+                      </div>
+                      <div className="bg-white text-black px-2 py-2 font-bold text-base text-center">
+                        TIPC
+                      </div>
+                    </div>
+                  )}
+                </div>
 
-            {/* Tags */}
-            {article.keyWords && article.keyWords.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {article.keyWords.map((kw, index) => (
-                  <span
-                    key={index}
-                    className="inline-block bg-white text-black text-xs sm:text-base font-semibold px-3 py-1 rounded-full border border-gray-300"
-                  >
-                    {kw.keyWord.name}
-                  </span>
-                ))}
-              </div>
-            )}
+                {/* Content */}
+                <div className="p-4 flex flex-col h-full">
+                  <h2 className="text-gray-900 text-lg sm:text-2xl font-bold mb-2 line-clamp-2">
+                    {article.title.split('\n').map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        {index < article.title.split('\n').length - 1 && <br />}
+                      </span>
+                    ))}
+                  </h2>
+
+                  {/* Tags */}
+                  {article.keyWords && article.keyWords.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {article.keyWords.map((kw, index) => (
+                        <span
+                          key={index}
+                          className="inline-block bg-white text-black text-xs sm:text-base font-semibold px-3 py-1 rounded-full border border-gray-300"
+                        >
+                          {kw.keyWord.name}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))}
           </div>
-          </Link>
-        ))}
         </div>
       </div>
-    </div>
     </PageLayout>
   );
 }

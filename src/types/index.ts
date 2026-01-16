@@ -212,12 +212,10 @@ export interface Event {
   title: string;
   date: string;
   mainImage: string;
-  subTitle: string;
-  description: string;
   relatedImages: photographImage[];
-  type: "current" | "past"; // column grouping
   alt: string;
 }
+
 
 
 export interface VideoRecommendation {
@@ -276,6 +274,68 @@ export interface Video {
   videoDate: string | Date;
   createdAt: string | Date;
   updatedAt: string | Date;
+}
+export interface Selection {
+  id:string;
+  englishTitle?:string;
+  title: string;
+  author:string;
+  coverImage: string;
+  slug:string;
+  publishedAt?:string | null;
+  createdAt: string;
+  updatedAt: string;
+  nation:string;
+  url:string;
+  date?:string;
+  selection_annotations: SelectionAnnotations[];
+  selection_blocks: SelectionBlocks[];
+  selection_keywords:SelectionKeywords[];
+  selection_podcasts:SelectionPodcasts[];
+  selection_videos:SelectionVideos[];
+}
+export interface SelectionBlocks {
+  id: string;
+  articleId: string;
+  position: number;
+  type: 'text' | 'image' | 'quote';
+  data: TextBlockData | ImageBlockData | QuoteBlockData;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface SelectionAnnotations {
+  id: string;
+  articleId: string;
+  marker: string; // "1", "2", "a", etc.
+  text: string;
+  url?: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface SelectionVideos {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SelectionPodcasts {
+  id: string;
+  articleId: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SelectionKeywords {
+  articleId: string;
+  keyWordId: string;
+  KeyWords: {
+    id: string;
+    name: string;
+  };
 }
 
 export interface Article {
