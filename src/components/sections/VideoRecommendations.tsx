@@ -254,7 +254,7 @@ export default function VideoRecommendations() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* 標題區塊 */}
-      <div ref={titleRef} className="absolute top-4 sm:top-6 lg:top-8 left-1/2 -translate-x-1/2 z-10 text-black text-lg sm:text-2xl lg:text-3xl font-semibold text-white">
+      <div ref={titleRef} className="absolute top-4 sm:top-6 lg:top-8 left-1/2 -translate-x-1/2 z-10 text-black text-base sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
         TIPC影音
       </div>
       <div ref={videoContainerRef} className=" mx-auto px-0 sm:px-0 lg:px-0 relative">

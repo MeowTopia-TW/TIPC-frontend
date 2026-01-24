@@ -139,7 +139,7 @@ export default function selection() {
         <div className="w-full sm:w-[82%]">
           {/* 標題區塊 */}
           <div ref={titleRef} className="text-center mb-2 sm:mb-2">
-            <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-800 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 max-w-3xl mx-auto leading-relaxed py-2">
               影響力精選
             </p>
           </div>

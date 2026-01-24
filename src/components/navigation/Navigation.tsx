@@ -83,8 +83,8 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
             <span className={`${(variant === 'header')? `text-white` : `text-[#833416]`} font-bold text-lg leading-none`}>{currentLanguage}</span>
           </button>
           
-          {/* 下拉選單 */}
-          {isLanguageOpen && (
+          {/* 語言下拉選單 */}
+          {/* {isLanguageOpen && (
             <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden min-w-[120px] z-30">
               <button
                 className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100 transition-colors duration-200 text-sm"
@@ -104,17 +104,8 @@ export default function Navigation({ variant = 'main', className = '' }: Navigat
               >
                 🇺🇸 English
               </button>
-              <button
-                className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100 transition-colors duration-200 text-sm"
-                onClick={() => {
-                  setCurrentLanguage('日本語');
-                  setIsLanguageOpen(false);
-                }}
-              >
-                🇯🇵 日文
-              </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
 
