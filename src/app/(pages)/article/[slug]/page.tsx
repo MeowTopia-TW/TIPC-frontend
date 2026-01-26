@@ -26,7 +26,7 @@ async function getArticle(slug: string): Promise<Article | null> {
 async function getRelatedArticles(article: Article): Promise<Article[]> {
   try {
     // Use relative URL for server-side fetch (works both locally and in production)
-    const res = await fetch(`/api/articles?limit=100`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/articles/`, {
       cache: 'no-store',
     });
 

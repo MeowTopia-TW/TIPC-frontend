@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { PageLayout } from '@/components';
-import { Selection } from '@/types';
 import { notFound } from 'next/navigation';
 import { notoSerifTC, notoSansTC } from '@/lib/fonts';
 import { prisma } from "@/lib/prisma";
